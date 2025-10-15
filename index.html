@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostPal - AI-Powered Content Creator Hub</title>
-    <meta name="description" content="AI-powered tools, templates, and sprints that help creators generate hooks, scripts, and strategies to grow on TikTok, Instagram, and YouTube.">
+    <title>PostPal - Build Your Empire with the Community</title>
     <style>
         * {
             margin: 0;
@@ -13,801 +12,442 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
-            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #fff;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            background: rgba(15, 15, 35, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            border: none;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
-        }
-
         .hero {
-            padding: 8rem 0 4rem;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
             position: relative;
+            padding: 2rem;
+            text-align: center;
             overflow: hidden;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
         }
 
         .hero-content {
+            max-width: 800px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
-            line-height: 1.2;
             margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
 
         .gradient-text {
-            background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: inline-block;
         }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .btn-large {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 1rem;
-        }
-
-        .video-section {
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .video-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .video-placeholder {
-            aspect-ratio: 16/9;
-            background: linear-gradient(45deg, #1f2937, #374151);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .play-button:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 20px solid #1f2937;
-            border-top: 12px solid transparent;
-            border-bottom: 12px solid transparent;
-            margin-left: 4px;
-        }
-
-        .features {
-            padding: 6rem 0;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .testimonials {
-            padding: 6rem 0;
-            text-align: center;
-        }
-
-        .testimonials-subtitle {
-            color: #8b5cf6;
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
+            color: #fff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .stats {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5),
+                        0 0 60px rgba(139, 92, 246, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Floating particles effect */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        .particle:nth-child(3) {
+            top: 40%;
+            left: 20%;
+            animation: float 7s ease-in-out infinite 2s;
+        }
+
+        .particle:nth-child(4) {
+            top: 70%;
+            left: 70%;
+            animation: float 9s ease-in-out infinite 1.5s;
+        }
+
+        .particle:nth-child(5) {
+            top: 30%;
+            left: 90%;
+            animation: float 10s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+
+        /* Scrolling Banner - Background */
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: 2rem 0;
+        }
+
+        .banner-row {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 60s linear infinite;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .banner-row:nth-child(2) {
+            animation: scrollReverse 65s linear infinite;
+        }
+
+        .banner-row:nth-child(3) {
+            animation: scroll 70s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scrollReverse {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .banner-item {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: inline-block;
+            opacity: 0.05;
+            font-style: italic;
+            transform: skewY(-2deg);
+            white-space: nowrap;
+        }
+
+        .banner-item.outline {
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            text-stroke: 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .banner-item.gradient {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .pricing {
-            padding: 6rem 0;
-            text-align: center;
-        }
-
-        .pricing-card {
-            max-width: 400px;
-            margin: 3rem auto 0;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: 800;
-            margin: 1rem 0;
-        }
-
-        .price-features {
-            list-style: none;
-            text-align: left;
-            margin: 2rem 0;
-        }
-
-        .price-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .price-features li::before {
-            content: '✓';
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        .faq {
-            padding: 6rem 0;
-        }
-
-        .faq-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            opacity: 0.8;
-            line-height: 1.6;
-            display: none;
-        }
-
-        .footer-cta {
-            padding: 6rem 0;
-            text-align: center;
-        }
-
-        .footer-cta h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d1b69 100%);
-            margin: 15% auto;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .close {
-            color: rgba(255, 255, 255, 0.7);
-            float: right;
-            font-size: 2rem;
-            font-weight: bold;
-            position: absolute;
-            right: 1rem;
-            top: 0.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close:hover {
-            color: white;
-        }
-
-        .modal h2 {
-            margin-bottom: 0.5rem;
-            font-size: 2rem;
-            font-weight: 800;
-        }
-
-        .modal p {
-            opacity: 0.8;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #6366f1;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            border: none;
-            color: white;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-message h3 {
-            color: #10b981;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav {
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                margin-bottom: 2rem;
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .banner-item {
+                font-size: 2.5rem;
+            }
+
+            .banner-row {
+                gap: 3rem;
+            }
+
+            .banner {
+                padding: 1rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
                 padding: 1rem;
             }
-            
-            .hero {
-                padding: 6rem 0 3rem;
-            }
-            
-            .hero-cta {
-                flex-direction: column;
-            }
-            
-            .nav-buttons {
-                gap: 0.5rem;
-            }
-            
-            .btn-ghost, .btn-primary {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
+
+            .cta-button {
+                padding: 0.75rem 1.5rem;
             }
 
-            .modal-content {
-                margin: 10% auto;
-                padding: 1.5rem;
-                width: 95%;
+            .banner-item {
+                font-size: 1.8rem;
+            }
+
+            .banner-row {
+                gap: 2rem;
+            }
+
+            .banner {
+                padding: 0.5rem 0;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">PostPal</div>
-            <div class="nav-buttons">
-                <a href="#" class="btn-ghost">Log In</a>
-                <a href="#" class="btn-primary signup-btn">Apply Now</a>
-            </div>
-        </nav>
-    </header>
-
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>
-                    Create <span class="gradient-text">viral content</span><br>
-                    authentically with AI
-                </h1>
-                <p class="hero-subtitle">
-                    AI-powered tools, templates, and sprints that help creators generate hooks, scripts, and strategies to grow on TikTok, Instagram, and YouTube.
-                </p>
-                <div class="hero-cta">
-                    <a href="#" class="btn-primary btn-large signup-btn">Start Free 7-Day Sprint</a>
-                </div>
+        <!-- Background Scrolling Banner -->
+        <div class="banner">
+            <!-- Row 1 - Moving Right -->
+            <div class="banner-row">
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+            </div>
+
+            <!-- Row 2 - Moving Left -->
+            <div class="banner-row">
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+            </div>
+
+            <!-- Row 3 - Moving Right -->
+            <div class="banner-row">
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
             </div>
         </div>
-    </section>
 
-    <section class="video-section">
-        <div class="container">
-            <div class="video-container">
-                <div class="video-placeholder">
-                    <div class="play-button"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="features">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
-                Everything you need to <span class="gradient-text">scale your content</span>
-            </h2>
-            <p style="text-align: center; opacity: 0.8; font-size: 1.25rem; margin-bottom: 3rem;">
-                Stop guessing what works. Start creating with proven AI-powered strategies.
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="hero-content">
+            <h1>
+                Build Your Empire with the <span class="gradient-text">PostPal Community</span>
+            </h1>
+            <p>
+                Join live discussions, workshops, and collaborative learning sessions where creators help creators scale. Real conversations, real strategies, real growth—together.
             </p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">AI Hook Generator</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Generate scroll-stopping hooks that grab attention in the first 3 seconds and keep viewers watching.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Script Templates</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Pre-built scripts for viral formats that work across TikTok, Instagram Reels, and YouTube Shorts.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">7-Day Growth Sprints</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Structured weekly challenges with daily content prompts to maintain consistent posting.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Performance Analytics</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Track what content performs best and optimize your strategy with data-driven insights.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Trend Templates</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Stay ahead with templates based on current trending formats and viral content patterns.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">👥</div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Creator Community</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Connect with other creators, share strategies, and get feedback on your content ideas.</p>
-                </div>
-            </div>
+            <a href="#" class="cta-button">Join the Community</a>
         </div>
     </section>
-
-    <section class="testimonials">
-        <div class="container">
-            <div class="testimonials-subtitle">Ready to scale?</div>
-            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem;">
-                Join creators who are building<br>
-                <span class="stats">authentic</span> audiences with AI.
-            </h2>
-            <a href="#" class="btn-primary btn-large signup-btn">Start Your Free Sprint</a>
-        </div>
-    </section>
-
-    <section class="pricing">
-        <div class="container">
-            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
-                Start your <span class="gradient-text">content journey</span>
-            </h2>
-            <p style="opacity: 0.8; font-size: 1.25rem;">
-                Everything you need to create consistent, viral content
-            </p>
-            
-            <div class="pricing-card">
-                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">PostPal Pro</h3>
-                <div class="price">$29<span style="font-size: 1rem; opacity: 0.6;">/month</span></div>
-                <ul class="price-features">
-                    <li>Unlimited AI hook generation</li>
-                    <li>200+ viral script templates</li>
-                    <li>Weekly growth sprints</li>
-                    <li>Performance analytics dashboard</li>
-                    <li>Trend alerts & templates</li>
-                    <li>Private creator community</li>
-                    <li>1-on-1 strategy sessions</li>
-                </ul>
-                <a href="#" class="btn-primary signup-btn" style="width: 100%; text-align: center; display: block; margin-top: 1rem;">Start 7-Day Free Trial</a>
-                <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 1rem;">No credit card required</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem;">
-                Frequently Asked Questions
-            </h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    How does the AI hook generator work?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Our AI analyzes millions of viral videos to understand what hooks perform best. Simply input your topic or niche, and get proven hook formulas tailored to your content style.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    What platforms does PostPal work with?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    PostPal is optimized for TikTok, Instagram Reels, and YouTube Shorts. Our templates and strategies work across all short-form video platforms.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    Can I cancel my subscription anytime?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Yes, you can cancel your PostPal subscription at any time. There are no long-term contracts or cancellation fees.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    Do you offer support for new creators?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Absolutely! PostPal is designed for creators at all levels. We provide beginner-friendly guides, templates, and access to our community for support and feedback.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="footer-cta">
-        <div class="container">
-            <h2>Ready to go viral <span class="gradient-text">authentically?</span></h2>
-            <p style="opacity: 0.8; font-size: 1.25rem; margin-bottom: 2rem;">
-                Join creators who are scaling their content with PostPal
-            </p>
-            <a href="#" class="btn-primary btn-large signup-btn">Start Your Free 7-Day Sprint</a>
-        </div>
-    </section>
-
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            
-            <div id="signupForm">
-                <h2>Join the <span class="gradient-text">PostPal Club</span></h2>
-                <p>Get early access to AI-powered content creation tools and be part of our exclusive creator community.</p>
-                
-                <form action="https://formspree.io/f/mgvnvnkg" method="POST" id="emailForm">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="platform">Primary Platform</label>
-                        <select id="platform" name="platform" required>
-                            <option value="">Select your main platform</option>
-                            <option value="TikTok">TikTok</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="YouTube">YouTube</option>
-                            <option value="Multiple">Multiple Platforms</option>
-                            <option value="Just Starting">Just Getting Started</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="followers">Current Follower Count</label>
-                        <select id="followers" name="followers" required>
-                            <option value="">Select range</option>
-                            <option value="0-1K">0 - 1K followers</option>
-                            <option value="1K-10K">1K - 10K followers</option>
-                            <option value="10K-100K">10K - 100K followers</option>
-                            <option value="100K+">100K+ followers</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Join the Waitlist</button>
-                </form>
-            </div>
-            
-            <div id="successMessage" class="success-message">
-                <h3>🎉 Welcome to PostPal!</h3>
-                <p>Thanks for joining our waitlist! We'll notify you as soon as we launch.</p>
-                <p style="opacity: 0.7; font-size: 0.9rem;">Keep an eye on your inbox for exclusive updates and early access.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const modal = document.getElementById('signupModal');
-        const signupBtns = document.querySelectorAll('.signup-btn');
-        const closeBtn = document.querySelector('.close');
-        const form = document.getElementById('emailForm');
-        const signupFormDiv = document.getElementById('signupForm');
-        const successMessageDiv = document.getElementById('successMessage');
-
-        signupBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        function closeModal() {
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => {
-                signupFormDiv.style.display = 'block';
-                successMessageDiv.classList.remove('show');
-            }, 300);
-        }
-
-        closeBtn.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            
-            fetch('https://formspree.io/f/mgvnvnkg', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    signupFormDiv.style.display = 'none';
-                    successMessageDiv.classList.add('show');
-                    form.reset();
-                } else {
-                    alert('Oops! There was a problem submitting your form');
-                }
-            }).catch(error => {
-                alert('Oops! There was a problem submitting your form');
-            });
-        });
-
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const icon = question.querySelector('span');
-                
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.textContent = '+';
-                } else {
-                    answer.style.display = 'block';
-                    icon.textContent = '−';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
