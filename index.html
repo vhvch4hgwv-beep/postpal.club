@@ -1,467 +1,606 @@
-// ============================================
-// POSTPAL - SITE STRUCTURE & FILE ORGANIZATION
-// ============================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostPal - Build Your Empire with the Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/*
-PROJECT STRUCTURE:
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-postpal/
-├── app/
-│   ├── layout.tsx                    # Root layout (nav, footer)
-│   ├── page.tsx                      # Landing page (/)
-│   ├── community/
-│   │   ├── layout.tsx               # Community layout
-│   │   └── page.tsx                 # Community feed
-│   ├── courses/
-│   │   ├── page.tsx                 # Course catalog
-│   │   └── [slug]/
-│   │       ├── page.tsx             # Course detail
-│   │       └── [lessonSlug]/
-│   │           └── page.tsx         # Lesson player
-│   ├── intel/
-│   │   ├── page.tsx                 # Weekly Intel list
-│   │   └── [slug]/
-│   │       └── page.tsx             # Intel detail
-│   ├── resources/
-│   │   └── page.tsx                 # Templates, scripts, etc.
-│   ├── account/
-│   │   └── page.tsx                 # User profile & settings
-│   └── admin/
-│       ├── layout.tsx               # Admin layout
-│       ├── intel/
-│       │   └── page.tsx             # Manage Intel
-│       ├── courses/
-│       │   └── page.tsx             # Manage Courses
-│       └── community/
-│           └── page.tsx             # Moderate posts
-├── components/
-│   ├── ui/                          # shadcn/ui components
-│   ├── layout/
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── Sidebar.tsx
-│   ├── community/
-│   │   ├── PostCard.tsx
-│   │   ├── CommentThread.tsx
-│   │   └── ChannelList.tsx
-│   ├── courses/
-│   │   ├── CourseCard.tsx
-│   │   ├── LessonList.tsx
-│   │   └── VideoPlayer.tsx
-│   └── intel/
-│       ├── IntelCard.tsx
-│       ├── IntelItem.tsx
-│       └── WeekSelector.tsx
-├── lib/
-│   ├── supabase/
-│   │   ├── client.ts               # Supabase client
-│   │   └── server.ts               # Server-side client
-│   ├── stripe/
-│   │   └── config.ts               # Stripe setup
-│   └── utils.ts                    # Helper functions
-├── types/
-│   └── index.ts                    # TypeScript types
-└── public/
-    ├── images/
-    └── fonts/
-*/
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
+            position: relative;
+            padding: 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
 
-// ============================================
-// FILE: types/index.ts
-// ============================================
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
 
-export type UserRole = 'member' | 'moderator' | 'admin';
-export type UserPlan = 'free' | 'pro' | 'lifetime';
-export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
-export type IntelType = 'platform_update' | 'trend' | 'deal' | 'legal' | 'tool';
-export type Channel = 'announcements' | 'wins' | 'questions' | 'deals' | 'general';
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
 
-export interface User {
-  id: string;
-  handle: string;
-  name: string;
-  avatar_url?: string;
-  bio?: string;
-  role: UserRole;
-  plan: UserPlan;
-  created_at: string;
-}
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
 
-export interface Course {
-  id: string;
-  title: string;
-  slug: string;
-  summary: string;
-  level: CourseLevel;
-  cover_url?: string;
-  duration_minutes: number;
-  is_published: boolean;
-  created_at: string;
-}
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
 
-export interface Lesson {
-  id: string;
-  course_id: string;
-  order_index: number;
-  title: string;
-  slug: string;
-  video_url?: string;
-  transcript?: string;
-  resources?: any;
-  created_at: string;
-}
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
 
-export interface IntelIssue {
-  id: string;
-  week_start: string;
-  headline: string;
-  summary: string;
-  tags: string[];
-  author_id: string;
-  status: 'draft' | 'published';
-  created_at: string;
-}
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-export interface IntelItem {
-  id: string;
-  issue_id: string;
-  type: IntelType;
-  title: string;
-  body: string;
-  source_url?: string;
-  tags: string[];
-  created_at: string;
-}
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
 
-export interface Post {
-  id: string;
-  channel: Channel;
-  author_id: string;
-  title: string;
-  body: string;
-  tags: string[];
-  created_at: string;
-  author?: User;
-}
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
 
-export interface Comment {
-  id: string;
-  post_id: string;
-  author_id: string;
-  body: string;
-  created_at: string;
-  author?: User;
-}
+        .cta-button:hover::before {
+            left: 100%;
+        }
 
-export interface Resource {
-  id: string;
-  title: string;
-  slug: string;
-  type: 'template' | 'script' | 'contract' | 'calc';
-  file_url?: string;
-  body?: string;
-  tags: string[];
-  created_at: string;
-}
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5),
+                        0 0 60px rgba(139, 92, 246, 0.4);
+        }
 
-// ============================================
-// FILE: app/layout.tsx (Root Layout)
-// ============================================
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
 
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+        /* Floating particles effect */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-const inter = Inter({ subsets: ['latin'] });
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
 
-export const metadata: Metadata = {
-  title: 'PostPal - Build Your Creator Empire',
-  description: 'Community, courses, and weekly intel for content creators',
-};
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-      </body>
-    </html>
-  );
-}
+        .particle:nth-child(3) {
+            top: 40%;
+            left: 20%;
+            animation: float 7s ease-in-out infinite 2s;
+        }
 
-// ============================================
-// FILE: app/page.tsx (Landing Page)
-// ============================================
+        .particle:nth-child(4) {
+            top: 70%;
+            left: 70%;
+            animation: float 9s ease-in-out infinite 1.5s;
+        }
 
-export default function HomePage() {
-  return (
-    <div className="bg-gradient-to-b from-[#0f0f23] via-[#1a1a3e] to-[#2d1b69]">
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-4">
-        <div className="text-center max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Build Your Empire with the{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-              PostPal Community
-            </span>
-          </h1>
-          <p className="text-xl text-gray-300 mb-8">
-            Join live discussions, workshops, and collaborative learning sessions
-          </p>
-          <button className="bg-gradient-to-r from-purple-500 to-purple-700 px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 transition">
-            Join the Community
-          </button>
+        .particle:nth-child(5) {
+            top: 30%;
+            left: 90%;
+            animation: float 10s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+
+        /* Scrolling Banner - Background */
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: 2rem 0;
+        }
+
+        .banner-row {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 60s linear infinite;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .banner-row:nth-child(2) {
+            animation: scrollReverse 65s linear infinite;
+        }
+
+        .banner-row:nth-child(3) {
+            animation: scroll 70s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scrollReverse {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .banner-item {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: inline-block;
+            opacity: 0.05;
+            font-style: italic;
+            transform: skewY(-2deg);
+            white-space: nowrap;
+        }
+
+        .banner-item.outline {
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            text-stroke: 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .banner-item.gradient {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Additional Sections */
+        .section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+        }
+
+        .section-dark {
+            background: #0a0a15;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section p {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #8b5cf6;
+        }
+
+        .feature-card p {
+            opacity: 0.8;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                margin-bottom: 2rem;
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .banner-item {
+                font-size: 2.5rem;
+            }
+
+            .banner-row {
+                gap: 3rem;
+            }
+
+            .banner {
+                padding: 1rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.75rem 1.5rem;
+            }
+
+            .banner-item {
+                font-size: 1.8rem;
+            }
+
+            .banner-row {
+                gap: 2rem;
+            }
+
+            .banner {
+                padding: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <!-- Background Scrolling Banner -->
+        <div class="banner">
+            <!-- Row 1 - Moving Right -->
+            <div class="banner-row">
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item">BRAND&nbsp;DEALS</span>
+                <span class="banner-item outline">UGC</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">STONKS</span>
+                <span class="banner-item outline">SPONSORSHIPS</span>
+                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
+            </div>
+
+            <!-- Row 2 - Moving Left -->
+            <div class="banner-row">
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
+                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
+                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item">ALGORITHMS</span>
+                <span class="banner-item outline">AI&nbsp;TOOLS</span>
+                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
+                <span class="banner-item">MONETIZATION</span>
+            </div>
+
+            <!-- Row 3 - Moving Right -->
+            <div class="banner-row">
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+                <span class="banner-item outline">STONKS</span>
+                <span class="banner-item gradient">CRYPTO</span>
+                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
+                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
+                <span class="banner-item gradient">SPONSORSHIPS</span>
+                <span class="banner-item">UGC</span>
+                <span class="banner-item outline">AD&nbsp;REVENUE</span>
+                <span class="banner-item gradient">SCALING&nbsp;UP</span>
+            </div>
         </div>
-      </section>
 
-      {/* Three Pillars */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {/* Community */}
-          <div className="bg-white/5 p-8 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition">
-            <div className="text-4xl mb-4">💬</div>
-            <h3 className="text-2xl font-bold mb-4">Community</h3>
-            <p className="text-gray-400 mb-6">
-              Weekly office hours, discussion boards, and direct access to other creators
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="hero-content">
+            <h1>
+                Build Your Empire with the <span class="gradient-text">PostPal Community</span>
+            </h1>
+            <p>
+                Join live discussions, workshops, and collaborative learning sessions where creators help creators scale. Real conversations, real strategies, real growth—together.
             </p>
-            <a href="/community" className="text-purple-400 hover:text-purple-300">
-              Explore →
-            </a>
-          </div>
-
-          {/* Courses */}
-          <div className="bg-white/5 p-8 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition">
-            <div className="text-4xl mb-4">🎓</div>
-            <h3 className="text-2xl font-bold mb-4">Courses</h3>
-            <p className="text-gray-400 mb-6">
-              Step-by-step tracks from beginner to pro with videos, templates, and quizzes
-            </p>
-            <a href="/courses" className="text-purple-400 hover:text-purple-300">
-              Start Learning →
-            </a>
-          </div>
-
-          {/* Weekly Intel */}
-          <div className="bg-white/5 p-8 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition">
-            <div className="text-4xl mb-4">📰</div>
-            <h3 className="text-2xl font-bold mb-4">Weekly Intel</h3>
-            <p className="text-gray-400 mb-6">
-              Platform updates, CPM trends, hooks, and brand deal insights—updated every week
-            </p>
-            <a href="/intel" className="text-purple-400 hover:text-purple-300">
-              Read Intel →
-            </a>
-          </div>
+            <a href="#" class="cta-button">Join the Community</a>
         </div>
-      </section>
-    </div>
-  );
-}
+    </section>
 
-// ============================================
-// FILE: app/community/page.tsx
-// ============================================
-
-export default function CommunityPage() {
-  return (
-    <div className="min-h-screen bg-[#0f0f23] text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Community</h1>
-        
-        {/* Channels */}
-        <div className="grid md:grid-cols-4 gap-4 mb-8">
-          <button className="bg-purple-600 px-4 py-2 rounded-lg">Announcements</button>
-          <button className="bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20">Wins</button>
-          <button className="bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20">Questions</button>
-          <button className="bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20">Deals</button>
+    <!-- What We Offer Section -->
+    <section class="section">
+        <div class="section-content">
+            <h2>What You'll Get Inside <span class="gradient-text">PostPal</span></h2>
+            <p>A complete ecosystem designed to help you monetize your content and scale your creator business</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Live Discussion Boards</h3>
+                    <p>Join weekly interactive sessions where I break down strategies and answer your questions in real-time. No gatekeeping—just honest conversations about what's working now.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Collaborative Workshops</h3>
+                    <p>Learn alongside fellow creators in hands-on workshops covering brand deals, UGC, monetization strategies, and content growth tactics.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Creator Network</h3>
+                    <p>Connect with other ambitious creators, share wins, collaborate on projects, and build genuine relationships that last beyond the platform.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Proven Strategies</h3>
+                    <p>Access battle-tested frameworks for landing sponsorships, negotiating rates, growing your audience, and diversifying your income streams.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Tools</h3>
+                    <p>Leverage cutting-edge AI tools to streamline your content creation, generate ideas faster, and scale your output without burning out.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Accountability & Growth</h3>
+                    <p>Set goals, track progress, and stay motivated with a community that pushes you to level up. We celebrate wins together and learn from setbacks.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        {/* Feed */}
-        <div className="space-y-4">
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <p className="text-gray-400 text-sm mb-2">Coming soon: Live discussion feed</p>
-            <h3 className="text-xl font-semibold mb-2">Community posts will appear here</h3>
-          </div>
+    <!-- Why Different Section -->
+    <section class="section section-dark">
+        <div class="section-content">
+            <h2>Why <span class="gradient-text">PostPal</span> is Different</h2>
+            <p>This isn't another course where you watch videos alone. This is a living, breathing community where real creators share real insights.</p>
+            
+            <div class="features-grid" style="max-width: 900px; margin: 3rem auto; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="feature-card">
+                    <h3>❌ Other Platforms</h3>
+                    <p style="opacity: 0.6;">Pre-recorded courses<br>One-way learning<br>No community support<br>Outdated strategies<br>Pay per course</p>
+                </div>
+                
+                <div class="feature-card" style="border-color: rgba(139, 92, 246, 0.5); background: rgba(139, 92, 246, 0.1);">
+                    <h3>✅ PostPal Community</h3>
+                    <p>Live interactive sessions<br>Two-way discussions<br>Active peer support<br>Real-time updates<br>All-access membership</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
-}
+    </section>
 
-// ============================================
-// FILE: app/courses/page.tsx
-// ============================================
-
-export default function CoursesPage() {
-  return (
-    <div className="min-h-screen bg-[#0f0f23] text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Courses</h1>
-        
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <div className="text-sm text-purple-400 mb-2">BEGINNER</div>
-            <h3 className="text-xl font-bold mb-2">Getting Started</h3>
-            <p className="text-gray-400 mb-4">Learn the fundamentals of content creation</p>
-            <button className="bg-purple-600 px-4 py-2 rounded-lg w-full">Start Course</button>
-          </div>
-          
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <div className="text-sm text-blue-400 mb-2">INTERMEDIATE</div>
-            <h3 className="text-xl font-bold mb-2">Monetization</h3>
-            <p className="text-gray-400 mb-4">Turn views into revenue streams</p>
-            <button className="bg-white/10 px-4 py-2 rounded-lg w-full hover:bg-white/20">Coming Soon</button>
-          </div>
-          
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <div className="text-sm text-pink-400 mb-2">ADVANCED</div>
-            <h3 className="text-xl font-bold mb-2">Scale & Automate</h3>
-            <p className="text-gray-400 mb-4">Build a content empire</p>
-            <button className="bg-white/10 px-4 py-2 rounded-lg w-full hover:bg-white/20">Coming Soon</button>
-          </div>
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-content">
+            <h2>Ready to Build Your Empire?</h2>
+            <p>Join creators who are turning their content into sustainable income streams</p>
+            <a href="#" class="cta-button">Join the Community</a>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================
-// FILE: app/intel/page.tsx
-// ============================================
-
-export default function IntelPage() {
-  return (
-    <div className="min-h-screen bg-[#0f0f23] text-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Weekly Intel</h1>
-        <p className="text-gray-400 mb-8">Stay ahead with weekly insights on platforms, trends, and monetization</p>
-        
-        <div className="space-y-6">
-          <div className="bg-white/5 p-6 rounded-xl border border-purple-500/20">
-            <div className="text-sm text-purple-400 mb-2">WEEK OF JAN 20, 2025</div>
-            <h2 className="text-2xl font-bold mb-3">This Week's Creator Intel</h2>
-            <p className="text-gray-400 mb-4">
-              TikTok algorithm shifts, Instagram Reels RPM trends, and brand deal insights
-            </p>
-            <button className="text-purple-400 hover:text-purple-300">Read Full Report →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================
-// FILE: app/resources/page.tsx
-// ============================================
-
-export default function ResourcesPage() {
-  return (
-    <div className="min-h-screen bg-[#0f0f23] text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Resources</h1>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <h3 className="text-xl font-bold mb-2">📄 Templates</h3>
-            <p className="text-gray-400">Media kits, contracts, rate sheets</p>
-          </div>
-          
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <h3 className="text-xl font-bold mb-2">🎬 Scripts</h3>
-            <p className="text-gray-400">Hook formulas, video structures</p>
-          </div>
-          
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <h3 className="text-xl font-bold mb-2">📊 Calculators</h3>
-            <p className="text-gray-400">Rate calculators, ROI tools</p>
-          </div>
-          
-          <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-            <h3 className="text-xl font-bold mb-2">🤖 AI Tools</h3>
-            <p className="text-gray-400">Content generation, optimization</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================
-// FILE: components/layout/Header.tsx
-// ============================================
-
-export default function Header() {
-  return (
-    <header className="fixed top-0 w-full bg-[#0f0f23]/80 backdrop-blur-lg border-b border-white/10 z-50">
-      <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="/" className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-          PostPal
-        </a>
-        
-        <div className="hidden md:flex gap-6">
-          <a href="/community" className="hover:text-purple-400 transition">Community</a>
-          <a href="/courses" className="hover:text-purple-400 transition">Courses</a>
-          <a href="/intel" className="hover:text-purple-400 transition">Intel</a>
-          <a href="/resources" className="hover:text-purple-400 transition">Resources</a>
-        </div>
-        
-        <div className="flex gap-4">
-          <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition">
-            Log In
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-purple-700 hover:scale-105 transition">
-            Join Now
-          </button>
-        </div>
-      </nav>
-    </header>
-  );
-}
-
-// ============================================
-// SETUP INSTRUCTIONS
-// ============================================
-
-/*
-TO BUILD THIS:
-
-1. Create Next.js project:
-   npx create-next-app@latest postpal --typescript --tailwind --app
-
-2. Install dependencies:
-   npm install @supabase/supabase-js stripe @stripe/stripe-js
-
-3. Create the file structure above
-
-4. Add to tailwind.config.ts:
-   colors: {
-     background: '#0f0f23',
-     foreground: '#ffffff',
-   }
-
-5. Run dev server:
-   npm run dev
-
-6. Pages will be accessible at:
-   - http://localhost:3000/
-   - http://localhost:3000/community
-   - http://localhost:3000/courses
-   - http://localhost:3000/intel
-   - http://localhost:3000/resources
-
-NEXT STEPS:
-- Set up Supabase database
-- Add authentication
-- Create actual data fetching
-- Build out components
-- Add Stripe integration
-*/
+    </section>
+</body>
+</html>
