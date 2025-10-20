@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostPal Community - Where Creators Grow Together</title>
+    <title>Join PostPal Community - Get Started</title>
     <style>
         * {
             margin: 0;
@@ -20,20 +19,13 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
         /* Hero Section */
         .hero {
-            min-height: 60vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 6rem 2rem 4rem;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -45,32 +37,40 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
             animation: pulse 8s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.05); }
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 1200px;
+            width: 100%;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .left-content {
+            text-align: left;
+        }
+
+        .left-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            opacity: 0.85;
-            margin-bottom: 2rem;
+            line-height: 1.1;
         }
 
         .gradient-text {
@@ -80,543 +80,437 @@
             background-clip: text;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
+        .left-content p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-list li {
+            padding: 1rem 0;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.9;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Sign Up Form Card */
+        .signup-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .signup-header p {
+            opacity: 0.7;
+            font-size: 1rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .tier-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-option {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tier-option:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .tier-option.selected {
+            border-color: rgba(139, 92, 246, 0.8);
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        .tier-option input[type="radio"] {
+            display: none;
+        }
+
+        .tier-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-price {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+        }
+
+        .tier-period {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .popular-badge {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
-            text-decoration: none;
-            border-radius: 12px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
             font-size: 1.1rem;
+            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
         }
 
-        /* Section Base Styles */
-        section {
-            padding: 5rem 2rem;
-            position: relative;
-        }
-
-        .section-header {
+        .social-signup {
+            margin: 2rem 0;
             text-align: center;
-            margin-bottom: 3rem;
         }
 
-        .section-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            font-size: 1.2rem;
-            opacity: 0.75;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Weekly Updates */
-        .updates {
-            background: rgba(15, 15, 35, 0.5);
-        }
-
-        .update-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
-            padding: 2.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .update-header {
+        .divider {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
+            opacity: 0.4;
         }
 
-        .update-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-
-        .update-meta h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .update-date {
-            font-size: 0.9rem;
-            opacity: 0.6;
-        }
-
-        .update-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-
-        .archive-link {
-            color: #8b5cf6;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .archive-link:hover {
-            color: #ec4899;
-        }
-
-        /* Creator Spotlights */
-        .spotlights {
-            background: linear-gradient(180deg, #0a0a15 0%, #1a1a3e 100%);
-        }
-
-        .spotlight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .spotlight-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .spotlight-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2);
-        }
-
-        .creator-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            border-radius: 50%;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-
-        .spotlight-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .spotlight-story {
-            font-size: 1rem;
-            opacity: 0.8;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .spotlight-link {
-            color: #8b5cf6;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Discussion Categories */
-        .categories {
-            background: rgba(15, 15, 35, 0.3);
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .category-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: scale(1.05);
-            border-color: rgba(236, 72, 153, 0.5);
-            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .category-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .category-card p {
-            font-size: 0.95rem;
-            opacity: 0.7;
-        }
-
-        /* Events & Announcements */
-        .events {
-            background: linear-gradient(180deg, #1a1a3e 0%, #0a0a15 100%);
-        }
-
-        .event-timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .event-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 2rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .event-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-left-color: #ec4899;
-            transform: translateX(10px);
-        }
-
-        .event-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            flex-shrink: 0;
-        }
-
-        .event-details {
+        .divider::before,
+        .divider::after {
+            content: '';
             flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .event-details h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-date {
+        .divider span {
+            padding: 0 1rem;
             font-size: 0.9rem;
-            color: #8b5cf6;
-            margin-bottom: 0.5rem;
         }
 
-        .event-description {
-            font-size: 1rem;
-            opacity: 0.8;
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
-        .event-button {
-            padding: 0.6rem 1.5rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 8px;
+        .social-button {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             color: white;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
 
-        .event-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Footer CTA */
-        .footer-cta {
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0.6;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .already-member {
             text-align: center;
-            padding: 5rem 2rem;
-            background: rgba(15, 15, 35, 0.5);
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            opacity: 0.7;
         }
 
-        .footer-cta h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
+        .already-member a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 600;
         }
 
-        .footer-cta p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
+        .already-member a:hover {
+            color: #ec4899;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            section {
-                padding: 3rem 1rem;
-            }
-
-            .spotlight-grid,
-            .category-grid {
+        @media (max-width: 968px) {
+            .content-grid {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            .event-card {
-                flex-direction: column;
+            .left-content {
                 text-align: center;
             }
 
-            .event-icon {
-                margin: 0 auto;
+            .benefits-list li {
+                justify-content: center;
+            }
+
+            .tier-selection {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Fade-in on scroll animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
+        @media (max-width: 640px) {
+            .signup-card {
+                padding: 2rem 1.5rem;
+            }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Welcome to the <span class="gradient-text">PostPal Community</span></h1>
-            <p>A professional hub where creators collaborate, learn, and grow together.</p>
-            <a href="#discussions" class="cta-button">Join the Discussion</a>
-        </div>
-    </section>
+            <div class="content-grid">
+                <!-- Left Side: Value Prop -->
+                <div class="left-content">
+                    <h1>Join the <span class="gradient-text">PostPal Community</span></h1>
+                    <p>Where ambitious creators turn content into sustainable income streams.</p>
+                    
+                    <ul class="benefits-list">
+                        <li>Access 6 professional discussion boards</li>
+                        <li>Weekly live workshops with industry experts</li>
+                        <li>200+ templates, scripts & automation tools</li>
+                        <li>Connect with 500+ active creators</li>
+                        <li>Get personalized strategy sessions</li>
+                        <li>Stay ahead with weekly market intel</li>
+                    </ul>
+                </div>
 
-    <!-- Weekly Updates / From Master -->
-    <section class="updates">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>Weekly Update from <span class="gradient-text">Master</span></h2>
-                <p>Stay in the loop with the latest insights and announcements</p>
-            </div>
-            
-            <div class="update-card fade-in">
-                <div class="update-header">
-                    <div class="update-icon">📢</div>
-                    <div class="update-meta">
-                        <h3>This Week's Focus: Brand Deal Negotiation</h3>
-                        <div class="update-date">Posted January 20, 2025</div>
+                <!-- Right Side: Sign Up Form -->
+                <div class="signup-card">
+                    <div class="signup-header">
+                        <h2>Get Started Today</h2>
+                        <p>Choose your path and create your account</p>
+                    </div>
+
+                    <!-- Tier Selection -->
+                    <div class="tier-selection">
+                        <label class="tier-option" for="free-tier">
+                            <input type="radio" name="tier" id="free-tier" value="free" checked>
+                            <div class="tier-name">Free Explorer</div>
+                            <div class="tier-price">$0</div>
+                            <div class="tier-period">/month</div>
+                        </label>
+
+                        <label class="tier-option selected" for="pro-tier">
+                            <input type="radio" name="tier" id="pro-tier" value="pro">
+                            <span class="popular-badge">Most Popular</span>
+                            <div class="tier-name">Pro Creator</div>
+                            <div class="tier-price">$49</div>
+                            <div class="tier-period">/month</div>
+                        </label>
+                    </div>
+
+                    <!-- Email Sign Up Form -->
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Create a secure password" required>
+                        </div>
+
+                        <button type="submit" class="cta-button">Create My Account</button>
+                    </form>
+
+                    <!-- Social Sign Up -->
+                    <div class="social-signup">
+                        <div class="divider">
+                            <span>or continue with</span>
+                        </div>
+
+                        <div class="social-buttons">
+                            <a href="#" class="social-button">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                Google
+                            </a>
+
+                            <a href="#" class="social-button">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span>🔒</span>
+                            <span>Secure</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span>✓</span>
+                            <span>No credit card required for free</span>
+                        </div>
+                    </div>
+
+                    <!-- Already Member Link -->
+                    <div class="already-member">
+                        Already a member? <a href="#">Log in here</a>
                     </div>
                 </div>
-                <div class="update-content">
-                    <p>This week, we're diving deep into negotiation strategies that actually work. I've added three new templates to the resources section and we'll be hosting a live Q&A Thursday at 7pm EST. Come prepared with your brand deal questions—let's level up together.</p>
-                    <p>Remember: Your rate card is not a suggestion. Know your worth and communicate it clearly.</p>
-                </div>
-                <a href="#" class="archive-link">View Past Updates →</a>
             </div>
-        </div>
-    </section>
-
-    <!-- Creator Spotlights -->
-    <section class="spotlights">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2><span class="gradient-text">Creator</span> Spotlights</h2>
-                <p>Celebrating wins from our community members</p>
-            </div>
-            
-            <div class="spotlight-grid">
-                <div class="spotlight-card fade-in">
-                    <div class="creator-avatar">🎬</div>
-                    <h3>Sarah Martinez</h3>
-                    <p class="spotlight-story">Landed a $7,000 brand deal using PostPal's negotiation framework and rate card template. From zero to five-figure deals in 90 days.</p>
-                    <a href="#" class="spotlight-link">Read Her Story →</a>
-                </div>
-                
-                <div class="spotlight-card fade-in">
-                    <div class="creator-avatar">📈</div>
-                    <h3>Marcus Chen</h3>
-                    <p class="spotlight-story">Grew from 5K to 100K followers in 6 months by implementing the content strategy sprint. Now monetizing through UGC and affiliate partnerships.</p>
-                    <a href="#" class="spotlight-link">Read His Story →</a>
-                </div>
-                
-                <div class="spotlight-card fade-in">
-                    <div class="creator-avatar">⚡</div>
-                    <h3>Jenna Williams</h3>
-                    <p class="spotlight-story">Automated 80% of her content workflow with AI tools from the community toolbox. Doubled output while working half the hours.</p>
-                    <a href="#" class="spotlight-link">Read Her Story →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Discussion Categories -->
-    <section class="categories" id="discussions">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>Discussion <span class="gradient-text">Categories</span></h2>
-                <p>Professional forums for every aspect of creator business</p>
-            </div>
-            
-            <div class="category-grid">
-                <div class="category-card fade-in">
-                    <span class="category-icon">💼</span>
-                    <h3>Brand Deals & Sponsorships</h3>
-                    <p>Negotiation tactics, rate discussions, and partnership strategies</p>
-                </div>
-                
-                <div class="category-card fade-in">
-                    <span class="category-icon">🎬</span>
-                    <h3>Content Growth & Strategy</h3>
-                    <p>Hooks, formats, algorithms, and audience building techniques</p>
-                </div>
-                
-                <div class="category-card fade-in">
-                    <span class="category-icon">⚙️</span>
-                    <h3>AI & Workflow Tools</h3>
-                    <p>Automation, productivity hacks, and cutting-edge tech</p>
-                </div>
-                
-                <div class="category-card fade-in">
-                    <span class="category-icon">📈</span>
-                    <h3>Creator Business Ops</h3>
-                    <p>Legal, taxes, contracts, and scaling your operation</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events & Announcements -->
-    <section class="events">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>Upcoming <span class="gradient-text">Events</span></h2>
-                <p>Live workshops, calls, and community gatherings</p>
-            </div>
-            
-            <div class="event-timeline">
-                <div class="event-card fade-in">
-                    <div class="event-icon">🎥</div>
-                    <div class="event-details">
-                        <h3>Live Brand Deal Negotiation Workshop</h3>
-                        <div class="event-date">Thursday, January 23 • 7:00 PM EST</div>
-                        <p class="event-description">Join me for a live session where we'll break down real negotiation scenarios and role-play brand conversations.</p>
-                    </div>
-                    <button class="event-button">RSVP</button>
-                </div>
-                
-                <div class="event-card fade-in">
-                    <div class="event-icon">📚</div>
-                    <div class="event-details">
-                        <h3>New Course Drop: UGC Mastery</h3>
-                        <div class="event-date">Monday, January 27 • 12:00 PM EST</div>
-                        <p class="event-description">Complete guide to landing and executing UGC deals, from outreach to delivery. Includes templates and case studies.</p>
-                    </div>
-                    <button class="event-button">Get Notified</button>
-                </div>
-                
-                <div class="event-card fade-in">
-                    <div class="event-icon">⚡</div>
-                    <div class="event-details">
-                        <h3>Office Hours with Master</h3>
-                        <div class="event-date">Every Friday • 3:00 PM EST</div>
-                        <p class="event-description">Weekly open Q&A where I answer your questions about content, deals, growth, and anything creator-related.</p>
-                    </div>
-                    <button class="event-button">Join Call</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer CTA -->
-    <section class="footer-cta">
-        <div class="container">
-            <h2>Ready to <span class="gradient-text">Engage?</span></h2>
-            <p>Start a discussion and grow your creator network</p>
-            <a href="#discussions" class="cta-button">Start a Discussion</a>
         </div>
     </section>
 
     <script>
-        // Fade-in on scroll animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Tier selection toggle
+        const tierOptions = document.querySelectorAll('.tier-option');
+        const radios = document.querySelectorAll('input[name="tier"]');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        tierOptions.forEach((option, index) => {
+            option.addEventListener('click', () => {
+                tierOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                radios[index].checked = true;
             });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                tier: document.querySelector('input[name="tier"]:checked').value
+            };
+
+            console.log('Sign up data:', formData);
+            
+            // TODO: Send to your backend/auth service
+            // For now, redirect to community preview or dashboard
+            alert(`Welcome to PostPal! Setting up your ${formData.tier === 'pro' ? 'Pro' : 'Free'} account...`);
+            // window.location.href = '/community/preview';
         });
     </script>
 </body>
