@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - PostPal Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+            overflow-x: auto;
+            padding-bottom: 0;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab.active {
+            color: #fff;
+            border-bottom-color: #8b5cf6;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Course Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .course-card p {
+            opacity: 0.7;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Empty State */
+        .empty-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-card .icon {
+            font-size: 4rem;
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .empty-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .empty-card p {
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        /* Lessons View */
+        .lessons-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .back-button {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lessons-header h2 {
+            font-size: 2rem;
+        }
+
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lesson-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .lesson-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .lesson-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .lesson-info p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .lesson-duration {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .tabs {
+                gap: 0.5rem;
+            }
+
+            .tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-item {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+            }
+
+            .lesson-duration {
+                grid-column: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">PostPal</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" style="color: #8b5cf6;">Courses</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="page-header">
+            <h1>Master the <span class="gradient-text">Creator Economy</span></h1>
+            <p>Comprehensive courses designed to help you monetize your content and scale your business</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="all-courses">All Courses</button>
+            <button class="tab" data-tab="monetization">Monetization</button>
+            <button class="tab" data-tab="content">Content Strategy</button>
+            <button class="tab" data-tab="growth">Growth & Scaling</button>
+            <button class="tab" data-tab="technical">Technical Skills</button>
+        </div>
+
+        <!-- All Courses Tab -->
+        <div id="all-courses" class="tab-content active">
+            <div class="courses-grid">
+                <div class="course-card" onclick="showLessons('Brand Deals Masterclass')">
+                    <div class="course-icon">💼</div>
+                    <span class="course-badge">Monetization</span>
+                    <h3>Brand Deals Masterclass</h3>
+                    <p>Learn how to land, negotiate, and close high-paying brand partnerships that align with your content.</p>
+                    <div class="course-meta">
+                        <span>📚 12 Lessons</span>
+                        <span>⏱️ 3.5 hours</span>
+                    </div>
+                </div>
+
+                <div class="course-card" onclick="showLessons('UGC Creation Blueprint')">
+                    <div class="course-icon">🎬</div>
+                    <span class="course-badge">Content</span>
+                    <h3>UGC Creation Blueprint</h3>
+                    <p>Master the art of User-Generated Content and turn it into a reliable income stream.</p>
+                    <div class="course-meta">
+                        <span>📚 10 Lessons</span>
+                        <span>⏱️ 2.8 hours</span>
+                    </div>
+                </div>
+
+                <div class="course-card" onclick="showLessons('Algorithm Mastery')">
+                    <div class="course-icon">📈</div>
+                    <span class="course-badge">Growth</span>
+                    <h3>Algorithm Mastery</h3>
+                    <p>Understand platform algorithms and optimize your content for maximum reach and engagement.</p>
+                    <div class="course-meta">
+                        <span>📚 8 Lessons</span>
+                        <span>⏱️ 2.2 hours</span>
+                    </div>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>New course in development</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>New course in development</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>New course in development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monetization Tab -->
+        <div id="monetization" class="tab-content">
+            <div class="courses-grid">
+                <div class="course-card" onclick="showLessons('Brand Deals Masterclass')">
+                    <div class="course-icon">💼</div>
+                    <span class="course-badge">Monetization</span>
+                    <h3>Brand Deals Masterclass</h3>
+                    <p>Learn how to land, negotiate, and close high-paying brand partnerships.</p>
+                    <div class="course-meta">
+                        <span>📚 12 Lessons</span>
+                        <span>⏱️ 3.5 hours</span>
+                    </div>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Affiliate Marketing Masterclass</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Sponsorship Strategy Course</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Strategy Tab -->
+        <div id="content" class="tab-content">
+            <div class="courses-grid">
+                <div class="course-card" onclick="showLessons('UGC Creation Blueprint')">
+                    <div class="course-icon">🎬</div>
+                    <span class="course-badge">Content</span>
+                    <h3>UGC Creation Blueprint</h3>
+                    <p>Master User-Generated Content creation and turn it into income.</p>
+                    <div class="course-meta">
+                        <span>📚 10 Lessons</span>
+                        <span>⏱️ 2.8 hours</span>
+                    </div>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Content Calendar Mastery</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Storytelling for Creators</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth & Scaling Tab -->
+        <div id="growth" class="tab-content">
+            <div class="courses-grid">
+                <div class="course-card" onclick="showLessons('Algorithm Mastery')">
+                    <div class="course-icon">📈</div>
+                    <span class="course-badge">Growth</span>
+                    <h3>Algorithm Mastery</h3>
+                    <p>Optimize your content for maximum reach across all platforms.</p>
+                    <div class="course-meta">
+                        <span>📚 8 Lessons</span>
+                        <span>⏱️ 2.2 hours</span>
+                    </div>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Viral Content Framework</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Audience Building Bootcamp</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Skills Tab -->
+        <div id="technical" class="tab-content">
+            <div class="courses-grid">
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>AI Tools for Creators</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Video Editing Essentials</p>
+                </div>
+
+                <div class="empty-card">
+                    <div class="icon">📦</div>
+                    <h4>Coming Soon</h4>
+                    <p>Analytics Deep Dive</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lessons View (Hidden by default) -->
+        <div id="lessons-view" style="display: none;">
+            <div class="lessons-header">
+                <button class="back-button" onclick="backToCourses()">← Back to Courses</button>
+                <h2 id="course-title"></h2>
+            </div>
+
+            <div class="lessons-list" id="lessons-list">
+                <!-- Lessons will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetTab) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Course lessons data
+        const courseLessons = {
+            'Brand Deals Masterclass': [
+                { title: 'Understanding Brand Partnerships', description: 'The fundamentals of brand deals', duration: '18 min' },
+                { title: 'Building Your Media Kit', description: 'Create a professional media kit', duration: '22 min' },
+                { title: 'Finding the Right Brands', description: 'Identify brands that align with you', duration: '15 min' },
+                { title: 'Outreach Strategy', description: 'Craft compelling pitch emails', duration: '20 min' },
+                { title: 'Negotiation Tactics', description: 'Get paid what you\'re worth', duration: '25 min' },
+                { title: 'Contract Essentials', description: 'Protect yourself legally', duration: '19 min' },
+                { title: 'Content Creation for Brands', description: 'Deliver authentic sponsored content', duration: '24 min' },
+                { title: 'Long-term Partnerships', description: 'Build lasting relationships', duration: '17 min' },
+            ],
+            'UGC Creation Blueprint': [
+                { title: 'What is UGC?', description: 'Understanding User-Generated Content', duration: '12 min' },
+                { title: 'UGC vs Traditional Content', description: 'Key differences and advantages', duration: '16 min' },
+                { title: 'Setting Up Your UGC Studio', description: 'Equipment and setup guide', duration: '20 min' },
+                { title: 'Finding UGC Opportunities', description: 'Where to find paid UGC work', duration: '18 min' },
+                { title: 'Creating Authentic UGC', description: 'Best practices for genuine content', duration: '22 min' },
+                { title: 'Pricing Your UGC Services', description: 'How to charge for your work', duration: '15 min' },
+                { title: 'Building a UGC Portfolio', description: 'Showcase your best work', duration: '14 min' },
+                { title: 'Scaling Your UGC Business', description: 'From side hustle to full-time', duration: '21 min' },
+            ],
+            'Algorithm Mastery': [
+                { title: 'How Algorithms Work', description: 'Platform algorithms explained', duration: '16 min' },
+                { title: 'TikTok Algorithm Deep Dive', description: 'Mastering the For You Page', duration: '20 min' },
+                { title: 'Instagram Algorithm 2025', description: 'Reels, Stories, and Feed optimization', duration: '18 min' },
+                { title: 'YouTube Algorithm Secrets', description: 'Get recommended and go viral', duration: '22 min' },
+                { title: 'Timing and Consistency', description: 'When and how often to post', duration: '14 min' },
+                { title: 'Engagement Strategies', description: 'Boost your engagement metrics', duration: '17 min' },
+                { title: 'Analytics That Matter', description: 'Which metrics to track', duration: '15 min' },
+                { title: 'Algorithm Updates', description: 'Stay ahead of changes', duration: '12 min' },
+            ]
+        };
+
+        function showLessons(courseName) {
+            // Hide all tab contents
+            tabContents.forEach(content => content.style.display = 'none');
+            
+            // Show lessons view
+            const lessonsView = document.getElementById('lessons-view');
+            lessonsView.style.display = 'block';
+            
+            // Set course title
+            document.getElementById('course-title').textContent = courseName;
+            
+            // Populate lessons
+            const lessonsList = document.getElementById('lessons-list');
+            lessonsList.innerHTML = '';
+            
+            const lessons = courseLessons[courseName] || [];
+            lessons.forEach((lesson, index) => {
+                const lessonItem = document.createElement('div');
+                lessonItem.className = 'lesson-item';
+                lessonItem.innerHTML = `
+                    <div class="lesson-number">${index + 1}</div>
+                    <div class="lesson-info">
+                        <h4>${lesson.title}</h4>
+                        <p>${lesson.description}</p>
+                    </div>
+                    <div class="lesson-duration">${lesson.duration}</div>
+                `;
+                lessonsList.appendChild(lessonItem);
+            });
+
+            // Add empty lesson placeholders
+            for (let i = lessons.length; i < 12; i++) {
+                const emptyLesson = document.createElement('div');
+                emptyLesson.className = 'lesson-item';
+                emptyLesson.style.opacity = '0.4';
+                emptyLesson.style.cursor = 'not-allowed';
+                emptyLesson.innerHTML = `
+                    <div class="lesson-number" style="background: rgba(255, 255, 255, 0.1);">${i + 1}</div>
+                    <div class="lesson-info">
+                        <h4>Lesson Coming Soon</h4>
+                        <p>This lesson is currently being developed</p>
+                    </div>
+                    <div class="lesson-duration">--</div>
+                `;
+                lessonsList.appendChild(emptyLesson);
+            }
+        }
+
+        function backToCourses() {
+            // Hide lessons view
+            document.getElementById('lessons-view').style.display = 'none';
+            
+            // Show the active tab content
+            const activeTab = document.querySelector('.tab.active');
+            const targetTab = activeTab.dataset.tab;
+            tabContents.forEach(content => {
+                if (content.id === targetTab) {
+                    content.style.display = 'block';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
