@@ -19,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -53,7 +52,6 @@
             width: 100%;
         }
 
-        /* Main Content Grid */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -115,7 +113,6 @@
             color: white;
         }
 
-        /* Sign Up Form Card */
         .signup-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(139, 92, 246, 0.3);
@@ -140,7 +137,6 @@
             font-size: 1rem;
         }
 
-        /* Form Styles */
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -255,6 +251,21 @@
             box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
         }
 
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
         .social-signup {
             margin: 2rem 0;
             text-align: center;
@@ -299,7 +310,6 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            text-decoration: none;
         }
 
         .social-button:hover {
@@ -339,7 +349,6 @@
             color: #ec4899;
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .content-grid {
                 grid-template-columns: 1fr;
@@ -374,7 +383,6 @@
     <section class="hero">
         <div class="hero-content">
             <div class="content-grid">
-                <!-- Left Side: Value Prop -->
                 <div class="left-content">
                     <h1>Join the <span class="gradient-text">PostPal Community</span></h1>
                     <p>Where ambitious creators turn content into sustainable income streams.</p>
@@ -389,14 +397,12 @@
                     </ul>
                 </div>
 
-                <!-- Right Side: Sign Up Form -->
                 <div class="signup-card">
                     <div class="signup-header">
                         <h2>Get Started Today</h2>
                         <p>Choose your path and create your account</p>
                     </div>
 
-                    <!-- Tier Selection -->
                     <div class="tier-selection">
                         <label class="tier-option" for="free-tier">
                             <input type="radio" name="tier" id="free-tier" value="free" checked>
@@ -414,7 +420,8 @@
                         </label>
                     </div>
 
-                    <!-- Email Sign Up Form -->
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+
                     <form id="signupForm">
                         <div class="form-group">
                             <label for="name">Full Name</label>
@@ -428,20 +435,19 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="Create a secure password" required>
+                            <input type="password" id="password" name="password" placeholder="Create a secure password (min 6 characters)" required minlength="6">
                         </div>
 
-                        <button type="submit" class="cta-button">Create My Account</button>
+                        <button type="submit" class="cta-button" id="submitBtn">Create My Account</button>
                     </form>
 
-                    <!-- Social Sign Up -->
                     <div class="social-signup">
                         <div class="divider">
                             <span>or continue with</span>
                         </div>
 
                         <div class="social-buttons">
-                            <a href="#" class="social-button">
+                            <button class="social-button" id="googleSignIn">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -449,18 +455,17 @@
                                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                                 </svg>
                                 Google
-                            </a>
+                            </button>
 
-                            <a href="#" class="social-button">
+                            <button class="social-button" id="githubSignIn">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                                 </svg>
                                 GitHub
-                            </a>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Trust Badges -->
                     <div class="trust-badges">
                         <div class="trust-badge">
                             <span>🔒</span>
@@ -472,17 +477,50 @@
                         </div>
                     </div>
 
-                    <!-- Already Member Link -->
                     <div class="already-member">
-                        Already a member? <a href="#">Log in here</a>
+                        Already a member? <a href="#" id="loginLink">Log in here</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-        // Tier selection toggle
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmEseler4t0tOfmeThvAJz8Fx4cS4pA4QQ",
+            authDomain: "postpal-92bb7.firebaseapp.com",
+            projectId: "postpal-92bb7",
+            storageBucket: "postpal-92bb7.firebasestorage.app",
+            messagingSenderId: "519381531859",
+            appId: "1:519381531859:web:b3c548bbbb50e7968a6826"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // UI Elements
+        const signupForm = document.getElementById('signupForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const googleSignInBtn = document.getElementById('googleSignIn');
+        const githubSignInBtn = document.getElementById('githubSignIn');
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Tier selection
         const tierOptions = document.querySelectorAll('.tier-option');
         const radios = document.querySelectorAll('input[name="tier"]');
 
@@ -494,22 +532,99 @@
             });
         });
 
-        // Form submission
-document.getElementById('signupForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value,
-        tier: document.querySelector('input[name="tier"]:checked').value
-    };
+        // Email/Password Sign Up
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const tier = document.querySelector('input[name="tier"]:checked').value;
 
-    console.log('Sign up data:', formData);
-    
-    // Redirect to courses page
-    window.location.href = 'courses.html';
-});
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creating Account...';
+
+            try {
+                // Create user account
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Update user profile with name
+                await updateProfile(userCredential.user, {
+                    displayName: name
+                });
+
+                // Store tier in localStorage (you can later save this to Firestore)
+                localStorage.setItem('userTier', tier);
+                localStorage.setItem('userName', name);
+
+                console.log('User created successfully:', userCredential.user);
+                
+                // Redirect to courses page
+                window.location.href = 'courses.html';
+
+            } catch (error) {
+                console.error('Error signing up:', error);
+                
+                let errorMsg = 'Failed to create account. ';
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMsg += 'This email is already registered.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMsg += 'Password should be at least 6 characters.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMsg += 'Invalid email address.';
+                } else {
+                    errorMsg += error.message;
+                }
+                
+                showError(errorMsg);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Create My Account';
+            }
+        });
+
+        // Google Sign In
+        googleSignInBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log('Google sign-in successful:', result.user);
+                
+                // Store default tier
+                const tier = document.querySelector('input[name="tier"]:checked').value;
+                localStorage.setItem('userTier', tier);
+                localStorage.setItem('userName', result.user.displayName);
+                
+                window.location.href = 'courses.html';
+            } catch (error) {
+                console.error('Google sign-in error:', error);
+                showError('Google sign-in failed. Please try again.');
+            }
+        });
+
+        // GitHub Sign In
+        githubSignInBtn.addEventListener('click', async () => {
+            const provider = new GithubAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log('GitHub sign-in successful:', result.user);
+                
+                // Store default tier
+                const tier = document.querySelector('input[name="tier"]:checked').value;
+                localStorage.setItem('userTier', tier);
+                localStorage.setItem('userName', result.user.displayName);
+                
+                window.location.href = 'courses.html';
+            } catch (error) {
+                console.error('GitHub sign-in error:', error);
+                showError('GitHub sign-in failed. Please try again.');
+            }
+        });
+
+        // Login link (you'll need to create a login page later)
+        document.getElementById('loginLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Login page coming soon! For now, just sign up again if you have an account.');
+        });
     </script>
 </body>
 </html>
