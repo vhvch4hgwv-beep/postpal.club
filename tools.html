@@ -1,1 +1,633 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools - PostPal Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        .tool-card p {
+            opacity: 0.7;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .tool-features li {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-features li::before {
+            content: '✓';
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a3e 0%, #0a0a15 100%);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .agent-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .loading-state {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(139, 92, 246, 0.2);
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.5);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                padding: 0;
+            }
+
+            .modal-content {
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">PostPal</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Dashboard</a></li>
+                    <li><a href="#" style="color: #8b5cf6;">AI Tools</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>AI-Powered <span class="gradient-text">Creator Tools</span></h1>
+            <p>Automate your workflow with intelligent agents built specifically for content creators</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Creator News Pulse -->
+            <div class="tool-card" onclick="openAgent('news', 'Creator News Pulse', '📰')">
+                <span class="tool-icon">📰</span>
+                <span class="tool-badge">Daily Updates</span>
+                <h3>Creator News Pulse</h3>
+                <p>Stay ahead with daily updates on the creator economy, platform changes, and industry trends.</p>
+                <ul class="tool-features">
+                    <li>Daily creator news digest</li>
+                    <li>Platform algorithm updates</li>
+                    <li>Industry trend analysis</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Money Board -->
+            <div class="tool-card" onclick="openAgent('money', 'Money Board', '💰')">
+                <span class="tool-icon">💰</span>
+                <span class="tool-badge">Monetization</span>
+                <h3>Money Board</h3>
+                <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
+                <ul class="tool-features">
+                    <li>Brand partnership alerts</li>
+                    <li>UGC gig opportunities</li>
+                    <li>Revenue optimization tips</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Brand Negotiator -->
+            <div class="tool-card" onclick="openAgent('negotiator', 'Brand Negotiator', '🤝')">
+                <span class="tool-icon">🤝</span>
+                <span class="tool-badge">Business</span>
+                <h3>Brand Negotiator</h3>
+                <p>Get expert guidance on negotiating better rates and terms for brand partnerships.</p>
+                <ul class="tool-features">
+                    <li>Rate calculators</li>
+                    <li>Contract review assistance</li>
+                    <li>Negotiation strategies</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Analytics Advisor -->
+            <div class="tool-card" onclick="openAgent('analytics', 'Analytics Advisor', '📊')">
+                <span class="tool-icon">📊</span>
+                <span class="tool-badge">Analytics</span>
+                <h3>Analytics Advisor</h3>
+                <p>Analyze your performance data and get actionable insights to grow your audience.</p>
+                <ul class="tool-features">
+                    <li>Performance analysis</li>
+                    <li>Growth recommendations</li>
+                    <li>Content optimization</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Hook Generator -->
+            <div class="tool-card" onclick="openAgent('hooks', 'Hook Generator', '🎯')">
+                <span class="tool-icon">🎯</span>
+                <span class="tool-badge">Content</span>
+                <h3>Hook Generator</h3>
+                <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
+                <ul class="tool-features">
+                    <li>Viral hook templates</li>
+                    <li>Platform-specific formats</li>
+                    <li>A/B testing suggestions</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Trend Radar -->
+            <div class="tool-card" onclick="openAgent('trends', 'Trend Radar', '📡')">
+                <span class="tool-icon">📡</span>
+                <span class="tool-badge">Trends</span>
+                <h3>Trend Radar</h3>
+                <p>Spot emerging trends before they go viral and position your content ahead of the curve.</p>
+                <ul class="tool-features">
+                    <li>Real-time trend detection</li>
+                    <li>Trending sounds & hashtags</li>
+                    <li>Opportunity scoring</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Insight Vault -->
+            <div class="tool-card" onclick="openAgent('insights', 'Insight Vault', '🧠')">
+                <span class="tool-icon">🧠</span>
+                <span class="tool-badge">Knowledge</span>
+                <h3>Insight Vault</h3>
+                <p>Store and organize your learnings, insights, and content strategies in one place.</p>
+                <ul class="tool-features">
+                    <li>Knowledge management</li>
+                    <li>Quick reference library</li>
+                    <li>Best practices archive</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Tool Watch -->
+            <div class="tool-card coming-soon">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <span class="tool-icon">🔧</span>
+                <span class="tool-badge">Resources</span>
+                <h3>Tool Watch</h3>
+                <p>Discover and track the latest creator tools, software, and platforms.</p>
+                <ul class="tool-features">
+                    <li>New tool alerts</li>
+                    <li>Tool comparisons</li>
+                    <li>Discount tracking</li>
+                </ul>
+                <button class="cta-button">Coming Soon</button>
+            </div>
+
+            <!-- Creator Toolkit -->
+            <div class="tool-card" onclick="openAgent('toolkit', 'Creator Toolkit', '🛠️')">
+                <span class="tool-icon">🛠️</span>
+                <span class="tool-badge">Utilities</span>
+                <h3>Creator Toolkit</h3>
+                <p>Access quick utilities like thumbnail makers, caption formatters, and schedule planners.</p>
+                <ul class="tool-features">
+                    <li>Thumbnail generator</li>
+                    <li>Caption formatter</li>
+                    <li>Posting scheduler</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Agent -->
+    <div class="modal" id="agentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span id="modalIcon">📰</span>
+                    <span id="modalTitle">Creator News Pulse</span>
+                </div>
+                <button class="close-btn" onclick="closeAgent()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading AI Agent...</p>
+                </div>
+                <iframe id="agentFrame" class="agent-iframe" style="display: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agent configurations - ALL AGENTS READY!
+        const agents = {
+            news: {
+                workflowId: 'wf_68f860f9d6288f9096b162e1652c12c00f2947fdddff7683',
+                version: 'draft'
+            },
+            toolkit: {
+                workflowId: 'wf_68f6f56eef8881f90bbb4c09e508c344530f45d5573eff7ffc',
+                version: 'draft'
+            },
+            negotiator: {
+                workflowId: 'wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f',
+                version: 'draft'
+            },
+            analytics: {
+                workflowId: 'wf_68f6f5fac4e308190b5848c6b8ba039450504fe6a0cdd665b2',
+                version: 'draft'
+            },
+            insights: {
+                workflowId: 'wf_68f6f5fbf737461903967cbd27e41a03ce07ebdf78202054a71',
+                version: 'draft'
+            },
+            money: {
+                workflowId: 'wf_68f6f5e76418019086b3ce057ef886f7606d9b4ff9abf3e24',
+                version: 'draft'
+            },
+            trends: {
+                workflowId: 'wf_68becdb7c3acB190b7b5b7ac6a38d18509bfaf5c93b5d5add',
+                version: 'draft'
+            },
+            hooks: {
+                workflowId: 'wf_68f6f5f3843fc81f90895c7f9a04485b7be0e3924faac533ffa',
+                version: 'draft'
+            },
+            toolwatch: {
+                workflowId: 'wf_68f6f5ffb97a881f90eaad7afb8a09cbdf0bf9efb8e74959fc',
+                version: 'draft'
+            }
+        };
+
+        function openAgent(agentKey, title, icon) {
+            const modal = document.getElementById('agentModal');
+            const iframe = document.getElementById('agentFrame');
+            const loading = document.getElementById('loadingState');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIcon = document.getElementById('modalIcon');
+
+            // Update modal header
+            modalTitle.textContent = title;
+            modalIcon.textContent = icon;
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Build ChatKit embed URL
+            const agent = agents[agentKey];
+            if (agent) {
+                const embedUrl = `https://chatkit.app/embed/${agent.workflowId}?version=${agent.version}`;
+                
+                // Show loading
+                loading.style.display = 'block';
+                iframe.style.display = 'none';
+                
+                // Load iframe
+                iframe.src = embedUrl;
+                
+                // Hide loading when iframe loads
+                iframe.onload = () => {
+                    loading.style.display = 'none';
+                    iframe.style.display = 'block';
+                };
+            }
+        }
+
+        function closeAgent() {
+            const modal = document.getElementById('agentModal');
+            const iframe = document.getElementById('agentFrame');
+            
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Clear iframe to stop any ongoing processes
+            iframe.src = '';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('agentModal').addEventListener('click', (e) => {
+            if (e.target.id === 'agentModal') {
+                closeAgent();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAgent();
+            }
+        });
+    </script>
+</body>
+</html>
