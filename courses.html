@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - PostPal Community</title>
+    <title>AI Tools - PostPal Community</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +20,6 @@
             min-height: 100vh;
         }
 
-        /* Header */
         .header {
             padding: 1.5rem 2rem;
             background: rgba(10, 10, 21, 0.8);
@@ -47,12 +47,6 @@
             background-clip: text;
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -70,42 +64,6 @@
             color: #8b5cf6;
         }
 
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-name {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-        }
-
-        .user-tier {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Main Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -133,106 +91,61 @@
         .page-header p {
             font-size: 1.2rem;
             opacity: 0.8;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
-            overflow-x: auto;
-            padding-bottom: 0;
-        }
-
-        .tab {
-            padding: 1rem 2rem;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
-        }
-
-        .tab:hover {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .tab.active {
-            color: #fff;
-            border-bottom-color: #8b5cf6;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Course Grid */
-        .courses-grid {
+        .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .course-card {
+        .tool-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 2rem;
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .course-card::before {
+        .tool-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
         }
 
-        .course-card:hover {
-            transform: translateY(-5px);
+        .tool-card:hover {
+            transform: translateY(-8px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.5);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
         }
 
-        .course-card:hover::before {
+        .tool-card:hover::before {
             transform: scaleX(1);
         }
 
-        .course-icon {
-            font-size: 3rem;
+        .tool-icon {
+            font-size: 3.5rem;
             margin-bottom: 1rem;
+            display: block;
         }
 
-        .course-badge {
+        .tool-badge {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             background: rgba(139, 92, 246, 0.2);
             border: 1px solid rgba(139, 92, 246, 0.5);
             border-radius: 20px;
@@ -243,75 +156,161 @@
             letter-spacing: 0.5px;
         }
 
-        .course-card h3 {
+        .tool-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: #fff;
         }
 
-        .course-card p {
+        .tool-card p {
             opacity: 0.7;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.6;
             margin-bottom: 1.5rem;
-            line-height: 1.5;
         }
 
-        .course-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            opacity: 0.6;
+        .tool-features {
+            list-style: none;
             margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .course-meta span {
+        .tool-features li {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
         }
 
-        /* Empty State */
-        .empty-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            text-align: center;
-            min-height: 250px;
+        .tool-features li::before {
+            content: '✓';
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        .empty-card .icon {
-            font-size: 4rem;
-            opacity: 0.3;
-            margin-bottom: 1rem;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .empty-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.7;
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a3e 0%, #0a0a15 100%);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.3s ease;
         }
 
-        .empty-card p {
-            opacity: 0.5;
-            font-size: 0.9rem;
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Loading State */
-        .loading {
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .agent-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .loading-state {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            padding: 4rem 2rem;
         }
 
         .loading-spinner {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border: 4px solid rgba(139, 92, 246, 0.2);
             border-top-color: #8b5cf6;
             border-radius: 50%;
@@ -323,230 +322,311 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
+        /* Coming Soon Badge */
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.5);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 768px) {
-            .header-right {
-                gap: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .user-name {
-                display: none;
-            }
-
-            .tabs {
-                gap: 0.5rem;
-            }
-
-            .tab {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .courses-grid {
+            .tools-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .modal {
+                padding: 0;
+            }
+
+            .modal-content {
+                height: 100vh;
+                border-radius: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading State -->
-    <div id="loadingState" class="loading">
-        <div class="loading-spinner"></div>
-        <p>Loading your courses...</p>
-    </div>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">PostPal</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Dashboard</a></li>
+                    <li><a href="#" style="color: #8b5cf6;">AI Tools</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Main Content (Hidden until loaded) -->
-    <div id="mainContent" style="display: none;">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">PostPal</div>
-                <div class="header-right">
-                    <nav>
-                        <ul class="nav-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="#" style="color: #8b5cf6;">Courses</a></li>
-                            <li><a href="resources.html">Resources</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                        </ul>
-                    </nav>
-                    <div class="user-section">
-                        <span class="user-name" id="userName">Loading...</span>
-                        <span class="user-tier" id="userTier">Free</span>
-                        <button class="logout-btn" id="logoutBtn">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <div class="container">
+        <div class="page-header">
+            <h1>AI-Powered <span class="gradient-text">Creator Tools</span></h1>
+            <p>Automate your workflow with intelligent agents built specifically for content creators</p>
+        </div>
 
-        <!-- Main Container -->
-        <div class="container">
-            <div class="page-header">
-                <h1>Master the <span class="gradient-text">Creator Economy</span></h1>
-                <p>Comprehensive courses designed to help you monetize your content and scale your business</p>
+        <div class="tools-grid">
+            <!-- Creator News Pulse -->
+            <div class="tool-card" onclick="openAgent('news', 'Creator News Pulse', '📰')">
+                <span class="tool-icon">📰</span>
+                <span class="tool-badge">Daily Updates</span>
+                <h3>Creator News Pulse</h3>
+                <p>Stay ahead with daily updates on the creator economy, platform changes, and industry trends.</p>
+                <ul class="tool-features">
+                    <li>Daily creator news digest</li>
+                    <li>Platform algorithm updates</li>
+                    <li>Industry trend analysis</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
 
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab active" data-tab="all-courses">All Courses</button>
-                <button class="tab" data-tab="monetization">Monetization</button>
-                <button class="tab" data-tab="content">Content Strategy</button>
-                <button class="tab" data-tab="growth">Growth & Scaling</button>
-                <button class="tab" data-tab="technical">Technical Skills</button>
+            <!-- Money Board -->
+            <div class="tool-card" onclick="openAgent('money', 'Money Board', '💰')">
+                <span class="tool-icon">💰</span>
+                <span class="tool-badge">Monetization</span>
+                <h3>Money Board</h3>
+                <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
+                <ul class="tool-features">
+                    <li>Brand partnership alerts</li>
+                    <li>UGC gig opportunities</li>
+                    <li>Revenue optimization tips</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
 
-            <!-- All Courses Tab -->
-            <div id="all-courses" class="tab-content active">
-                <div class="courses-grid">
-                    <div class="course-card">
-                        <div class="course-icon">💼</div>
-                        <span class="course-badge">Monetization</span>
-                        <h3>Brand Deals Masterclass</h3>
-                        <p>Learn how to land, negotiate, and close high-paying brand partnerships that align with your content.</p>
-                        <div class="course-meta">
-                            <span>📚 12 Lessons</span>
-                            <span>⏱️ 3.5 hours</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card">
-                        <div class="course-icon">🎬</div>
-                        <span class="course-badge">Content</span>
-                        <h3>UGC Creation Blueprint</h3>
-                        <p>Master the art of User-Generated Content and turn it into a reliable income stream.</p>
-                        <div class="course-meta">
-                            <span>📚 10 Lessons</span>
-                            <span>⏱️ 2.8 hours</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card">
-                        <div class="course-icon">📈</div>
-                        <span class="course-badge">Growth</span>
-                        <h3>Algorithm Mastery</h3>
-                        <p>Understand platform algorithms and optimize your content for maximum reach and engagement.</p>
-                        <div class="course-meta">
-                            <span>📚 8 Lessons</span>
-                            <span>⏱️ 2.2 hours</span>
-                        </div>
-                    </div>
-
-                    <div class="empty-card">
-                        <div class="icon">📦</div>
-                        <h4>Coming Soon</h4>
-                        <p>New course in development</p>
-                    </div>
-
-                    <div class="empty-card">
-                        <div class="icon">📦</div>
-                        <h4>Coming Soon</h4>
-                        <p>New course in development</p>
-                    </div>
-
-                    <div class="empty-card">
-                        <div class="icon">📦</div>
-                        <h4>Coming Soon</h4>
-                        <p>New course in development</p>
-                    </div>
-                </div>
+            <!-- Brand Negotiator -->
+            <div class="tool-card" onclick="openAgent('negotiator', 'Brand Negotiator', '🤝')">
+                <span class="tool-icon">🤝</span>
+                <span class="tool-badge">Business</span>
+                <h3>Brand Negotiator</h3>
+                <p>Get expert guidance on negotiating better rates and terms for brand partnerships.</p>
+                <ul class="tool-features">
+                    <li>Rate calculators</li>
+                    <li>Contract review assistance</li>
+                    <li>Negotiation strategies</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
 
-            <!-- Other tabs content... (keeping it simple for now) -->
-            <div id="monetization" class="tab-content">
-                <p style="text-align: center; opacity: 0.6;">Monetization courses coming soon...</p>
+            <!-- Analytics Advisor -->
+            <div class="tool-card" onclick="openAgent('analytics', 'Analytics Advisor', '📊')">
+                <span class="tool-icon">📊</span>
+                <span class="tool-badge">Analytics</span>
+                <h3>Analytics Advisor</h3>
+                <p>Analyze your performance data and get actionable insights to grow your audience.</p>
+                <ul class="tool-features">
+                    <li>Performance analysis</li>
+                    <li>Growth recommendations</li>
+                    <li>Content optimization</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
-            <div id="content" class="tab-content">
-                <p style="text-align: center; opacity: 0.6;">Content Strategy courses coming soon...</p>
+
+            <!-- Hook Generator -->
+            <div class="tool-card" onclick="openAgent('hooks', 'Hook Generator', '🎯')">
+                <span class="tool-icon">🎯</span>
+                <span class="tool-badge">Content</span>
+                <h3>Hook Generator</h3>
+                <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
+                <ul class="tool-features">
+                    <li>Viral hook templates</li>
+                    <li>Platform-specific formats</li>
+                    <li>A/B testing suggestions</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
-            <div id="growth" class="tab-content">
-                <p style="text-align: center; opacity: 0.6;">Growth courses coming soon...</p>
+
+            <!-- Trend Radar -->
+            <div class="tool-card" onclick="openAgent('trends', 'Trend Radar', '📡')">
+                <span class="tool-icon">📡</span>
+                <span class="tool-badge">Trends</span>
+                <h3>Trend Radar</h3>
+                <p>Spot emerging trends before they go viral and position your content ahead of the curve.</p>
+                <ul class="tool-features">
+                    <li>Real-time trend detection</li>
+                    <li>Trending sounds & hashtags</li>
+                    <li>Opportunity scoring</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
-            <div id="technical" class="tab-content">
-                <p style="text-align: center; opacity: 0.6;">Technical courses coming soon...</p>
+
+            <!-- Insight Vault -->
+            <div class="tool-card" onclick="openAgent('insights', 'Insight Vault', '🧠')">
+                <span class="tool-icon">🧠</span>
+                <span class="tool-badge">Knowledge</span>
+                <h3>Insight Vault</h3>
+                <p>Store and organize your learnings, insights, and content strategies in one place.</p>
+                <ul class="tool-features">
+                    <li>Knowledge management</li>
+                    <li>Quick reference library</li>
+                    <li>Best practices archive</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Tool Watch -->
+            <div class="tool-card coming-soon">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <span class="tool-icon">🔧</span>
+                <span class="tool-badge">Resources</span>
+                <h3>Tool Watch</h3>
+                <p>Discover and track the latest creator tools, software, and platforms.</p>
+                <ul class="tool-features">
+                    <li>New tool alerts</li>
+                    <li>Tool comparisons</li>
+                    <li>Discount tracking</li>
+                </ul>
+                <button class="cta-button">Coming Soon</button>
+            </div>
+
+            <!-- Creator Toolkit -->
+            <div class="tool-card" onclick="openAgent('toolkit', 'Creator Toolkit', '🛠️')">
+                <span class="tool-icon">🛠️</span>
+                <span class="tool-badge">Utilities</span>
+                <h3>Creator Toolkit</h3>
+                <p>Access quick utilities like thumbnail makers, caption formatters, and schedule planners.</p>
+                <ul class="tool-features">
+                    <li>Thumbnail generator</li>
+                    <li>Caption formatter</li>
+                    <li>Posting scheduler</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    <!-- Modal for Agent -->
+    <div class="modal" id="agentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span id="modalIcon">📰</span>
+                    <span id="modalTitle">Creator News Pulse</span>
+                </div>
+                <button class="close-btn" onclick="closeAgent()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading AI Agent...</p>
+                </div>
+                <iframe id="agentFrame" class="agent-iframe" style="display: none;"></iframe>
+            </div>
+        </div>
+    </div>
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBmc4eoiEwi0OEWetRwJXzWFxAp5uK4tQQ",
-            authDomain: "postpal-92bb7.firebaseapp.com",
-            projectId: "postpal-92bb7",
-            storageBucket: "postpal-92bb7.firebasestorage.app",
-            messagingSenderId: "519381531859",
-            appId: "1:519381531859:web:b3c548bbbb5b67968a6826",
-            measurementId: "G-WT2JW9CYLV"
+    <script>
+        // Agent configurations - ALL AGENTS READY!
+        const agents = {
+            news: {
+                workflowId: 'wf_68f860f9d6288f9096b162e1652c12c00f2947fdddff7683',
+                version: 'draft'
+            },
+            toolkit: {
+                workflowId: 'wf_68f6f56eef8881f90bbb4c09e508c344530f45d5573eff7ffc',
+                version: 'draft'
+            },
+            negotiator: {
+                workflowId: 'wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f',
+                version: 'draft'
+            },
+            analytics: {
+                workflowId: 'wf_68f6f5fac4e308190b5848c6b8ba039450504fe6a0cdd665b2',
+                version: 'draft'
+            },
+            insights: {
+                workflowId: 'wf_68f6f5fbf737461903967cbd27e41a03ce07ebdf78202054a71',
+                version: 'draft'
+            },
+            money: {
+                workflowId: 'wf_68f6f5e76418019086b3ce057ef886f7606d9b4ff9abf3e24',
+                version: 'draft'
+            },
+            trends: {
+                workflowId: 'wf_68becdb7c3acB190b7b5b7ac6a38d18509bfaf5c93b5d5add',
+                version: 'draft'
+            },
+            hooks: {
+                workflowId: 'wf_68f6f5f3843fc81f90895c7f9a04485b7be0e3924faac533ffa',
+                version: 'draft'
+            },
+            toolwatch: {
+                workflowId: 'wf_68f6f5ffb97a881f90eaad7afb8a09cbdf0bf9efb8e74959fc',
+                version: 'draft'
+            }
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        function openAgent(agentKey, title, icon) {
+            const modal = document.getElementById('agentModal');
+            const iframe = document.getElementById('agentFrame');
+            const loading = document.getElementById('loadingState');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIcon = document.getElementById('modalIcon');
 
-        // Check auth state
-        onAuthStateChanged(auth, (user) => {
-            const loadingState = document.getElementById('loadingState');
-            const mainContent = document.getElementById('mainContent');
+            // Update modal header
+            modalTitle.textContent = title;
+            modalIcon.textContent = icon;
 
-            if (user) {
-                // User is signed in
-                console.log('User logged in:', user);
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Build ChatKit embed URL
+            const agent = agents[agentKey];
+            if (agent) {
+                const embedUrl = `https://chatkit.app/embed/${agent.workflowId}?version=${agent.version}`;
                 
-                // Show user info
-                const userName = user.displayName || localStorage.getItem('userName') || 'Creator';
-                const userTier = localStorage.getItem('userTier') || 'free';
+                // Show loading
+                loading.style.display = 'block';
+                iframe.style.display = 'none';
                 
-                document.getElementById('userName').textContent = `Welcome, ${userName}!`;
-                document.getElementById('userTier').textContent = userTier === 'pro' ? 'Pro' : 'Free';
+                // Load iframe
+                iframe.src = embedUrl;
                 
-                // Hide loading, show content
-                loadingState.style.display = 'none';
-                mainContent.style.display = 'block';
-            } else {
-                // No user signed in - redirect to signup
-                console.log('No user logged in, redirecting...');
-                window.location.href = 'community.html';
+                // Hide loading when iframe loads
+                iframe.onload = () => {
+                    loading.style.display = 'none';
+                    iframe.style.display = 'block';
+                };
+            }
+        }
+
+        function closeAgent() {
+            const modal = document.getElementById('agentModal');
+            const iframe = document.getElementById('agentFrame');
+            
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Clear iframe to stop any ongoing processes
+            iframe.src = '';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('agentModal').addEventListener('click', (e) => {
+            if (e.target.id === 'agentModal') {
+                closeAgent();
             }
         });
 
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                localStorage.clear();
-                window.location.href = 'index.html';
-            } catch (error) {
-                console.error('Error signing out:', error);
-                alert('Error signing out. Please try again.');
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAgent();
             }
-        });
-
-        // Tab switching
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.tab;
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                    if (content.id === targetTab) {
-                        content.classList.add('active');
-                    }
-                });
-            });
         });
     </script>
 </body>
