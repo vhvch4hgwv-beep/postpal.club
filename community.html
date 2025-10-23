@@ -122,6 +122,38 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
+        /* Mode Toggle Styles */
+        .auth-mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+
         .signup-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -139,6 +171,11 @@
 
         .form-group {
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group.hidden {
+            display: none;
         }
 
         .form-group label {
@@ -174,6 +211,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tier-selection.hidden {
+            display: none;
         }
 
         .tier-option {
@@ -399,12 +441,19 @@
                 </div>
 
                 <div class="signup-card">
-                    <div class="signup-header">
-                        <h2>Get Started Today</h2>
-                        <p>Choose your path and create your account</p>
+                    <!-- Mode Toggle -->
+                    <div class="auth-mode-toggle">
+                        <button class="mode-btn active" id="signupModeBtn">Sign Up</button>
+                        <button class="mode-btn" id="loginModeBtn">Log In</button>
                     </div>
 
-                    <div class="tier-selection">
+                    <div class="signup-header">
+                        <h2 id="authTitle">Get Started Today</h2>
+                        <p id="authSubtitle">Choose your path and create your account</p>
+                    </div>
+
+                    <!-- Tier selection - only shown in signup mode -->
+                    <div class="tier-selection" id="tierSelection">
                         <label class="tier-option selected" for="free-tier">
                             <input type="radio" name="tier" id="free-tier" value="free" checked>
                             <div class="tier-name">Free Explorer</div>
@@ -423,10 +472,11 @@
 
                     <div id="errorMessage" class="error-message"></div>
 
-                    <form id="signupForm">
-                        <div class="form-group">
+                    <form id="authForm">
+                        <!-- Name field - only shown in signup mode -->
+                        <div class="form-group" id="nameGroup">
                             <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name">
                         </div>
 
                         <div class="form-group">
@@ -436,7 +486,7 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="Create a secure password (min 6 characters)" required minlength="6">
+                            <input type="password" id="password" name="password" placeholder="Enter your password (min 6 characters)" required minlength="6">
                         </div>
 
                         <button type="submit" class="cta-button" id="submitBtn">Create My Account</button>
@@ -474,12 +524,12 @@
                         </div>
                         <div class="trust-badge">
                             <span>✓</span>
-                            <span>No credit card required for free</span>
+                            <span id="trustText">No credit card required for free</span>
                         </div>
                     </div>
 
                     <div class="already-member">
-                        Already a member? <a href="#" id="loginLink">Log in here</a>
+                        <span id="switchModeText">Already a member? <a href="#" id="switchModeLink">Log in here</a></span>
                     </div>
                 </div>
             </div>
@@ -489,9 +539,9 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-        // Your Firebase configuration
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBmc4eoiEwi0OEWetRwJXzWFxAp5uK4tQQ",
             authDomain: "postpal-92bb7.firebaseapp.com",
@@ -507,11 +557,26 @@
         const auth = getAuth(app);
 
         // UI Elements
-        const signupForm = document.getElementById('signupForm');
+        const authForm = document.getElementById('authForm');
         const submitBtn = document.getElementById('submitBtn');
         const errorMessage = document.getElementById('errorMessage');
         const googleSignInBtn = document.getElementById('googleSignIn');
         const githubSignInBtn = document.getElementById('githubSignIn');
+        
+        // Mode toggle elements
+        const signupModeBtn = document.getElementById('signupModeBtn');
+        const loginModeBtn = document.getElementById('loginModeBtn');
+        const authTitle = document.getElementById('authTitle');
+        const authSubtitle = document.getElementById('authSubtitle');
+        const nameGroup = document.getElementById('nameGroup');
+        const tierSelection = document.getElementById('tierSelection');
+        const switchModeText = document.getElementById('switchModeText');
+        const switchModeLink = document.getElementById('switchModeLink');
+        const trustText = document.getElementById('trustText');
+        const nameInput = document.getElementById('name');
+
+        // Track current mode
+        let isSignupMode = true;
 
         // Show error message
         function showError(message) {
@@ -521,6 +586,64 @@
                 errorMessage.style.display = 'none';
             }, 5000);
         }
+
+        // Switch to signup mode
+        function switchToSignup() {
+            isSignupMode = true;
+            signupModeBtn.classList.add('active');
+            loginModeBtn.classList.remove('active');
+            
+            authTitle.textContent = 'Get Started Today';
+            authSubtitle.textContent = 'Choose your path and create your account';
+            submitBtn.textContent = 'Create My Account';
+            
+            nameGroup.classList.remove('hidden');
+            tierSelection.classList.remove('hidden');
+            nameInput.required = true;
+            
+            switchModeText.innerHTML = 'Already a member? <a href="#" id="switchModeLink">Log in here</a>';
+            trustText.textContent = 'No credit card required for free';
+            
+            // Re-attach event listener to new link
+            document.getElementById('switchModeLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchToLogin();
+            });
+        }
+
+        // Switch to login mode
+        function switchToLogin() {
+            isSignupMode = false;
+            loginModeBtn.classList.add('active');
+            signupModeBtn.classList.remove('active');
+            
+            authTitle.textContent = 'Welcome Back';
+            authSubtitle.textContent = 'Log in to access your AI toolkit';
+            submitBtn.textContent = 'Log In';
+            
+            nameGroup.classList.add('hidden');
+            tierSelection.classList.add('hidden');
+            nameInput.required = false;
+            
+            switchModeText.innerHTML = 'Don\'t have an account? <a href="#" id="switchModeLink">Sign up here</a>';
+            trustText.textContent = 'Your data is secure';
+            
+            // Re-attach event listener to new link
+            document.getElementById('switchModeLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchToSignup();
+            });
+        }
+
+        // Mode toggle button listeners
+        signupModeBtn.addEventListener('click', switchToSignup);
+        loginModeBtn.addEventListener('click', switchToLogin);
+        
+        // Initial switch mode link listener
+        switchModeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchToLogin();
+        });
 
         // Tier selection
         const tierOptions = document.querySelectorAll('.tier-option');
@@ -534,65 +657,88 @@
             });
         });
 
-        // Email/Password Sign Up
-        signupForm.addEventListener('submit', async (e) => {
+        // Form submission (handles both signup and login)
+        authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const tier = document.querySelector('input[name="tier"]:checked').value;
 
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating Account...';
+            submitBtn.textContent = isSignupMode ? 'Creating Account...' : 'Logging In...';
 
             try {
-                // Create user account
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                
-                // Update user profile with name
-                await updateProfile(userCredential.user, {
-                    displayName: name
-                });
+                if (isSignupMode) {
+                    // SIGNUP MODE
+                    const name = document.getElementById('name').value;
+                    const tier = document.querySelector('input[name="tier"]:checked').value;
 
-                // Store tier in localStorage
-                localStorage.setItem('userTier', tier);
-                localStorage.setItem('userName', name);
+                    // Create user account
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    
+                    // Update user profile with name
+                    await updateProfile(userCredential.user, {
+                        displayName: name
+                    });
 
-                console.log('User created successfully:', userCredential.user);
+                    // Store tier in localStorage
+                    localStorage.setItem('userTier', tier);
+                    localStorage.setItem('userName', name);
+
+                    console.log('User created successfully:', userCredential.user);
+                } else {
+                    // LOGIN MODE
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    
+                    // Load existing tier or default to free
+                    const existingTier = localStorage.getItem('userTier') || 'free';
+                    const existingName = userCredential.user.displayName || localStorage.getItem('userName') || 'Creator';
+                    
+                    localStorage.setItem('userTier', existingTier);
+                    localStorage.setItem('userName', existingName);
+
+                    console.log('User logged in successfully:', userCredential.user);
+                }
                 
                 // Redirect to dashboard
                 window.location.href = 'courses.html';
 
             } catch (error) {
-                console.error('Error signing up:', error);
+                console.error('Error:', error);
                 
-                let errorMsg = 'Failed to create account. ';
+                let errorMsg = isSignupMode ? 'Failed to create account. ' : 'Failed to log in. ';
+                
                 if (error.code === 'auth/email-already-in-use') {
                     errorMsg += 'This email is already registered.';
                 } else if (error.code === 'auth/weak-password') {
                     errorMsg += 'Password should be at least 6 characters.';
                 } else if (error.code === 'auth/invalid-email') {
                     errorMsg += 'Invalid email address.';
+                } else if (error.code === 'auth/user-not-found') {
+                    errorMsg += 'No account found with this email.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMsg += 'Incorrect password.';
+                } else if (error.code === 'auth/invalid-credential') {
+                    errorMsg += 'Invalid email or password.';
                 } else {
                     errorMsg += error.message;
                 }
                 
                 showError(errorMsg);
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Create My Account';
+                submitBtn.textContent = isSignupMode ? 'Create My Account' : 'Log In';
             }
         });
 
-        // Google Sign In
+        // Google Sign In (works for both signup and login)
         googleSignInBtn.addEventListener('click', async () => {
             const provider = new GoogleAuthProvider();
             try {
                 const result = await signInWithPopup(auth, provider);
                 console.log('Google sign-in successful:', result.user);
                 
-                // Store default tier
-                const tier = document.querySelector('input[name="tier"]:checked').value;
+                // Store tier (use existing or default)
+                const tier = localStorage.getItem('userTier') || (isSignupMode ? document.querySelector('input[name="tier"]:checked').value : 'free');
                 localStorage.setItem('userTier', tier);
                 localStorage.setItem('userName', result.user.displayName);
                 
@@ -603,15 +749,15 @@
             }
         });
 
-        // GitHub Sign In
+        // GitHub Sign In (works for both signup and login)
         githubSignInBtn.addEventListener('click', async () => {
             const provider = new GithubAuthProvider();
             try {
                 const result = await signInWithPopup(auth, provider);
                 console.log('GitHub sign-in successful:', result.user);
                 
-                // Store default tier
-                const tier = document.querySelector('input[name="tier"]:checked').value;
+                // Store tier (use existing or default)
+                const tier = localStorage.getItem('userTier') || (isSignupMode ? document.querySelector('input[name="tier"]:checked').value : 'free');
                 localStorage.setItem('userTier', tier);
                 localStorage.setItem('userName', result.user.displayName);
                 
@@ -620,12 +766,6 @@
                 console.error('GitHub sign-in error:', error);
                 showError('GitHub sign-in failed: ' + error.message);
             }
-        });
-
-        // Login link
-        document.getElementById('loginLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Login page coming soon! For now, just sign up again if you have an account.');
         });
     </script>
 </body>
