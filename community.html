@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Started - PostPal AI</title>
+    <title>Join PostPal - Creator Community & AI Toolkit</title>
+    <meta name="description" content="Join PostPal's creator community. Get access to AI-powered tools, templates, and insights. Free and Pro plans available.">
+    <meta property="og:title" content="Join PostPal - Creator Community">
+    <meta property="og:description" content="All-in-one AI toolkit for content creators">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <style>
         * {
             margin: 0;
@@ -206,6 +211,55 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
+        .form-group input.error {
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .field-error {
+            color: #fca5a5;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .field-error.show {
+            display: block;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .password-strength.show {
+            display: block;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #ef4444;
+        }
+
+        .password-strength-bar.medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #10b981;
+        }
+
         .tier-selection {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -288,7 +342,7 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
-        .cta-button:hover {
+        .cta-button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
         }
@@ -296,6 +350,11 @@
         .cta-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+        }
+
+        .cta-button:focus {
+            outline: 2px solid #8b5cf6;
+            outline-offset: 2px;
         }
 
         .error-message {
@@ -307,6 +366,10 @@
             margin-bottom: 1rem;
             font-size: 0.9rem;
             display: none;
+        }
+
+        .error-message.show {
+            display: block;
         }
 
         .social-signup {
@@ -358,6 +421,11 @@
         .social-button:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-button:focus {
+            outline: 2px solid #8b5cf6;
+            outline-offset: 2px;
         }
 
         .trust-badges {
@@ -442,9 +510,9 @@
 
                 <div class="signup-card">
                     <!-- Mode Toggle -->
-                    <div class="auth-mode-toggle">
-                        <button class="mode-btn active" id="signupModeBtn">Sign Up</button>
-                        <button class="mode-btn" id="loginModeBtn">Log In</button>
+                    <div class="auth-mode-toggle" role="tablist" aria-label="Authentication mode">
+                        <button class="mode-btn active" id="signupModeBtn" role="tab" aria-selected="true" aria-controls="signup-panel">Sign Up</button>
+                        <button class="mode-btn" id="loginModeBtn" role="tab" aria-selected="false" aria-controls="login-panel">Log In</button>
                     </div>
 
                     <div class="signup-header">
@@ -470,26 +538,56 @@
                         </label>
                     </div>
 
-                    <div id="errorMessage" class="error-message"></div>
+                    <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
 
-                    <form id="authForm">
+                    <form id="authForm" novalidate>
                         <!-- Name field - only shown in signup mode -->
                         <div class="form-group" id="nameGroup">
                             <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your full name">
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Enter your full name"
+                                aria-required="true"
+                                aria-describedby="name-error"
+                            >
+                            <div class="field-error" id="name-error"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="your@email.com" 
+                                required
+                                aria-required="true"
+                                aria-describedby="email-error"
+                            >
+                            <div class="field-error" id="email-error"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password (min 6 characters)" required minlength="6">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Enter your password (min 6 characters)" 
+                                required 
+                                minlength="6"
+                                aria-required="true"
+                                aria-describedby="password-error password-strength"
+                            >
+                            <div class="password-strength" id="password-strength" aria-live="polite">
+                                <div class="password-strength-bar"></div>
+                            </div>
+                            <div class="field-error" id="password-error"></div>
                         </div>
 
-                        <button type="submit" class="cta-button" id="submitBtn">Create My Account</button>
+                        <button type="submit" class="cta-button" id="submitBtn" aria-label="Create account or log in">Create My Account</button>
                     </form>
 
                     <div class="social-signup">
@@ -498,8 +596,8 @@
                         </div>
 
                         <div class="social-buttons">
-                            <button class="social-button" id="googleSignIn" type="button">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <button class="social-button" id="googleSignIn" type="button" aria-label="Sign in with Google">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -508,8 +606,8 @@
                                 Google
                             </button>
 
-                            <button class="social-button" id="githubSignIn" type="button">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <button class="social-button" id="githubSignIn" type="button" aria-label="Sign in with GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                                 </svg>
                                 GitHub
@@ -519,11 +617,11 @@
 
                     <div class="trust-badges">
                         <div class="trust-badge">
-                            <span>🔒</span>
+                            <span role="img" aria-label="Security">🔒</span>
                             <span>Secure</span>
                         </div>
                         <div class="trust-badge">
-                            <span>✓</span>
+                            <span role="img" aria-label="Verified">✓</span>
                             <span id="trustText">No credit card required for free</span>
                         </div>
                     </div>
@@ -539,7 +637,7 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
         // Firebase configuration
         const firebaseConfig = {
@@ -555,6 +653,14 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+
+        // Check if user is already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'courses.html';
+            }
+        });
 
         // UI Elements
         const authForm = document.getElementById('authForm');
@@ -574,16 +680,91 @@
         const switchModeLink = document.getElementById('switchModeLink');
         const trustText = document.getElementById('trustText');
         const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
         // Track current mode
         let isSignupMode = true;
 
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function validateName(name) {
+            return name.trim().length >= 2;
+        }
+
+        function showFieldError(fieldId, message) {
+            const input = document.getElementById(fieldId);
+            const error = document.getElementById(`${fieldId}-error`);
+            input.classList.add('error');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+
+        function clearFieldError(fieldId) {
+            const input = document.getElementById(fieldId);
+            const error = document.getElementById(`${fieldId}-error`);
+            input.classList.remove('error');
+            error.classList.remove('show');
+        }
+
+        function clearAllErrors() {
+            ['name', 'email', 'password'].forEach(clearFieldError);
+            errorMessage.classList.remove('show');
+        }
+
+        // Password strength indicator
+        function checkPasswordStrength(password) {
+            const strengthBar = document.querySelector('.password-strength-bar');
+            const strengthIndicator = document.getElementById('password-strength');
+            
+            if (password.length === 0) {
+                strengthIndicator.classList.remove('show');
+                return;
+            }
+            
+            strengthIndicator.classList.add('show');
+            
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            
+            strengthBar.className = 'password-strength-bar';
+            if (strength <= 2) {
+                strengthBar.classList.add('weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('medium');
+            } else {
+                strengthBar.classList.add('strong');
+            }
+        }
+
+        passwordInput.addEventListener('input', (e) => {
+            checkPasswordStrength(e.target.value);
+            if (e.target.value.length > 0) {
+                clearFieldError('password');
+            }
+        });
+
+        emailInput.addEventListener('input', () => clearFieldError('email'));
+        nameInput.addEventListener('input', () => clearFieldError('name'));
+
         // Show error message
         function showError(message) {
             errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
+            errorMessage.classList.add('show');
             setTimeout(() => {
-                errorMessage.style.display = 'none';
+                errorMessage.classList.remove('show');
             }, 5000);
         }
 
@@ -591,7 +772,9 @@
         function switchToSignup() {
             isSignupMode = true;
             signupModeBtn.classList.add('active');
+            signupModeBtn.setAttribute('aria-selected', 'true');
             loginModeBtn.classList.remove('active');
+            loginModeBtn.setAttribute('aria-selected', 'false');
             
             authTitle.textContent = 'Get Started Today';
             authSubtitle.textContent = 'Choose your path and create your account';
@@ -604,6 +787,8 @@
             switchModeText.innerHTML = 'Already a member? <a href="#" id="switchModeLink">Log in here</a>';
             trustText.textContent = 'No credit card required for free';
             
+            clearAllErrors();
+            
             // Re-attach event listener to new link
             document.getElementById('switchModeLink').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -615,7 +800,9 @@
         function switchToLogin() {
             isSignupMode = false;
             loginModeBtn.classList.add('active');
+            loginModeBtn.setAttribute('aria-selected', 'true');
             signupModeBtn.classList.remove('active');
+            signupModeBtn.setAttribute('aria-selected', 'false');
             
             authTitle.textContent = 'Welcome Back';
             authSubtitle.textContent = 'Log in to access your AI toolkit';
@@ -627,6 +814,8 @@
             
             switchModeText.innerHTML = 'Don\'t have an account? <a href="#" id="switchModeLink">Sign up here</a>';
             trustText.textContent = 'Your data is secure';
+            
+            clearAllErrors();
             
             // Re-attach event listener to new link
             document.getElementById('switchModeLink').addEventListener('click', (e) => {
@@ -661,8 +850,35 @@
         authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            clearAllErrors();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Validation
+            let hasErrors = false;
+            
+            if (!validateEmail(email)) {
+                showFieldError('email', 'Please enter a valid email address');
+                hasErrors = true;
+            }
+            
+            if (!validatePassword(password)) {
+                showFieldError('password', 'Password must be at least 6 characters');
+                hasErrors = true;
+            }
+            
+            if (isSignupMode) {
+                const name = nameInput.value.trim();
+                if (!validateName(name)) {
+                    showFieldError('name', 'Please enter your full name');
+                    hasErrors = true;
+                }
+            }
+            
+            if (hasErrors) {
+                return;
+            }
 
             submitBtn.disabled = true;
             submitBtn.textContent = isSignupMode ? 'Creating Account...' : 'Logging In...';
@@ -670,7 +886,7 @@
             try {
                 if (isSignupMode) {
                     // SIGNUP MODE
-                    const name = document.getElementById('name').value;
+                    const name = nameInput.value.trim();
                     const tier = document.querySelector('input[name="tier"]:checked').value;
 
                     // Create user account
@@ -709,22 +925,21 @@
                 let errorMsg = isSignupMode ? 'Failed to create account. ' : 'Failed to log in. ';
                 
                 if (error.code === 'auth/email-already-in-use') {
-                    errorMsg += 'This email is already registered.';
+                    showFieldError('email', 'This email is already registered');
                 } else if (error.code === 'auth/weak-password') {
-                    errorMsg += 'Password should be at least 6 characters.';
+                    showFieldError('password', 'Password should be at least 6 characters');
                 } else if (error.code === 'auth/invalid-email') {
-                    errorMsg += 'Invalid email address.';
+                    showFieldError('email', 'Invalid email address');
                 } else if (error.code === 'auth/user-not-found') {
-                    errorMsg += 'No account found with this email.';
+                    showFieldError('email', 'No account found with this email');
                 } else if (error.code === 'auth/wrong-password') {
-                    errorMsg += 'Incorrect password.';
+                    showFieldError('password', 'Incorrect password');
                 } else if (error.code === 'auth/invalid-credential') {
-                    errorMsg += 'Invalid email or password.';
+                    showError('Invalid email or password');
                 } else {
-                    errorMsg += error.message;
+                    showError(errorMsg + error.message);
                 }
                 
-                showError(errorMsg);
                 submitBtn.disabled = false;
                 submitBtn.textContent = isSignupMode ? 'Create My Account' : 'Log In';
             }
