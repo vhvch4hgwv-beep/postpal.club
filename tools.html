@@ -299,28 +299,6 @@
             background: white;
         }
 
-        .loading-state {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(139, 92, 246, 0.2);
-            border-top-color: #8b5cf6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Coming Soon Badge */
         .coming-soon {
             opacity: 0.6;
@@ -518,69 +496,27 @@
                 <button class="close-btn" onclick="closeAgent()">×</button>
             </div>
             <div class="modal-body">
-                <div class="loading-state" id="loadingState">
-                    <div class="loading-spinner"></div>
-                    <p>Loading AI Agent...</p>
-                </div>
-                <iframe id="agentFrame" class="agent-iframe" style="display: none;"></iframe>
+                <iframe id="agentFrame" class="agent-iframe"></iframe>
             </div>
         </div>
     </div>
 
     <script>
-        // Agent configurations - Try published first, fallback to draft
+        // Agent configurations
         const agents = {
-            news: {
-                workflowId: 'wf_68f860f9d6288f9096b162e1652c12c00f2947fdddff7683',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            toolkit: {
-                workflowId: 'wf_68f6f56eef8881f90bbb4c09e508c344530f45d5573eff7ffc',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            negotiator: {
-                workflowId: 'wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            analytics: {
-                workflowId: 'wf_68f6f5fac4e308190b5848c6b8ba039450504fe6a0cdd665b2',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            insights: {
-                workflowId: 'wf_68f6f5fbf737461903967cbd27e41a03ce07ebdf78202054a71',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            money: {
-                workflowId: 'wf_68f6f5e76418019086b3ce057ef886f7606d9b4ff9abf3e24',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            trends: {
-                workflowId: 'wf_68becdb7c3acB190b7b5b7ac6a38d18509bfaf5c93b5d5add',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            hooks: {
-                workflowId: 'wf_68f6f5f3843fc81f90895c7f9a04485b7be0e3924faac533ffa',
-                version: 'published',
-                fallbackVersion: 'draft'
-            },
-            toolwatch: {
-                workflowId: 'wf_68f6f5ffb97a881f90eaad7afb8a09cbdf0bf9efb8e74959fc',
-                version: 'published',
-                fallbackVersion: 'draft'
-            }
+            hooks: 'wf_68f6f5f3843fc81f90895c7f9a04485b7be0e3924faac533ffa',
+            news: 'wf_68f860f9d6288f9096b162e1652c12c00f2947fdddff7683',
+            toolkit: 'wf_68f6f56eef8881f90bbb4c09e508c344530f45d5573eff7ffc',
+            negotiator: 'wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f',
+            analytics: 'wf_68f6f5fac4e308190b5848c6b8ba039450504fe6a0cdd665b2',
+            insights: 'wf_68f6f5fbf737461903967cbd27e41a03ce07ebdf78202054a71',
+            money: 'wf_68f6f5e76418019086b3ce057ef886f7606d9b4ff9abf3e24',
+            trends: 'wf_68becdb7c3acB190b7b5b7ac6a38d18509bfaf5c93b5d5add'
         };
 
         function openAgent(agentKey, title, icon) {
             const modal = document.getElementById('agentModal');
             const iframe = document.getElementById('agentFrame');
-            const loading = document.getElementById('loadingState');
             const modalTitle = document.getElementById('modalTitle');
             const modalIcon = document.getElementById('modalIcon');
 
@@ -588,78 +524,25 @@
             modalTitle.textContent = title;
             modalIcon.textContent = icon;
 
+            // Get workflow ID
+            const workflowId = agents[agentKey];
+
+            if (!workflowId) {
+                alert('Agent not configured');
+                return;
+            }
+
+            // Build embed URL
+            const embedUrl = `https://chatkit.app/embed/${workflowId}?version=1`;
+            
+            console.log('🚀 Loading ChatKit agent:', embedUrl);
+
+            // Set iframe source
+            iframe.src = embedUrl;
+
             // Show modal
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            // Build ChatKit embed URL
-            const agent = agents[agentKey];
-            if (agent) {
-                let embedUrl = `https://chatkit.app/embed/${agent.workflowId}?version=${agent.version}`;
-                
-                console.log('Loading agent:', agentKey, 'URL:', embedUrl);
-                
-                // Show loading
-                loading.style.display = 'block';
-                loading.innerHTML = '<div class="loading-spinner"></div><p>Loading AI Agent...</p>';
-                iframe.style.display = 'none';
-                
-                // Track if we've tried fallback
-                let triedFallback = false;
-                
-                // Load iframe
-                iframe.src = embedUrl;
-                
-                // Set timeout for loading
-                const loadTimeout = setTimeout(() => {
-                    if (iframe.style.display === 'none' && !triedFallback && agent.fallbackVersion) {
-                        // Try fallback version
-                        console.log('Trying fallback version:', agent.fallbackVersion);
-                        triedFallback = true;
-                        embedUrl = `https://chatkit.app/embed/${agent.workflowId}?version=${agent.fallbackVersion}`;
-                        iframe.src = embedUrl;
-                        loading.innerHTML = '<div class="loading-spinner"></div><p>Loading AI Agent (draft version)...</p>';
-                    }
-                }, 5000);
-                
-                // Hide loading when iframe loads
-                iframe.onload = () => {
-                    clearTimeout(loadTimeout);
-                    
-                    // Check if iframe actually loaded content (not a 404 page)
-                    try {
-                        // If we can't access iframe content due to CORS, assume it loaded
-                        loading.style.display = 'none';
-                        iframe.style.display = 'block';
-                    } catch (e) {
-                        // CORS error is expected and means the iframe loaded
-                        loading.style.display = 'none';
-                        iframe.style.display = 'block';
-                    }
-                };
-
-                // Error handling
-                iframe.onerror = () => {
-                    clearTimeout(loadTimeout);
-                    if (!triedFallback && agent.fallbackVersion) {
-                        // Try fallback version on error
-                        console.log('Error loading, trying fallback version:', agent.fallbackVersion);
-                        triedFallback = true;
-                        embedUrl = `https://chatkit.app/embed/${agent.workflowId}?version=${agent.fallbackVersion}`;
-                        iframe.src = embedUrl;
-                        loading.innerHTML = '<div class="loading-spinner"></div><p>Loading AI Agent (draft version)...</p>';
-                    } else {
-                        loading.innerHTML = `
-                            <div style="color: #ef4444; text-align: center;">
-                                <p style="font-size: 2rem; margin-bottom: 1rem;">❌</p>
-                                <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Failed to load agent</p>
-                                <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 1rem;">Please make sure the workflow is published in ChatKit</p>
-                                <button onclick="closeAgent()" style="padding: 0.75rem 1.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; cursor: pointer; font-size: 1rem;">Close</button>
-                            </div>
-                        `;
-                    }
-                };
-            }
         }
 
         function closeAgent() {
@@ -669,7 +552,7 @@
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
             
-            // Clear iframe to stop any ongoing processes
+            // Clear iframe
             iframe.src = '';
         }
 
@@ -686,6 +569,8 @@
                 closeAgent();
             }
         });
+
+        console.log('✅ PostPal AI Tools Ready');
     </script>
 </body>
 </html>
