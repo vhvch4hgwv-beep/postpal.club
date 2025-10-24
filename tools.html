@@ -207,98 +207,6 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            padding: 2rem;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a3e 0%, #0a0a15 100%);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 1200px;
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .close-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .agent-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
-        }
-
         /* Coming Soon Badge */
         .coming-soon {
             opacity: 0.6;
@@ -321,15 +229,6 @@
         @media (max-width: 768px) {
             .tools-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .modal {
-                padding: 0;
-            }
-
-            .modal-content {
-                height: 100vh;
-                border-radius: 0;
             }
         }
     </style>
@@ -357,7 +256,7 @@
 
         <div class="tools-grid">
             <!-- Creator News Pulse -->
-            <div class="tool-card" onclick="openAgent('news', 'Creator News Pulse', '📰')">
+            <div class="tool-card" onclick="window.location.href='creator-news-pulse.html'">
                 <span class="tool-icon">📰</span>
                 <span class="tool-badge">Daily Updates</span>
                 <h3>Creator News Pulse</h3>
@@ -371,7 +270,7 @@
             </div>
 
             <!-- Money Board -->
-            <div class="tool-card" onclick="openAgent('money', 'Money Board', '💰')">
+            <div class="tool-card" onclick="window.location.href='money-board.html'">
                 <span class="tool-icon">💰</span>
                 <span class="tool-badge">Monetization</span>
                 <h3>Money Board</h3>
@@ -385,7 +284,7 @@
             </div>
 
             <!-- Brand Negotiator -->
-            <div class="tool-card" onclick="openAgent('negotiator', 'Brand Negotiator', '🤝')">
+            <div class="tool-card" onclick="window.location.href='brand-negotiator.html'">
                 <span class="tool-icon">🤝</span>
                 <span class="tool-badge">Business</span>
                 <h3>Brand Negotiator</h3>
@@ -399,7 +298,7 @@
             </div>
 
             <!-- Analytics Advisor -->
-            <div class="tool-card" onclick="openAgent('analytics', 'Analytics Advisor', '📊')">
+            <div class="tool-card" onclick="window.location.href='analytics-advisor.html'">
                 <span class="tool-icon">📊</span>
                 <span class="tool-badge">Analytics</span>
                 <h3>Analytics Advisor</h3>
@@ -413,7 +312,7 @@
             </div>
 
             <!-- Hook Generator -->
-            <div class="tool-card" onclick="openAgent('hooks', 'Hook Generator', '🎯')">
+            <div class="tool-card" onclick="window.location.href='hook-generator.html'">
                 <span class="tool-icon">🎯</span>
                 <span class="tool-badge">Content</span>
                 <h3>Hook Generator</h3>
@@ -427,7 +326,7 @@
             </div>
 
             <!-- Trend Radar -->
-            <div class="tool-card" onclick="openAgent('trends', 'Trend Radar', '📡')">
+            <div class="tool-card" onclick="window.location.href='trend-radar.html'">
                 <span class="tool-icon">📡</span>
                 <span class="tool-badge">Trends</span>
                 <h3>Trend Radar</h3>
@@ -441,7 +340,7 @@
             </div>
 
             <!-- Insight Vault -->
-            <div class="tool-card" onclick="openAgent('insights', 'Insight Vault', '🧠')">
+            <div class="tool-card" onclick="window.location.href='insight-vault.html'">
                 <span class="tool-icon">🧠</span>
                 <span class="tool-badge">Knowledge</span>
                 <h3>Insight Vault</h3>
@@ -470,7 +369,7 @@
             </div>
 
             <!-- Creator Toolkit -->
-            <div class="tool-card" onclick="openAgent('toolkit', 'Creator Toolkit', '🛠️')">
+            <div class="tool-card" onclick="window.location.href='creator-toolkit.html'">
                 <span class="tool-icon">🛠️</span>
                 <span class="tool-badge">Utilities</span>
                 <h3>Creator Toolkit</h3>
@@ -485,91 +384,7 @@
         </div>
     </div>
 
-    <!-- Modal for Agent -->
-    <div class="modal" id="agentModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <span id="modalIcon">📰</span>
-                    <span id="modalTitle">Creator News Pulse</span>
-                </div>
-                <button class="close-btn" onclick="closeAgent()">×</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="agentFrame" class="agent-iframe"></iframe>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Agent configurations
-        const agents = {
-            hooks: 'wf_68f6f5f3843fc81f90895c7f9a04485b7be0e3924faac533ffa',
-            news: 'wf_68f860f9d6288f9096b162e1652c12c00f2947fdddff7683',
-            toolkit: 'wf_68f6f56eef8881f90bbb4c09e508c344530f45d5573eff7ffc',
-            negotiator: 'wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f',
-            analytics: 'wf_68f6f5fac4e308190b5848c6b8ba039450504fe6a0cdd665b2',
-            insights: 'wf_68f6f5fbf737461903967cbd27e41a03ce07ebdf78202054a71',
-            money: 'wf_68f6f5e76418019086b3ce057ef886f7606d9b4ff9abf3e24',
-            trends: 'wf_68becdb7c3acB190b7b5b7ac6a38d18509bfaf5c93b5d5add'
-        };
-
-        function openAgent(agentKey, title, icon) {
-            const modal = document.getElementById('agentModal');
-            const iframe = document.getElementById('agentFrame');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalIcon = document.getElementById('modalIcon');
-
-            // Update modal header
-            modalTitle.textContent = title;
-            modalIcon.textContent = icon;
-
-            // Get workflow ID
-            const workflowId = agents[agentKey];
-
-            if (!workflowId) {
-                alert('Agent not configured');
-                return;
-            }
-
-            // Build embed URL
-            const embedUrl = `https://chatkit.app/embed/${workflowId}?version=1`;
-            
-            console.log('🚀 Loading ChatKit agent:', embedUrl);
-
-            // Set iframe source
-            iframe.src = embedUrl;
-
-            // Show modal
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAgent() {
-            const modal = document.getElementById('agentModal');
-            const iframe = document.getElementById('agentFrame');
-            
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Clear iframe
-            iframe.src = '';
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('agentModal').addEventListener('click', (e) => {
-            if (e.target.id === 'agentModal') {
-                closeAgent();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeAgent();
-            }
-        });
-
         console.log('✅ PostPal AI Tools Ready');
     </script>
 </body>
