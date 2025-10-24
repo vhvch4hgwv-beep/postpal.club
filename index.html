@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostPal - Build Your Empire with the Community</title>
+    <title>PostPal - AI-Powered Creator Toolkit | Build Your Creator Empire</title>
+    <meta name="description" content="All-in-one AI toolkit for content creators. Get AI-powered scripts, hooks, analytics, trend detection, and brand deal assistance. Join 10,000+ creators.">
+    <meta property="og:title" content="PostPal - AI-Powered Creator Toolkit">
+    <meta property="og:description" content="Your all-in-one desktop toolkit for creators — packed with AI tools, templates, and real-time insights">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://postpal.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PostPal - AI Creator Toolkit">
+    <meta name="twitter:description" content="AI tools for content creators - scripts, analytics, trends & more">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
     <style>
         * {
             margin: 0;
@@ -124,6 +136,11 @@
 
         .cta-button:active {
             transform: translateY(-1px);
+        }
+
+        .cta-button:focus {
+            outline: 2px solid #8b5cf6;
+            outline-offset: 4px;
         }
 
         /* Floating particles effect */
@@ -336,6 +353,35 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero {
@@ -369,6 +415,10 @@
             .banner {
                 padding: 1rem 0;
             }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -397,27 +447,9 @@
 <body>
     <section class="hero">
         <!-- Background Scrolling Banner -->
-        <div class="banner">
+        <div class="banner" aria-hidden="true">
             <!-- Row 1 - Moving Right -->
             <div class="banner-row">
-                <span class="banner-item">BRAND&nbsp;DEALS</span>
-                <span class="banner-item outline">UGC</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">STONKS</span>
-                <span class="banner-item outline">SPONSORSHIPS</span>
-                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item">BRAND&nbsp;DEALS</span>
-                <span class="banner-item outline">UGC</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">STONKS</span>
-                <span class="banner-item outline">SPONSORSHIPS</span>
-                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
                 <span class="banner-item">BRAND&nbsp;DEALS</span>
                 <span class="banner-item outline">UGC</span>
                 <span class="banner-item gradient">CRYPTO</span>
@@ -456,42 +488,10 @@
                 <span class="banner-item outline">AI&nbsp;TOOLS</span>
                 <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
                 <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
-                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
-                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item">ALGORITHMS</span>
-                <span class="banner-item outline">AI&nbsp;TOOLS</span>
-                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
-                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
-                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item">ALGORITHMS</span>
-                <span class="banner-item outline">AI&nbsp;TOOLS</span>
-                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
-                <span class="banner-item">MONETIZATION</span>
             </div>
 
             <!-- Row 3 - Moving Right -->
             <div class="banner-row">
-                <span class="banner-item outline">STONKS</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item gradient">SPONSORSHIPS</span>
-                <span class="banner-item">UGC</span>
-                <span class="banner-item outline">AD&nbsp;REVENUE</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item outline">STONKS</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item gradient">SPONSORSHIPS</span>
-                <span class="banner-item">UGC</span>
-                <span class="banner-item outline">AD&nbsp;REVENUE</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
                 <span class="banner-item outline">STONKS</span>
                 <span class="banner-item gradient">CRYPTO</span>
                 <span class="banner-item">PASSIVE&nbsp;INCOME</span>
@@ -524,8 +524,27 @@
             <p>
                 Your all-in-one desktop toolkit for creators and entrepreneurs — packed with AI tools, templates, and real-time insights to help you make smarter, faster, better content.
             </p>
-            <a id="joinBtn" class="btn cta" href="/community.html">Join the Community</a>
+            <a href="community.html" class="cta-button" aria-label="Join the PostPal community">Join the Community</a>
+        </div>
+    </section>
 
+    <!-- Social Proof Stats -->
+    <section class="section">
+        <div class="section-content">
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Active Creators</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$2M+</div>
+                    <div class="stat-label">Creator Earnings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">AI-Powered Tools</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -537,19 +556,19 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
+                    <div class="feature-icon" role="img" aria-label="Brain icon">🧠</div>
                     <h3>AI Script & Hook Generator</h3>
                     <p>Create scroll-stopping hooks and full video scripts in seconds with AI tailored for content creators and entrepreneurs.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🎬</div>
+                    <div class="feature-icon" role="img" aria-label="Video camera icon">🎬</div>
                     <h3>Video & Media Tools</h3>
                     <p>Access templates, caption generators, and smart editing prompts to speed up your video production workflow.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">📈</div>
+                    <div class="feature-icon" role="img" aria-label="Chart icon">📈</div>
                     <h3>Smart Analytics & Insights</h3>
                     <p>See what's working — get real-time content performance breakdowns, trends, and growth suggestions powered by AI.</p>
                 </div>
@@ -582,8 +601,17 @@
         <div class="section-content">
             <h2>Ready to Build Your Empire?</h2>
             <p>Join creators who are turning their content into sustainable income streams</p>
-            <a href="#" class="cta-button">Join the Community</a>
+            <a href="community.html" class="cta-button" aria-label="Join the PostPal community">Join the Community</a>
         </div>
     </section>
+
+    <script type="module">
+        // Track CTA clicks
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('CTA clicked:', this.textContent);
+            });
+        });
+    </script>
 </body>
 </html>
