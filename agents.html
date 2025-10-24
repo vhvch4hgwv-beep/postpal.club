@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostPal Agents - All AI Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        /* Agents Section */
+        .agents-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            color: #e7e9ee;
+        }
+
+        .agents-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #e7e9ee;
+            margin: 0 0 1rem;
+            text-align: center;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .agents-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .agent-card {
+            background: rgba(15, 18, 32, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+            border-color: rgba(139, 92, 246, 0.6);
+        }
+
+        .agent-card header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            background: linear-gradient(180deg, rgba(17, 21, 42, 0.9), rgba(13, 16, 32, 0.9));
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .agent-icon {
+            font-size: 1.5rem;
+        }
+
+        .agent-card h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #cfd6ff;
+            letter-spacing: 0.3px;
+        }
+
+        .agent-card iframe {
+            display: block;
+            width: 100%;
+            height: 620px;
+            border: 0;
+            border-radius: 0;
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.5);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ec4899;
+            margin-left: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .agents-wrap {
+                padding: 2rem 1rem;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .agent-card iframe {
+                height: 540px;
+            }
+
+            .agents-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .agents-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">PostPal</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Dashboard</a></li>
+                    <li><a href="#" style="color: #8b5cf6;">AI Agents</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Agents Section -->
+    <section class="agents-wrap">
+        <h1 class="agents-title">PostPal <span class="gradient-text">AI Agents</span></h1>
+        <p class="agents-subtitle">All your AI-powered creator tools in one place</p>
+
+        <div class="agents-grid">
+            <!-- Hook Generator -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">🎯</span>
+                    <h2>Hook Generator</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85f3843fc8190895c719a0445b7be0e3924faac533f1a?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Creator News Pulse -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">📰</span>
+                    <h2>Creator News Pulse</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f86019d628819096b162e1652c12c00f29477ddd1f7683?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Money Board -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">💰</span>
+                    <h2>Money Board</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85e7641808190863ce057ef88bf7606d9b4f79ab13e24?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Analytics Advisor -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">📊</span>
+                    <h2>Analytics Advisor</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85fac4e308190b5848c6b8ba0394505b4fe6a0cd665b2?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Trend Radar -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">📡</span>
+                    <h2>Trend Radar</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68eedb17c3ac8190b7b5b7ac6a38d18509dfaf5c93b56add?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Brand Negotiator -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">🤝</span>
+                    <h2>Brand Negotiator</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85fceb9908190be729b014a9c7fca09e54fa54ccad15f?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Insight Vault -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">🧠</span>
+                    <h2>Insight Vault</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85f8b73748190967cbd27e41a03ce07ebd78202054a71?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Creator Toolkit -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">🛠️</span>
+                    <h2>Creator Toolkit</h2>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85feeff888190b8b409e508c344530f45d5573eaf7f1c?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+
+            <!-- Tool Watch -->
+            <article class="agent-card">
+                <header>
+                    <span class="agent-icon">🔧</span>
+                    <h2>Tool Watch</h2>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </header>
+                <iframe
+                    src="https://chatkit.app/embed/wf_68f85f6b97a881909ead7afb8a09cbdf0bf9e1b8e749591c?version=1"
+                    frameborder="0"
+                    allow="clipboard-write; microphone">
+                </iframe>
+            </article>
+        </div>
+    </section>
+
+    <script>
+        console.log('✅ PostPal Agents Page Loaded');
+        
+        // Optional: Track which iframes load successfully
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach((iframe, index) => {
+            iframe.addEventListener('load', () => {
+                console.log(`✅ Agent ${index + 1} loaded successfully`);
+            });
+            
+            iframe.addEventListener('error', () => {
+                console.error(`❌ Agent ${index + 1} failed to load`);
+            });
+        });
+    </script>
+</body>
+</html>
