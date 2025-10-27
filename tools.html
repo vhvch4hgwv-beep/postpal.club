@@ -44,6 +44,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
         }
 
         .nav-links {
@@ -207,26 +208,11 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
-        /* Coming Soon Badge */
-        .coming-soon {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .coming-soon-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(236, 72, 153, 0.2);
-            border: 1px solid rgba(236, 72, 153, 0.5);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
             .tools-grid {
                 grid-template-columns: 1fr;
             }
@@ -236,12 +222,13 @@
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo">PostPal</div>
+            <a href="index.html" class="logo">PostPal</a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="courses.html">Dashboard</a></li>
-                    <li><a href="#" style="color: #8b5cf6;">AI Tools</a></li>
+                    <li><a href="agents.html">AI Agents</a></li>
+                    <li><a href="#" style="color: #8b5cf6;">Tools</a></li>
                     <li><a href="resources.html">Resources</a></li>
                 </ul>
             </nav>
@@ -255,30 +242,16 @@
         </div>
 
         <div class="tools-grid">
-            <!-- Creator News Pulse -->
-            <div class="tool-card" onclick="window.location.href='creator-news-pulse.html'">
-                <span class="tool-icon">📰</span>
-                <span class="tool-badge">Daily Updates</span>
-                <h3>Creator News Pulse</h3>
-                <p>Stay ahead with daily updates on the creator economy, platform changes, and industry trends.</p>
+            <!-- Hook Generator -->
+            <div class="tool-card" onclick="window.location.href='hook-generator.html'">
+                <span class="tool-icon">🎯</span>
+                <span class="tool-badge">Content</span>
+                <h3>Hook Generator</h3>
+                <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
                 <ul class="tool-features">
-                    <li>Daily creator news digest</li>
-                    <li>Platform algorithm updates</li>
-                    <li>Industry trend analysis</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Money Board -->
-            <div class="tool-card" onclick="window.location.href='money-board.html'">
-                <span class="tool-icon">💰</span>
-                <span class="tool-badge">Monetization</span>
-                <h3>Money Board</h3>
-                <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
-                <ul class="tool-features">
-                    <li>Brand partnership alerts</li>
-                    <li>UGC gig opportunities</li>
-                    <li>Revenue optimization tips</li>
+                    <li>Viral hook templates</li>
+                    <li>Platform-specific formats</li>
+                    <li>A/B testing suggestions</li>
                 </ul>
                 <button class="cta-button">Launch Agent →</button>
             </div>
@@ -311,20 +284,6 @@
                 <button class="cta-button">Launch Agent →</button>
             </div>
 
-            <!-- Hook Generator -->
-            <div class="tool-card" onclick="window.location.href='hook-generator.html'">
-                <span class="tool-icon">🎯</span>
-                <span class="tool-badge">Content</span>
-                <h3>Hook Generator</h3>
-                <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
-                <ul class="tool-features">
-                    <li>Viral hook templates</li>
-                    <li>Platform-specific formats</li>
-                    <li>A/B testing suggestions</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
             <!-- Trend Radar -->
             <div class="tool-card" onclick="window.location.href='trend-radar.html'">
                 <span class="tool-icon">📡</span>
@@ -339,45 +298,142 @@
                 <button class="cta-button">Launch Agent →</button>
             </div>
 
-            <!-- Insight Vault -->
-            <div class="tool-card" onclick="window.location.href='insight-vault.html'">
-                <span class="tool-icon">🧠</span>
-                <span class="tool-badge">Knowledge</span>
-                <h3>Insight Vault</h3>
-                <p>Store and organize your learnings, insights, and content strategies in one place.</p>
+            <!-- Money Board -->
+            <div class="tool-card" onclick="window.location.href='money-board.html'">
+                <span class="tool-icon">💰</span>
+                <span class="tool-badge">Monetization</span>
+                <h3>Money Board</h3>
+                <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
                 <ul class="tool-features">
-                    <li>Knowledge management</li>
-                    <li>Quick reference library</li>
-                    <li>Best practices archive</li>
+                    <li>Brand partnership alerts</li>
+                    <li>UGC gig opportunities</li>
+                    <li>Revenue optimization tips</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Platform Updates -->
+            <div class="tool-card" onclick="window.location.href='platform-updates.html'">
+                <span class="tool-icon">🔔</span>
+                <span class="tool-badge">Updates</span>
+                <h3>Platform Updates</h3>
+                <p>Stay informed about the latest platform algorithm changes, features, and updates.</p>
+                <ul class="tool-features">
+                    <li>Algorithm updates</li>
+                    <li>New feature alerts</li>
+                    <li>Platform policy changes</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Content Scheduler -->
+            <div class="tool-card" onclick="window.location.href='content-scheduler.html'">
+                <span class="tool-icon">📅</span>
+                <span class="tool-badge">Planning</span>
+                <h3>Content Scheduler</h3>
+                <p>Plan and schedule your content across all platforms with AI-powered timing recommendations.</p>
+                <ul class="tool-features">
+                    <li>Best time suggestions</li>
+                    <li>Multi-platform calendar</li>
+                    <li>Content batching tools</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Caption Optimizer -->
+            <div class="tool-card" onclick="window.location.href='caption-optimizer.html'">
+                <span class="tool-icon">✍️</span>
+                <span class="tool-badge">Copy</span>
+                <h3>Caption Optimizer</h3>
+                <p>Optimize your captions for maximum engagement with AI-powered suggestions and hashtags.</p>
+                <ul class="tool-features">
+                    <li>SEO-friendly captions</li>
+                    <li>Hashtag recommendations</li>
+                    <li>Emoji optimization</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Community Pulse -->
+            <div class="tool-card" onclick="window.location.href='community-pulse.html'">
+                <span class="tool-icon">👥</span>
+                <span class="tool-badge">Community</span>
+                <h3>Community Pulse</h3>
+                <p>Monitor and engage with your community, track sentiment, and respond intelligently.</p>
+                <ul class="tool-features">
+                    <li>Sentiment analysis</li>
+                    <li>Comment management</li>
+                    <li>Engagement tracking</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Content Library -->
+            <div class="tool-card" onclick="window.location.href='content-library.html'">
+                <span class="tool-icon">📚</span>
+                <span class="tool-badge">Library</span>
+                <h3>Content Library</h3>
+                <p>Store, organize, and repurpose your best performing content in one searchable library.</p>
+                <ul class="tool-features">
+                    <li>Content organization</li>
+                    <li>Performance tracking</li>
+                    <li>Repurposing suggestions</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Smart Outreach -->
+            <div class="tool-card" onclick="window.location.href='smart-outreach.html'">
+                <span class="tool-icon">📧</span>
+                <span class="tool-badge">Outreach</span>
+                <h3>Smart Outreach</h3>
+                <p>Automate your brand outreach and partnership pitches with personalized AI-generated emails.</p>
+                <ul class="tool-features">
+                    <li>Email templates</li>
+                    <li>Personalization AI</li>
+                    <li>Follow-up automation</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Idea Vault -->
+            <div class="tool-card" onclick="window.location.href='idea-vault.html'">
+                <span class="tool-icon">💡</span>
+                <span class="tool-badge">Ideas</span>
+                <h3>Idea Vault</h3>
+                <p>Generate, store and organize your best content ideas in one intelligent vault.</p>
+                <ul class="tool-features">
+                    <li>AI idea generation</li>
+                    <li>Organized storage</li>
+                    <li>Quick reference access</li>
+                </ul>
+                <button class="cta-button">Launch Agent →</button>
+            </div>
+
+            <!-- Sora Prompt Generator -->
+            <div class="tool-card" onclick="window.location.href='sora-prompt-generator.html'">
+                <span class="tool-icon">🎬</span>
+                <span class="tool-badge">AI Video</span>
+                <h3>Sora Prompt Generator</h3>
+                <p>Generate perfect prompts for OpenAI's Sora AI video generation tool.</p>
+                <ul class="tool-features">
+                    <li>Cinematic prompts</li>
+                    <li>Style templates</li>
+                    <li>Scene descriptions</li>
                 </ul>
                 <button class="cta-button">Launch Agent →</button>
             </div>
 
             <!-- Tool Watch -->
-            <div class="tool-card coming-soon">
-                <span class="coming-soon-badge">Coming Soon</span>
+            <div class="tool-card" onclick="window.location.href='tool-watch.html'">
                 <span class="tool-icon">🔧</span>
                 <span class="tool-badge">Resources</span>
                 <h3>Tool Watch</h3>
-                <p>Discover and track the latest creator tools, software, and platforms.</p>
+                <p>Discover and track the latest creator tools, software updates, and platform features.</p>
                 <ul class="tool-features">
                     <li>New tool alerts</li>
                     <li>Tool comparisons</li>
                     <li>Discount tracking</li>
-                </ul>
-                <button class="cta-button">Coming Soon</button>
-            </div>
-
-            <!-- Creator Toolkit -->
-            <div class="tool-card" onclick="window.location.href='creator-toolkit.html'">
-                <span class="tool-icon">🛠️</span>
-                <span class="tool-badge">Utilities</span>
-                <h3>Creator Toolkit</h3>
-                <p>Access quick utilities like thumbnail makers, caption formatters, and schedule planners.</p>
-                <ul class="tool-features">
-                    <li>Thumbnail generator</li>
-                    <li>Caption formatter</li>
-                    <li>Posting scheduler</li>
                 </ul>
                 <button class="cta-button">Launch Agent →</button>
             </div>
@@ -385,7 +441,7 @@
     </div>
 
     <script>
-        console.log('✅ PostPal AI Tools Ready');
+        console.log('✅ PostPal AI Tools Ready - 14 Tools Available');
     </script>
 </body>
 </html>
