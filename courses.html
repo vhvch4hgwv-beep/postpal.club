@@ -5,371 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Tools Dashboard - PostPal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
-            color: #fff;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        .header {
-            padding: 1.5rem 2rem;
-            background: rgba(10, 10, 21, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #8b5cf6;
-        }
-
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-name {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-        }
-
-        .user-tier {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
-            overflow-x: auto;
-            padding-bottom: 0;
-        }
-
-        .tab {
-            padding: 1rem 2rem;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
-        }
-
-        .tab:hover {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .tab.active {
-            color: #fff;
-            border-bottom-color: #8b5cf6;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Course Grid */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .course-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.5);
-        }
-
-        .course-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .course-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .course-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .course-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
-
-        .course-card p {
-            opacity: 0.7;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            opacity: 0.6;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .course-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        /* Empty State */
-        .empty-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            text-align: center;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .empty-card .icon {
-            font-size: 4rem;
-            opacity: 0.3;
-            margin-bottom: 1rem;
-        }
-
-        .empty-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.7;
-        }
-
-        .empty-card p {
-            opacity: 0.5;
-            font-size: 0.9rem;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(139, 92, 246, 0.2);
-            border-top-color: #8b5cf6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-right {
-                gap: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .user-name {
-                display: none;
-            }
-
-            .tabs {
-                gap: 0.5rem;
-            }
-
-            .tab {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%); color: #fff; line-height: 1.6; min-height: 100vh; }
+        .header { padding: 1.5rem 2rem; background: rgba(10, 10, 21, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(139, 92, 246, 0.2); position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .header-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #8b5cf6; }
+        .user-section { display: flex; align-items: center; gap: 1rem; }
+        .user-name { color: rgba(255, 255, 255, 0.9); font-weight: 600; }
+        .user-tier { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .logout-btn { padding: 0.5rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; font-weight: 600; }
+        .logout-btn:hover { background: rgba(255, 255, 255, 0.15); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; }
+        .gradient-text { background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid rgba(139, 92, 246, 0.2); overflow-x: auto; padding-bottom: 0; }
+        .tab { padding: 1rem 2rem; background: transparent; border: none; color: rgba(255, 255, 255, 0.6); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border-bottom: 3px solid transparent; white-space: nowrap; }
+        .tab:hover { color: rgba(255, 255, 255, 0.9); }
+        .tab.active { color: #fff; border-bottom-color: #8b5cf6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .course-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .course-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .course-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.08); border-color: rgba(139, 92, 246, 0.5); }
+        .course-card:hover::before { transform: scaleX(1); }
+        .course-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .course-badge { display: inline-block; padding: 0.3rem 0.8rem; background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.5); border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .course-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+        .course-card p { opacity: 0.7; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .course-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; opacity: 0.6; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .course-meta span { display: flex; align-items: center; gap: 0.4rem; }
+        .loading { text-align: center; padding: 4rem 2rem; }
+        .loading-spinner { width: 50px; height: 50px; border: 4px solid rgba(139, 92, 246, 0.2); border-top-color: #8b5cf6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 768px) { .header-right { gap: 1rem; } .nav-links { display: none; } .user-name { display: none; } .tabs { gap: 0.5rem; } .tab { padding: 0.8rem 1rem; font-size: 0.9rem; } .courses-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <!-- Loading State -->
     <div id="loadingState" class="loading">
         <div class="loading-spinner"></div>
         <p>Loading your AI toolkit...</p>
     </div>
 
-    <!-- Main Content (Hidden until loaded) -->
     <div id="mainContent" style="display: none;">
-        <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <div class="logo">PostPal</div>
+                <a href="index.html" class="logo">PostPal</a>
                 <div class="header-right">
                     <nav>
                         <ul class="nav-links">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="#" style="color: #8b5cf6;">Dashboard</a></li>
+                            <li><a href="agents.html">AI Agents</a></li>
                             <li><a href="tools.html">Tools</a></li>
                             <li><a href="resources.html">Resources</a></li>
                         </ul>
@@ -383,149 +77,131 @@
             </div>
         </header>
 
-        <!-- Main Container -->
         <div class="container">
             <div class="page-header">
                 <h1>Your AI <span class="gradient-text">Creator Toolkit</span></h1>
                 <p>Access your AI-powered tools, templates, and insights — all in one place</p>
             </div>
 
-            <!-- Tabs -->
             <div class="tabs">
                 <button class="tab active" data-tab="all-tools">All Tools</button>
                 <button class="tab" data-tab="content-creation">Content Creation</button>
                 <button class="tab" data-tab="analytics">Analytics & Growth</button>
                 <button class="tab" data-tab="automation">Automation</button>
-                <button class="tab" data-tab="resources">Resources</button>
             </div>
 
-            <!-- All Tools Tab -->
             <div id="all-tools" class="tab-content active">
                 <div class="courses-grid">
-                    <div class="course-card" onclick="window.location.href='tools.html'">
+                    <div class="course-card" onclick="window.location.href='hook-generator.html'">
                         <div class="course-icon">🎯</div>
                         <span class="course-badge">Content</span>
                         <h3>Hook Generator</h3>
-                        <p>Create scroll-stopping hooks and captions that boost engagement and views with AI-powered suggestions.</p>
-                        <div class="course-meta">
-                            <span>⚡ Instant</span>
-                            <span>🤖 AI-Powered</span>
-                        </div>
+                        <p>Create scroll-stopping hooks and captions that boost engagement.</p>
+                        <div class="course-meta"><span>⚡ Instant</span><span>🤖 AI-Powered</span></div>
                     </div>
 
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📰</div>
-                        <span class="course-badge">Daily Updates</span>
-                        <h3>Creator News Pulse</h3>
-                        <p>Stay ahead with daily updates on the creator economy, platform changes, and industry trends.</p>
-                        <div class="course-meta">
-                            <span>📅 Daily</span>
-                            <span>🔔 Real-time</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">💰</div>
-                        <span class="course-badge">Monetization</span>
-                        <h3>Money Board</h3>
-                        <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
-                        <div class="course-meta">
-                            <span>💼 Opportunities</span>
-                            <span>📈 Revenue</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📊</div>
-                        <span class="course-badge">Analytics</span>
-                        <h3>Analytics Advisor</h3>
-                        <p>Analyze your performance data and get actionable insights to grow your audience.</p>
-                        <div class="course-meta">
-                            <span>📈 Insights</span>
-                            <span>🎯 Optimization</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📡</div>
-                        <span class="course-badge">Trends</span>
-                        <h3>Trend Radar</h3>
-                        <p>Spot emerging trends before they go viral and position your content ahead of the curve.</p>
-                        <div class="course-meta">
-                            <span>🔥 Trending</span>
-                            <span>⚡ Real-time</span>
-                        </div>
-                    </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
+                    <div class="course-card" onclick="window.location.href='brand-negotiator.html'">
                         <div class="course-icon">🤝</div>
                         <span class="course-badge">Business</span>
                         <h3>Brand Negotiator</h3>
-                        <p>Get expert guidance on negotiating better rates and terms for brand partnerships.</p>
-                        <div class="course-meta">
-                            <span>💼 Strategy</span>
-                            <span>💵 Better Deals</span>
-                        </div>
+                        <p>Get expert guidance on negotiating better rates for brand partnerships.</p>
+                        <div class="course-meta"><span>💼 Strategy</span><span>💵 Better Deals</span></div>
                     </div>
 
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🧠</div>
-                        <span class="course-badge">Knowledge</span>
-                        <h3>Insight Vault</h3>
-                        <p>Store and organize your learnings, insights, and content strategies in one place.</p>
-                        <div class="course-meta">
-                            <span>📚 Library</span>
-                            <span>🗂️ Organized</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='analytics-advisor.html'">
+                        <div class="course-icon">📊</div>
+                        <span class="course-badge">Analytics</span>
+                        <h3>Analytics Advisor</h3>
+                        <p>Analyze performance data and get actionable growth insights.</p>
+                        <div class="course-meta"><span>📈 Insights</span><span>🎯 Optimization</span></div>
                     </div>
 
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🛠️</div>
-                        <span class="course-badge">Utilities</span>
-                        <h3>Creator Toolkit</h3>
-                        <p>Access quick utilities like thumbnail makers, caption formatters, and schedule planners.</p>
-                        <div class="course-meta">
-                            <span>⚙️ Tools</span>
-                            <span>⚡ Quick Access</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='trend-radar.html'">
+                        <div class="course-icon">📡</div>
+                        <span class="course-badge">Trends</span>
+                        <h3>Trend Radar</h3>
+                        <p>Spot emerging trends before they go viral.</p>
+                        <div class="course-meta"><span>🔥 Trending</span><span>⚡ Real-time</span></div>
                     </div>
 
-                    <div class="course-card" onclick="window.location.href='media-pack.html'">
-                        <div class="course-icon">📋</div>
-                        <span class="course-badge">Business</span>
-                        <h3>Media Pack Creator</h3>
-                        <p>Build a professional media kit to pitch to brands and showcase your creator stats.</p>
-                        <div class="course-meta">
-                            <span>💼 Professional</span>
-                            <span>📊 Stats</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Creation Tab -->
-            <div id="content-creation" class="tab-content">
-                <div class="courses-grid">
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🎯</div>
-                        <span class="course-badge">Content</span>
-                        <h3>Hook Generator</h3>
-                        <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
-                        <div class="course-meta">
-                            <span>⚡ Instant</span>
-                            <span>🤖 AI-Powered</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='money-board.html'">
+                        <div class="course-icon">💰</div>
+                        <span class="course-badge">Monetization</span>
+                        <h3>Money Board</h3>
+                        <p>Discover brand deals and UGC opportunities.</p>
+                        <div class="course-meta"><span>💼 Opportunities</span><span>📈 Revenue</span></div>
                     </div>
 
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🛠️</div>
-                        <span class="course-badge">Utilities</span>
-                        <h3>Creator Toolkit</h3>
-                        <p>Thumbnail generators, caption formatters, and schedule planners.</p>
-                        <div class="course-meta">
-                            <span>⚙️ Tools</span>
-                            <span>⚡ Quick</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='platform-updates.html'">
+                        <div class="course-icon">🔔</div>
+                        <span class="course-badge">Updates</span>
+                        <h3>Platform Updates</h3>
+                        <p>Stay informed about platform algorithm changes.</p>
+                        <div class="course-meta"><span>📅 Daily</span><span>🔔 Alerts</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='content-scheduler.html'">
+                        <div class="course-icon">📅</div>
+                        <span class="course-badge">Planning</span>
+                        <h3>Content Scheduler</h3>
+                        <p>Plan and schedule content with AI timing recommendations.</p>
+                        <div class="course-meta"><span>⏰ Timing</span><span>📋 Planning</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='caption-optimizer.html'">
+                        <div class="course-icon">✍️</div>
+                        <span class="course-badge">Copy</span>
+                        <h3>Caption Optimizer</h3>
+                        <p>Optimize captions for maximum engagement.</p>
+                        <div class="course-meta"><span>✍️ Captions</span><span>📈 Engagement</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='community-pulse.html'">
+                        <div class="course-icon">👥</div>
+                        <span class="course-badge">Community</span>
+                        <h3>Community Pulse</h3>
+                        <p>Monitor and engage with your community intelligently.</p>
+                        <div class="course-meta"><span>👥 Engagement</span><span>💬 Sentiment</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='content-library.html'">
+                        <div class="course-icon">📚</div>
+                        <span class="course-badge">Library</span>
+                        <h3>Content Library</h3>
+                        <p>Store and organize your best performing content.</p>
+                        <div class="course-meta"><span>📚 Library</span><span>🗂️ Organized</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='smart-outreach.html'">
+                        <div class="course-icon">📧</div>
+                        <span class="course-badge">Outreach</span>
+                        <h3>Smart Outreach</h3>
+                        <p>Automate brand outreach with AI-generated emails.</p>
+                        <div class="course-meta"><span>📧 Email</span><span>🤖 Automation</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='idea-vault.html'">
+                        <div class="course-icon">💡</div>
+                        <span class="course-badge">Ideas</span>
+                        <h3>Idea Vault</h3>
+                        <p>Generate and organize content ideas in one vault.</p>
+                        <div class="course-meta"><span>💭 Ideas</span><span>🗂️ Vault</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='sora-prompt-generator.html'">
+                        <div class="course-icon">🎬</div>
+                        <span class="course-badge">AI Video</span>
+                        <h3>Sora Prompt Generator</h3>
+                        <p>Generate perfect prompts for Sora AI video tool.</p>
+                        <div class="course-meta"><span>🎬 Video AI</span><span>✨ Prompts</span></div>
+                    </div>
+
+                    <div class="course-card" onclick="window.location.href='tool-watch.html'">
+                        <div class="course-icon">🔧</div>
+                        <span class="course-badge">Resources</span>
+                        <h3>Tool Watch</h3>
+                        <p>Discover latest creator tools and software updates.</p>
+                        <div class="course-meta"><span>🔧 Tools</span><span>📢 Updates</span></div>
                     </div>
 
                     <div class="course-card" onclick="window.location.href='media-pack.html'">
@@ -533,162 +209,98 @@
                         <span class="course-badge">Business</span>
                         <h3>Media Pack Creator</h3>
                         <p>Build professional media kits for brand pitches.</p>
-                        <div class="course-meta">
-                            <span>💼 Professional</span>
-                            <span>📊 Stats</span>
-                        </div>
+                        <div class="course-meta"><span>💼 Professional</span><span>📊 Stats</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Analytics & Growth Tab -->
+            <div id="content-creation" class="tab-content">
+                <div class="courses-grid">
+                    <div class="course-card" onclick="window.location.href='hook-generator.html'">
+                        <div class="course-icon">🎯</div><span class="course-badge">Content</span><h3>Hook Generator</h3>
+                        <p>Create scroll-stopping hooks and captions.</p><div class="course-meta"><span>⚡ Instant</span><span>🤖 AI</span></div>
+                    </div>
+                    <div class="course-card" onclick="window.location.href='caption-optimizer.html'">
+                        <div class="course-icon">✍️</div><span class="course-badge">Copy</span><h3>Caption Optimizer</h3>
+                        <p>Optimize captions for engagement.</p><div class="course-meta"><span>✍️ Captions</span><span>📈 Engagement</span></div>
+                    </div>
+                    <div class="course-card" onclick="window.location.href='idea-vault.html'">
+                        <div class="course-icon">💡</div><span class="course-badge">Ideas</span><h3>Idea Vault</h3>
+                        <p>Generate and organize content ideas.</p><div class="course-meta"><span>💭 Ideas</span><span>🗂️ Vault</span></div>
+                    </div>
+                    <div class="course-card" onclick="window.location.href='sora-prompt-generator.html'">
+                        <div class="course-icon">🎬</div><span class="course-badge">AI Video</span><h3>Sora Prompt Generator</h3>
+                        <p>Generate Sora AI video prompts.</p><div class="course-meta"><span>🎬 Video</span><span>✨ AI</span></div>
+                    </div>
+                </div>
+            </div>
+
             <div id="analytics" class="tab-content">
                 <div class="courses-grid">
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📊</div>
-                        <span class="course-badge">Analytics</span>
-                        <h3>Analytics Advisor</h3>
-                        <p>Analyze performance and get actionable growth insights.</p>
-                        <div class="course-meta">
-                            <span>📈 Insights</span>
-                            <span>🎯 Optimization</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='analytics-advisor.html'">
+                        <div class="course-icon">📊</div><span class="course-badge">Analytics</span><h3>Analytics Advisor</h3>
+                        <p>Analyze performance and get insights.</p><div class="course-meta"><span>📈 Insights</span><span>🎯 Growth</span></div>
                     </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📡</div>
-                        <span class="course-badge">Trends</span>
-                        <h3>Trend Radar</h3>
-                        <p>Spot emerging trends before they go viral.</p>
-                        <div class="course-meta">
-                            <span>🔥 Trending</span>
-                            <span>⚡ Real-time</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='trend-radar.html'">
+                        <div class="course-icon">📡</div><span class="course-badge">Trends</span><h3>Trend Radar</h3>
+                        <p>Spot emerging trends early.</p><div class="course-meta"><span>🔥 Trending</span><span>⚡ Real-time</span></div>
                     </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">📰</div>
-                        <span class="course-badge">Daily</span>
-                        <h3>Creator News Pulse</h3>
-                        <p>Stay updated on platform changes and industry trends.</p>
-                        <div class="course-meta">
-                            <span>📅 Daily</span>
-                            <span>🔔 Alerts</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='platform-updates.html'">
+                        <div class="course-icon">🔔</div><span class="course-badge">Updates</span><h3>Platform Updates</h3>
+                        <p>Stay updated on platform changes.</p><div class="course-meta"><span>📅 Daily</span><span>🔔 Alerts</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Automation Tab -->
             <div id="automation" class="tab-content">
                 <div class="courses-grid">
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">💰</div>
-                        <span class="course-badge">Monetization</span>
-                        <h3>Money Board</h3>
-                        <p>Discover brand deals and UGC opportunities automatically.</p>
-                        <div class="course-meta">
-                            <span>💼 Opportunities</span>
-                            <span>📈 Revenue</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='money-board.html'">
+                        <div class="course-icon">💰</div><span class="course-badge">Monetization</span><h3>Money Board</h3>
+                        <p>Discover brand deals automatically.</p><div class="course-meta"><span>💼 Deals</span><span>📈 Revenue</span></div>
                     </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🤝</div>
-                        <span class="course-badge">Business</span>
-                        <h3>Brand Negotiator</h3>
-                        <p>Get AI-powered negotiation strategies and rate calculators.</p>
-                        <div class="course-meta">
-                            <span>💼 Strategy</span>
-                            <span>💵 Deals</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='content-scheduler.html'">
+                        <div class="course-icon">📅</div><span class="course-badge">Planning</span><h3>Content Scheduler</h3>
+                        <p>Automate content scheduling.</p><div class="course-meta"><span>⏰ Auto</span><span>📋 Plan</span></div>
                     </div>
-
-                    <div class="course-card" onclick="window.location.href='tools.html'">
-                        <div class="course-icon">🧠</div>
-                        <span class="course-badge">Knowledge</span>
-                        <h3>Insight Vault</h3>
-                        <p>Automatically organize your learnings and strategies.</p>
-                        <div class="course-meta">
-                            <span>📚 Library</span>
-                            <span>🗂️ Auto-save</span>
-                        </div>
+                    <div class="course-card" onclick="window.location.href='smart-outreach.html'">
+                        <div class="course-icon">📧</div><span class="course-badge">Outreach</span><h3>Smart Outreach</h3>
+                        <p>Automate brand outreach emails.</p><div class="course-meta"><span>📧 Auto</span><span>🤖 AI</span></div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Resources Tab -->
-            <div id="resources" class="tab-content">
-                <div class="courses-grid">
-                    <div class="empty-card">
-                        <div class="icon">📚</div>
-                        <h4>Templates Library</h4>
-                        <p>Coming soon - downloadable templates and scripts</p>
-                    </div>
-
-                    <div class="empty-card">
-                        <div class="icon">🎓</div>
-                        <h4>Learning Center</h4>
-                        <p>Coming soon - tutorials and best practices</p>
-                    </div>
-
-                    <div class="empty-card">
-                        <div class="icon">🤝</div>
-                        <h4>Community Hub</h4>
-                        <p>Coming soon - connect with other creators</p>
+                    <div class="course-card" onclick="window.location.href='brand-negotiator.html'">
+                        <div class="course-icon">🤝</div><span class="course-badge">Business</span><h3>Brand Negotiator</h3>
+                        <p>AI-powered negotiation help.</p><div class="course-meta"><span>💼 Strategy</span><span>💵 Deals</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBmc4eoiEwi0OEWetRwJXzWFxAp5uK4tQQ",
-            authDomain: "postpal-92bb7.firebaseapp.com",
-            projectId: "postpal-92bb7",
-            storageBucket: "postpal-92bb7.firebasestorage.app",
-            messagingSenderId: "519381531859",
-            appId: "1:519381531859:web:b3c548bbbb5b67968a6826",
-            measurementId: "G-WT2JW9CYLV"
-        };
-
-        // Initialize Firebase
+        const firebaseConfig = { apiKey: "AIzaSyBmc4eoiEwi0OEWetRwJXzWFxAp5uK4tQQ", authDomain: "postpal-92bb7.firebaseapp.com", projectId: "postpal-92bb7", storageBucket: "postpal-92bb7.firebasestorage.app", messagingSenderId: "519381531859", appId: "1:519381531859:web:b3c548bbbb5b67968a6826", measurementId: "G-WT2JW9CYLV" };
+        
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Check auth state
         onAuthStateChanged(auth, (user) => {
             const loadingState = document.getElementById('loadingState');
             const mainContent = document.getElementById('mainContent');
-
             if (user) {
-                // User is signed in
                 console.log('User logged in:', user);
-                
-                // Show user info
                 const userName = user.displayName || localStorage.getItem('userName') || 'Creator';
                 const userTier = localStorage.getItem('userTier') || 'free';
-                
                 document.getElementById('userName').textContent = `Welcome, ${userName}!`;
                 document.getElementById('userTier').textContent = userTier === 'pro' ? 'Pro' : 'Free';
-                
-                // Hide loading, show content
                 loadingState.style.display = 'none';
                 mainContent.style.display = 'block';
             } else {
-                // No user signed in - redirect to signup
                 console.log('No user logged in, redirecting...');
                 window.location.href = 'community.html';
             }
         });
 
-        // Logout functionality
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             try {
                 await signOut(auth);
@@ -700,22 +312,16 @@
             }
         });
 
-        // Tab switching
         const tabs = document.querySelectorAll('.tab');
         const tabContents = document.querySelectorAll('.tab-content');
-
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const targetTab = tab.dataset.tab;
-                
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
                 tabContents.forEach(content => {
                     content.classList.remove('active');
-                    if (content.id === targetTab) {
-                        content.classList.add('active');
-                    }
+                    if (content.id === targetTab) content.classList.add('active');
                 });
             });
         });
