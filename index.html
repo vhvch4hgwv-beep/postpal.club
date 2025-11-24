@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostPal - AI-Powered Creator Toolkit | Build Your Creator Empire</title>
-    <meta name="description" content="All-in-one AI toolkit for content creators. Get AI-powered scripts, hooks, analytics, trend detection, and brand deal assistance. Join 10,000+ creators.">
-    <meta property="og:title" content="PostPal - AI-Powered Creator Toolkit">
-    <meta property="og:description" content="Your all-in-one desktop toolkit for creators — packed with AI tools, templates, and real-time insights">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://postpal.com">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PostPal - AI Creator Toolkit">
-    <meta name="twitter:description" content="AI tools for content creators - scripts, analytics, trends & more">
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
+    <title>PostPal AI - Your All-in-One Creator Toolkit</title>
+    <meta name="description" content="A desktop control center for creators who take this seriously. Plan, create, and grow with AI tools built for content creators.">
     <style>
         * {
             margin: 0;
@@ -28,8 +17,10 @@
             line-height: 1.6;
             color: #fff;
             overflow-x: hidden;
+            background: #0f0f23;
         }
 
+        /* ========== HERO SECTION (UNCHANGED) ========== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -38,7 +29,6 @@
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
             position: relative;
             padding: 2rem;
-            text-align: center;
             overflow: hidden;
         }
 
@@ -50,70 +40,299 @@
             right: 0;
             bottom: 0;
             background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
+            animation: pulseBackground 8s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
+        @keyframes pulseBackground {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(139, 92, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 8s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; animation-duration: 10s; }
+        .particle:nth-child(2) { top: 60%; left: 20%; animation-delay: 2s; animation-duration: 12s; }
+        .particle:nth-child(3) { top: 40%; left: 80%; animation-delay: 1s; animation-duration: 9s; }
+        .particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; animation-duration: 11s; }
+        .particle:nth-child(5) { top: 30%; left: 50%; animation-delay: 1.5s; animation-duration: 10.5s; }
+        .particle:nth-child(6) { top: 70%; left: 30%; animation-delay: 2.5s; animation-duration: 9.5s; }
+        .particle:nth-child(7) { top: 50%; left: 90%; animation-delay: 0.5s; animation-duration: 11.5s; }
+        .particle:nth-child(8) { top: 15%; left: 60%; animation-delay: 3.5s; animation-duration: 10s; }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+            25% { opacity: 0.6; }
+            50% { transform: translateY(-60px) translateX(20px); opacity: 1; }
+            75% { opacity: 0.4; }
         }
 
         .hero-content {
-            max-width: 800px;
             position: relative;
+            z-index: 10;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .mascot-title-stack {
+            position: relative;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mascot-container {
+            position: absolute;
+            top: -180px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1;
+            width: 380px;
+            height: 380px;
+            animation: mascotFloat 4s ease-in-out infinite;
         }
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
+        @keyframes mascotFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-20px); }
         }
 
-        .gradient-text {
+        .mascot-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, 
+                rgba(99, 102, 241, 0.4) 0%,
+                rgba(139, 92, 246, 0.3) 30%,
+                transparent 70%
+            );
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+        }
+
+        .postpal-mascot {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .pp-body {
+            width: 200px;
+            height: 240px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.6),
+                        inset 0 -15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pp-face {
+            width: 140px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: inset 0 2px 8px rgba(99, 102, 241, 0.1);
+        }
+
+        .pp-eye {
+            width: 20px;
+            height: 20px;
+            background: #6366f1;
+            border-radius: 50%;
+            animation: eyeBlink 5s infinite;
+        }
+
+        @keyframes eyeBlink {
+            0%, 47%, 53%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+        }
+
+        .pp-smile {
+            width: 60px;
+            height: 30px;
+            border: 3px solid #6366f1;
+            border-top: none;
+            border-radius: 0 0 40px 40px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .pp-antenna {
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(180deg, #6366f1, #8b5cf6);
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .pp-antenna::after {
+            content: '';
+            width: 14px;
+            height: 14px;
+            background: #ec4899;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: antennaBlinkSlow 2.5s infinite;
+            box-shadow: 0 0 20px #ec4899;
+        }
+
+        @keyframes antennaBlinkSlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 20px #ec4899, 0 0 40px rgba(236, 72, 153, 0.5); }
+            50% { opacity: 0.4; box-shadow: 0 0 8px #ec4899; }
+        }
+
+        .pp-arm {
+            width: 60px;
+            height: 15px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            position: absolute;
+            top: 120px;
+        }
+
+        .pp-arm.left {
+            left: -50px;
+            transform: rotate(-25deg);
+            animation: gentleWaveLeft 3.5s ease-in-out infinite;
+        }
+
+        .pp-arm.right {
+            right: -50px;
+            transform: rotate(25deg);
+            animation: gentleWaveRight 3.5s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes gentleWaveLeft {
+            0%, 100% { transform: rotate(-25deg); }
+            50% { transform: rotate(-35deg); }
+        }
+
+        @keyframes gentleWaveRight {
+            0%, 100% { transform: rotate(25deg); }
+            50% { transform: rotate(35deg); }
+        }
+
+        .title-section {
+            position: relative;
+            z-index: 2;
+            padding: 140px 2rem 2rem 2rem;
+            margin-top: -100px;
+        }
+        
+        .title-section .main-title {
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-title {
+            font-size: clamp(3.5rem, 10vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-postpal {
+            color: #fff;
+        }
+
+        .title-ai {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: inline-block;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+        .subheadline {
+            font-size: clamp(1.3rem, 3vw, 1.75rem);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .description {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2.5rem;
-            opacity: 0.9;
-            line-height: 1.6;
-            max-width: 600px;
+            max-width: 750px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 12px;
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1.15rem 2.5rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 14px;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            display: inline-block;
             position: relative;
             overflow: hidden;
         }
 
-        .cta-button::before {
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary::before {
             content: '';
             position: absolute;
             top: 0;
@@ -124,493 +343,808 @@
             transition: left 0.5s ease;
         }
 
-        .cta-button:hover::before {
+        .btn-primary:hover::before {
             left: 100%;
         }
 
-        .cta-button:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5),
-                        0 0 60px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 18px 45px rgba(99, 102, 241, 0.6);
         }
 
-        .cta-button:active {
-            transform: translateY(-1px);
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
-        .cta-button:focus {
-            outline: 2px solid #8b5cf6;
-            outline-offset: 4px;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
         }
 
-        /* Floating particles effect */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(99, 102, 241, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .particle:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .particle:nth-child(2) {
-            top: 60%;
-            left: 80%;
-            animation: float 8s ease-in-out infinite 1s;
-        }
-
-        .particle:nth-child(3) {
-            top: 40%;
-            left: 20%;
-            animation: float 7s ease-in-out infinite 2s;
-        }
-
-        .particle:nth-child(4) {
-            top: 70%;
-            left: 70%;
-            animation: float 9s ease-in-out infinite 1.5s;
-        }
-
-        .particle:nth-child(5) {
-            top: 30%;
-            left: 90%;
-            animation: float 10s ease-in-out infinite 0.5s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-100px) translateX(50px);
-            }
-        }
-
-        /* Scrolling Banner - Background */
-        .banner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
+        .feature-pills {
             display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            padding: 2rem 0;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .banner-row {
-            display: flex;
-            gap: 4rem;
-            animation: scroll 60s linear infinite;
+        .pill {
+            padding: 0.65rem 1.3rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
             white-space: nowrap;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
-        .banner-row:nth-child(2) {
-            animation: scrollReverse 65s linear infinite;
+        .pill:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
         }
 
-        .banner-row:nth-child(3) {
-            animation: scroll 70s linear infinite;
+        /* ========== CONTINUOUS BACKGROUND ========== */
+        body {
+            background: linear-gradient(180deg, 
+                #0f0f23 0%, 
+                #1a1a3e 25%, 
+                #2d1b69 50%,
+                #1a1a3e 75%,
+                #0f0f23 100%
+            );
+            background-attachment: fixed;
+            min-height: 100vh;
         }
 
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        @keyframes scrollReverse {
-            0% {
-                transform: translateX(-50%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        .banner-item {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            display: inline-block;
-            opacity: 0.05;
-            font-style: italic;
-            transform: skewY(-2deg);
-            white-space: nowrap;
-        }
-
-        .banner-item.outline {
-            color: transparent;
-            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
-            text-stroke: 2px rgba(255, 255, 255, 0.1);
-        }
-
-        .banner-item.gradient {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Additional Sections */
+        /* ========== CONTENT SECTIONS ========== */
         .section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+            padding: 8rem 2rem;
+            background: transparent;
         }
 
-        .section-dark {
-            background: #0a0a15;
+        .section:first-of-type {
+            padding-top: 10rem;
         }
 
-        .section-content {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
+        /* Floating Section Panel */
+        .section-panel {
+            background: rgba(15, 18, 32, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 32px;
+            padding: 4rem 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                        0 0 80px rgba(99, 102, 241, 0.1);
+            position: relative;
+        }
+
+        /* Subtle top glow for each panel */
+        .section-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(139, 92, 246, 0.5) 50%, 
+                transparent 100%
+            );
+            filter: blur(2px);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 1rem;
-            text-align: center;
+            line-height: 1.2;
         }
 
-        .section p {
-            font-size: 1.25rem;
-            opacity: 0.8;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #8b5cf6;
-        }
-
-        .feature-card p {
-            opacity: 0.8;
-            font-size: 1rem;
-            text-align: left;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .cta-section h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 2rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
+        .gradient-text {
             background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        /* What is PostPal Section */
+        .what-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .what-card {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .what-card:hover {
+            transform: translateY(-5px);
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .what-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #8b5cf6;
+        }
+
+        .what-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .dashboard-preview {
+            background: rgba(30, 30, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+
+        /* Who it's for Section */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .audience-item {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .audience-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateX(5px);
+        }
+
+        .audience-item::before {
+            content: '→';
+            color: #8b5cf6;
+            margin-right: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: rgba(15, 18, 32, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .tool-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Workflow Section */
+        .workflow-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .step-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .workflow-step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        .workflow-step p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Social Proof Section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .metric-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.5rem;
+            line-height: 1;
         }
 
-        .stat-label {
+        .metric-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
             font-size: 1rem;
-            opacity: 0.7;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-style: italic;
         }
 
-        /* Responsive Design */
+        .testimonial-author {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: transparent;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .final-cta .container {
+            background: rgba(15, 18, 32, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 32px;
+            padding: 4rem 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                        0 0 80px rgba(99, 102, 241, 0.15);
+            position: relative;
+        }
+
+        .final-cta .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(139, 92, 246, 0.5) 50%, 
+                transparent 100%
+            );
+            filter: blur(2px);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero {
-                padding: 1.5rem;
+            .section {
+                padding: 5rem 1.5rem;
             }
 
-            .hero h1 {
-                margin-bottom: 1rem;
+            .section:first-of-type {
+                padding-top: 6rem;
             }
 
-            .hero p {
-                margin-bottom: 2rem;
-                font-size: 1rem;
+            .section-panel {
+                padding: 3rem 2rem;
+                border-radius: 24px;
             }
 
-            .cta-button {
-                padding: 0.875rem 2rem;
-                font-size: 1rem;
+            .final-cta .container {
+                padding: 3rem 2rem;
+                border-radius: 24px;
+            }
+
+            .what-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mascot-container {
+                width: 280px;
+                height: 280px;
+                top: -120px;
+            }
+
+            .pp-body {
+                width: 150px;
+                height: 180px;
+            }
+
+            .pp-face {
+                width: 105px;
+                height: 75px;
+                gap: 15px;
+                top: 30px;
+            }
+
+            .pp-eye {
+                width: 15px;
+                height: 15px;
+            }
+
+            .pp-smile {
+                width: 45px;
+                height: 22px;
+            }
+
+            .pp-arm {
+                width: 45px;
+                height: 12px;
+            }
+
+            .pp-arm.left {
+                left: -38px;
+                top: 90px;
+            }
+
+            .pp-arm.right {
+                right: -38px;
+                top: 90px;
+            }
+
+            .title-section {
+                padding: 100px 1rem 1.5rem 1rem;
+                margin-top: -70px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
                 width: 100%;
                 max-width: 320px;
-            }
-
-            .banner-item {
-                font-size: 2.5rem;
-            }
-
-            .banner-row {
-                gap: 3rem;
-            }
-
-            .banner {
-                padding: 1rem 0;
-            }
-
-            .stats-section {
-                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .hero {
-                padding: 1rem;
+            .mascot-container {
+                width: 240px;
+                height: 240px;
+                top: -100px;
             }
 
-            .cta-button {
-                padding: 0.75rem 1.5rem;
+            .pp-body {
+                width: 130px;
+                height: 160px;
             }
 
-            .banner-item {
-                font-size: 1.8rem;
-            }
-
-            .banner-row {
-                gap: 2rem;
-            }
-
-            .banner {
-                padding: 0.5rem 0;
+            .title-section {
+                padding: 80px 1rem 1.5rem 1rem;
+                margin-top: -60px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- ========== HERO SECTION ========== -->
     <section class="hero">
-        <!-- Background Scrolling Banner -->
-        <div class="banner" aria-hidden="true">
-            <!-- Row 1 - Moving Right -->
-            <div class="banner-row">
-                <span class="banner-item">BRAND&nbsp;DEALS</span>
-                <span class="banner-item outline">UGC</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">STONKS</span>
-                <span class="banner-item outline">SPONSORSHIPS</span>
-                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item">BRAND&nbsp;DEALS</span>
-                <span class="banner-item outline">UGC</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">STONKS</span>
-                <span class="banner-item outline">SPONSORSHIPS</span>
-                <span class="banner-item gradient">AD&nbsp;REVENUE</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item outline">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item gradient">CONTENT&nbsp;GROWTH</span>
-            </div>
-
-            <!-- Row 2 - Moving Left -->
-            <div class="banner-row">
-                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
-                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
-                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item">ALGORITHMS</span>
-                <span class="banner-item outline">AI&nbsp;TOOLS</span>
-                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
-                <span class="banner-item">MONETIZATION</span>
-                <span class="banner-item gradient">AFFILIATE&nbsp;MARKETING</span>
-                <span class="banner-item">CREATOR&nbsp;ECONOMY</span>
-                <span class="banner-item outline">PAID&nbsp;PARTNERSHIPS</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item">ALGORITHMS</span>
-                <span class="banner-item outline">AI&nbsp;TOOLS</span>
-                <span class="banner-item gradient">BRAND&nbsp;DEALS</span>
-                <span class="banner-item">MONETIZATION</span>
-            </div>
-
-            <!-- Row 3 - Moving Right -->
-            <div class="banner-row">
-                <span class="banner-item outline">STONKS</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item gradient">SPONSORSHIPS</span>
-                <span class="banner-item">UGC</span>
-                <span class="banner-item outline">AD&nbsp;REVENUE</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-                <span class="banner-item outline">STONKS</span>
-                <span class="banner-item gradient">CRYPTO</span>
-                <span class="banner-item">PASSIVE&nbsp;INCOME</span>
-                <span class="banner-item outline">CONTENT&nbsp;GROWTH</span>
-                <span class="banner-item gradient">SPONSORSHIPS</span>
-                <span class="banner-item">UGC</span>
-                <span class="banner-item outline">AD&nbsp;REVENUE</span>
-                <span class="banner-item gradient">SCALING&nbsp;UP</span>
-            </div>
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
 
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        
         <div class="hero-content">
-            <h1>
-                Power Your Creativity with <span class="gradient-text">PostPal AI</span>
-            </h1>
-            <p>
-                Your all-in-one desktop toolkit for creators and entrepreneurs — packed with AI tools, templates, and real-time insights to help you make smarter, faster, better content.
+            <div class="mascot-title-stack">
+                <div class="mascot-container">
+                    <div class="mascot-glow"></div>
+                    <div class="postpal-mascot">
+                        <div class="pp-body">
+                            <div class="pp-antenna"></div>
+                            <div class="pp-face">
+                                <div class="pp-eye"></div>
+                                <div class="pp-eye"></div>
+                            </div>
+                            <div class="pp-smile"></div>
+                            <div class="pp-arm left"></div>
+                            <div class="pp-arm right"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="title-section">
+                    <h1 class="main-title">
+                        <span class="title-postpal">PostPal</span> <span class="title-ai">AI</span>
+                    </h1>
+                </div>
+            </div>
+
+            <p class="subheadline">Your always-on AI sidekick for faster, better content.</p>
+            
+            <p class="description">
+                PostPal is a desktop-style hub packed with AI tools that help you plan, write, and optimize content in one place. Keep it open while you're grinding, and use it to brainstorm ideas, punch up scripts, sharpen hooks, and move way faster on every video.
             </p>
-            <a href="community.html" class="cta-button" aria-label="Join the PostPal community">Join the Community</a>
+
+            <div class="cta-buttons">
+                <a href="community.html" class="btn btn-primary">Start Using PostPal</a>
+                <a href="tools.html" class="btn btn-secondary">View the Tools</a>
+            </div>
+
+            <div class="feature-pills">
+                <div class="pill">Idea & Hook Generator</div>
+                <div class="pill">Script & Caption Writer</div>
+                <div class="pill">Brand Deal Helper</div>
+                <div class="pill">Content Analytics Insights</div>
+            </div>
         </div>
     </section>
 
-    <!-- Social Proof Stats -->
+    <!-- ========== SECTION 1: What is PostPal? ========== -->
     <section class="section">
-        <div class="section-content">
-            <div class="stats-section">
-                <div class="stat-item">
-                    <div class="stat-number">10,000+</div>
-                    <div class="stat-label">Active Creators</div>
+        <div class="container">
+            <div class="section-panel">
+                <div class="section-header">
+                    <h2 class="section-title">What is <span class="gradient-text">PostPal AI?</span></h2>
+                    <p class="section-subtitle">A desktop control center for creators who take this seriously.</p>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">$2M+</div>
-                    <div class="stat-label">Creator Earnings</div>
+
+                <p class="section-text">
+                    PostPal isn't just another AI chat box. It's a focused workspace you keep open while you create. Inside, you get a set of tools built specifically for content creators and entrepreneurs — so you're never starting from a blank page, and you're never stuck wondering what to post next.
+                </p>
+
+                <div class="what-grid">
+                    <div class="what-card">
+                        <h3>Plan</h3>
+                        <p>Turn loose ideas into clear content plans, hooks, and titles.</p>
+                    </div>
+
+                    <div class="what-card">
+                        <h3>Create</h3>
+                        <p>Draft scripts, captions, replies, and emails in your voice.</p>
+                    </div>
+
+                    <div class="what-card">
+                        <h3>Grow</h3>
+                        <p>Analyze posts, spot trends, and prep for brand deals.</p>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">9</div>
-                    <div class="stat-label">AI-Powered Tools</div>
+
+                <div class="dashboard-preview">
+                    📱 Dashboard Screenshot Preview
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- What We Offer Section -->
+    <!-- ========== SECTION 2: Who it's for ========== -->
     <section class="section">
-        <div class="section-content">
-            <h2>What You'll Get Inside <span class="gradient-text">PostPal</span></h2>
-            <p>A powerful suite of AI tools built to help you create, automate, and grow — everything you need to make your content stand out.</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon" role="img" aria-label="Brain icon">🧠</div>
-                    <h3>AI Script & Hook Generator</h3>
-                    <p>Create scroll-stopping hooks and full video scripts in seconds with AI tailored for content creators and entrepreneurs.</p>
+        <div class="container">
+            <div class="section-panel">
+                <div class="section-header">
+                    <h2 class="section-title">Built for Creators Who <span class="gradient-text">Treat This Like a Job</span></h2>
+                    <p class="section-subtitle">
+                        If you're filming, editing, and posting consistently, PostPal is your AI assistant sitting on the second monitor.
+                    </p>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon" role="img" aria-label="Video camera icon">🎬</div>
-                    <h3>Video & Media Tools</h3>
-                    <p>Access templates, caption generators, and smart editing prompts to speed up your video production workflow.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon" role="img" aria-label="Chart icon">📈</div>
-                    <h3>Smart Analytics & Insights</h3>
-                    <p>See what's working — get real-time content performance breakdowns, trends, and growth suggestions powered by AI.</p>
+
+                <div class="audience-grid">
+                    <div class="audience-item">Short-form creators on TikTok, Reels, and Shorts</div>
+                    <div class="audience-item">YouTubers planning story-driven videos</div>
+                    <div class="audience-item">Streamers and gaming creators who post daily clips</div>
+                    <div class="audience-item">Entrepreneurs building a personal brand with content</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Different Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <h2>Why <span class="gradient-text">PostPal</span> is Different</h2>
-            <p>This isn't another course where you watch videos alone. This is a living, breathing community where real creators share real insights.</p>
-            
-            <div class="features-grid" style="max-width: 900px; margin: 3rem auto; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                <div class="feature-card">
-                    <h3>❌ Other Platforms</h3>
-                    <p style="opacity: 0.6;">Pre-recorded courses<br>One-way learning<br>No community support<br>Outdated strategies<br>Pay per course</p>
+    <!-- ========== SECTION 3: What's inside – the tools ========== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-panel">
+                <div class="section-header">
+                    <h2 class="section-title">Everything You Need <span class="gradient-text">in One Place</span></h2>
                 </div>
-                
-                <div class="feature-card" style="border-color: rgba(139, 92, 246, 0.5); background: rgba(139, 92, 246, 0.1);">
-                    <h3>✅ PostPal Community</h3>
-                    <p>Live interactive sessions<br>Two-way discussions<br>Active peer support<br>Real-time updates<br>All-access membership</p>
+
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <span class="tool-icon">🎯</span>
+                        <h3>Idea & Hook Generator</h3>
+                        <p>Turn loose thoughts into scroll-stopping hooks, thumbnail ideas, and video angles in seconds.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <span class="tool-icon">✍️</span>
+                        <h3>Script & Caption Writer</h3>
+                        <p>Flesh out hooks into full scripts, outlines, captions, and pinned comments that match your tone.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <span class="tool-icon">🤝</span>
+                        <h3>Brand Deal Helper</h3>
+                        <p>Draft pitch emails, negotiate rates, and clean replies so you sound professional without sounding fake.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <span class="tool-icon">📊</span>
+                        <h3>Content Analytics Insights</h3>
+                        <p>Paste your stats and let PostPal tell you what's working, what's dying, and what to double down on.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <span class="tool-icon">📡</span>
+                        <h3>Trend & Concept Finder</h3>
+                        <p>Turn news, trends, and niche topics into content formats that fit your style.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <span class="tool-icon">📚</span>
+                        <h3>Library & Templates</h3>
+                        <p>Save your best prompts, scripts, and formats so you can reuse them whenever.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="section cta-section">
-        <div class="section-content">
-            <h2>Ready to Build Your Empire?</h2>
-            <p>Join creators who are turning their content into sustainable income streams</p>
-            <a href="community.html" class="cta-button" aria-label="Join the PostPal community">Join the Community</a>
+    <!-- ========== SECTION 4: Daily workflow ========== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-panel">
+                <div class="section-header">
+                    <h2 class="section-title">How Creators Actually Use <span class="gradient-text">PostPal in a Day</span></h2>
+                </div>
+
+                <div class="workflow-timeline">
+                    <div class="workflow-step">
+                        <div class="step-label">Step 1</div>
+                        <h3>Plan your day's content</h3>
+                        <p>Use the Idea & Hook tool to generate hooks and angles for today's videos in 15–20 minutes.</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-label">Step 2</div>
+                        <h3>Write faster, not sloppier</h3>
+                        <p>Turn those hooks into scripts, captions, and title options. Keep PostPal open next to your editor.</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-label">Step 3</div>
+                        <h3>Grow the business side</h3>
+                        <p>Use Brand Deal Helper to send outreach emails, reply to brands, and build real monthly income.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <script type="module">
-        // Track CTA clicks
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                console.log('CTA clicked:', this.textContent);
-            });
+    <!-- ========== SECTION 5: Social proof ========== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-panel">
+                <div class="section-header">
+                    <h2 class="section-title">Why Creators Keep <span class="gradient-text">PostPal Open All Day</span></h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number">10,000+</div>
+                        <div class="metric-label">Prompts generated for creators</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-number">100M+</div>
+                        <div class="metric-label">Combined creator views</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-number">14</div>
+                        <div class="metric-label">AI-powered tools</div>
+                    </div>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <p class="testimonial-text">
+                            "PostPal cut my script writing time in half. I keep it open on my second monitor and use it for every single video now."
+                        </p>
+                        <div class="testimonial-author">— Creator Name</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <p class="testimonial-text">
+                            "The Brand Deal Helper literally helped me get my first sponsorship. I had no idea what to say before PostPal."
+                        </p>
+                        <div class="testimonial-author">— Creator Name</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <p class="testimonial-text">
+                            "Finally, an AI tool that actually understands content creation. Not just generic ChatGPT responses."
+                        </p>
+                        <div class="testimonial-author">— Creator Name</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 6: Final CTA ========== -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="section-title">Ready to Make Content <span class="gradient-text">Your Full-Time Thing?</span></h2>
+            <p class="section-subtitle" style="margin-bottom: 2.5rem;">
+                Start using PostPal as your always-on AI sidekick and move faster on every video, every pitch, every idea.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="community.html" class="btn btn-primary">Start Using PostPal</a>
+                <a href="community.html" class="btn btn-secondary">Join the Community</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        console.log('🤖 PostPal AI - Full Landing Page Loaded!');
+        
+        // Optional parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mascot = document.querySelector('.mascot-container');
+            if (mascot) {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                mascot.style.transform = `translateX(calc(-50% + ${moveX}px)) translateY(${moveY}px)`;
+            }
+        });
+
+        document.addEventListener('mouseleave', () => {
+            const mascot = document.querySelector('.mascot-container');
+            if (mascot) {
+                mascot.style.transform = 'translateX(-50%) translateY(0)';
+            }
         });
     </script>
 </body>
