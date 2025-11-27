@@ -63,7 +63,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            max-width: 1400px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
             padding: 2rem;
@@ -71,16 +71,16 @@
 
         .agent-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .agent-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
         .agent-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
         }
@@ -93,39 +93,353 @@
         }
 
         .agent-description {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .agent-frame-container {
+        /* Chat Container */
+        .chat-container {
             flex: 1;
-            background: white;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            min-height: 600px;
+            min-height: 500px;
         }
 
-        .agent-iframe {
-            width: 100%;
-            height: 100%;
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.assistant pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+        }
+
+        .message.assistant code {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .welcome-message h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .welcome-message p {
+            margin-bottom: 1.5rem;
+        }
+
+        .example-prompts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .example-prompt {
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-prompt:hover {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Input Area */
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            background: rgba(10, 10, 21, 0.5);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+
+        /* Input row with textarea and mic button */
+        .input-row {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Voice Input Button */
+        .mic-button {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mic-button:hover:not(:disabled) {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.5);
+            color: white;
+        }
+
+        .mic-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Listening state - pulsing red glow */
+        .mic-button.listening {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.6);
+            color: #ef4444;
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.3);
+            }
+        }
+
+        .send-button {
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
             border: none;
-            min-height: 600px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
+        .send-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading State */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: rgba(139, 92, 246, 0.6);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Hooks Display */
+        .hooks-container {
+            margin-top: 0.5rem;
+        }
+
+        .hooks-section {
+            margin-bottom: 1rem;
+        }
+
+        .hooks-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #8b5cf6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hook-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .hook-item:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .hook-item::after {
+            content: '📋';
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .hook-item:hover::after {
+            opacity: 1;
+        }
+
+        .hook-item.copied::after {
+            content: '✓';
+        }
+
+        .notes-section {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .notes-section strong {
+            color: #8b5cf6;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .agent-container {
                 padding: 1rem;
             }
 
             .agent-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
             .agent-icon {
-                font-size: 3rem;
+                font-size: 2.5rem;
+            }
+
+            .message {
+                max-width: 95%;
+            }
+
+            .chat-input-wrapper {
+                flex-direction: column;
+            }
+
+            .input-row {
+                width: 100%;
+            }
+
+            .send-button {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -142,17 +456,347 @@
         <div class="agent-header">
             <div class="agent-icon">🎯</div>
             <h1 class="agent-title"><span class="gradient-text">Hook Generator</span></h1>
-            <p class="agent-description">Create scroll-stopping hooks and captions that boost engagement and views with AI-powered suggestions</p>
+            <p class="agent-description">Create scroll-stopping hooks and captions that boost engagement and views</p>
         </div>
 
-        <div class="agent-frame-container">
-            <iframe 
-                id="agentFrame" 
-                class="agent-iframe"
-                src="https://chatkit.app/embed/wf_68ff9f232ec8819091a47b28519660b60af8f1ec0b2b9dbb?version=2"
-                allow="clipboard-write; microphone; camera"
-            ></iframe>
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <h3>👋 Ready to generate viral hooks</h3>
+                    <p>Tell me about your video — topic, platform, and vibe — and I'll give you hooks you can use right away.</p>
+                    <div class="example-prompts">
+                        <span class="example-prompt" onclick="useExample(this)">Morning routine video for TikTok, chill vibe</span>
+                        <span class="example-prompt" onclick="useExample(this)">Why I quit my 9-5, storytelling style</span>
+                        <span class="example-prompt" onclick="useExample(this)">Cooking hack video, high energy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <div class="input-row">
+                        <textarea 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="Describe your video topic, platform, and style..."
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                        ></textarea>
+                        <!-- Voice input button - hidden by default, shown if browser supports it -->
+                        <button 
+                            class="mic-button" 
+                            id="micButton" 
+                            type="button"
+                            title="Voice input"
+                            style="display: none;"
+                        >🎤</button>
+                    </div>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">
+                        Generate →
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // =============================================
+        // DOM Elements
+        // =============================================
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const micButton = document.getElementById('micButton');
+        
+        // =============================================
+        // State
+        // =============================================
+        let conversationHistory = [];
+        let isLoading = false;
+        let recognition = null;
+        let isListening = false;
+
+        // =============================================
+        // Voice Input Setup (Web Speech API)
+        // =============================================
+        function initVoiceInput() {
+            // Check if browser supports SpeechRecognition
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                // Browser doesn't support it - keep mic button hidden
+                console.log('Speech recognition not supported in this browser');
+                return;
+            }
+
+            // Show the mic button since browser supports it
+            micButton.style.display = 'flex';
+
+            // Initialize recognition
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;       // Stop after one phrase
+            recognition.interimResults = false;   // Only final results
+            recognition.lang = 'en-US';           // Default to English
+
+            // Handle successful recognition
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                
+                // Append to existing text (with space) or set as new text
+                if (chatInput.value.trim()) {
+                    chatInput.value = chatInput.value.trim() + ' ' + transcript;
+                } else {
+                    chatInput.value = transcript;
+                }
+
+                // Trigger input event to auto-resize textarea
+                chatInput.dispatchEvent(new Event('input'));
+                chatInput.focus();
+            };
+
+            // Handle recognition end (whether successful or not)
+            recognition.onend = () => {
+                stopListening();
+            };
+
+            // Handle errors
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                stopListening();
+                
+                // Show user-friendly error for common issues
+                if (event.error === 'not-allowed') {
+                    alert('Microphone access denied. Please allow microphone access to use voice input.');
+                } else if (event.error === 'no-speech') {
+                    // Silent fail for no speech detected - user just didn't say anything
+                }
+            };
+
+            // Add click handler to mic button
+            micButton.addEventListener('click', toggleVoiceInput);
+        }
+
+        function toggleVoiceInput() {
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
+            if (!recognition || isListening) return;
+
+            try {
+                recognition.start();
+                isListening = true;
+                micButton.classList.add('listening');
+                micButton.textContent = '🎙️';
+                micButton.title = 'Listening... Click to stop';
+            } catch (error) {
+                console.error('Error starting recognition:', error);
+                stopListening();
+            }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) {
+                try {
+                    recognition.stop();
+                } catch (e) {
+                    // Ignore errors when stopping
+                }
+            }
+            isListening = false;
+            micButton.classList.remove('listening');
+            micButton.textContent = '🎤';
+            micButton.title = 'Voice input';
+        }
+
+        // =============================================
+        // Textarea Auto-resize
+        // =============================================
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        // =============================================
+        // Keyboard Handler
+        // =============================================
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // =============================================
+        // Example Prompts
+        // =============================================
+        function useExample(element) {
+            chatInput.value = element.textContent;
+            chatInput.focus();
+        }
+
+        // =============================================
+        // Message Handling
+        // =============================================
+        function addMessage(content, role, isHooks = false) {
+            // Remove welcome message if it exists
+            const welcome = chatMessages.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            if (role === 'assistant' && isHooks) {
+                messageDiv.innerHTML = formatHooksResponse(content);
+            } else {
+                messageDiv.textContent = content;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function formatHooksResponse(content) {
+            try {
+                // Try to parse as JSON
+                const data = JSON.parse(content);
+                
+                let html = '<div class="hooks-container">';
+                
+                // Spoken Hooks
+                if (data.spoken_hooks && data.spoken_hooks.length > 0) {
+                    html += '<div class="hooks-section">';
+                    html += '<div class="hooks-section-title">🎤 Spoken Hooks</div>';
+                    data.spoken_hooks.forEach((hook, i) => {
+                        html += `<div class="hook-item" onclick="copyHook(this, '${hook.replace(/'/g, "\\'")}')">${hook}</div>`;
+                    });
+                    html += '</div>';
+                }
+                
+                // On-screen Text Hooks
+                if (data.onscreen_text_hooks && data.onscreen_text_hooks.length > 0) {
+                    html += '<div class="hooks-section">';
+                    html += '<div class="hooks-section-title">📱 On-Screen Text Hooks</div>';
+                    data.onscreen_text_hooks.forEach((hook, i) => {
+                        html += `<div class="hook-item" onclick="copyHook(this, '${hook.replace(/'/g, "\\'")}')">${hook}</div>`;
+                    });
+                    html += '</div>';
+                }
+                
+                // Notes
+                if (data.notes) {
+                    html += '<div class="notes-section">';
+                    if (data.notes.angle_summary) {
+                        html += `<p><strong>Angle:</strong> ${data.notes.angle_summary}</p>`;
+                    }
+                    if (data.notes.suggested_opening_shot) {
+                        html += `<p><strong>Opening shot idea:</strong> ${data.notes.suggested_opening_shot}</p>`;
+                    }
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+                return html;
+                
+            } catch (e) {
+                // If not valid JSON, just return as text
+                return `<pre><code>${content}</code></pre>`;
+            }
+        }
+
+        function copyHook(element, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add('copied');
+                setTimeout(() => element.classList.remove('copied'), 1500);
+            });
+        }
+
+        // =============================================
+        // Loading Indicator
+        // =============================================
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        // =============================================
+        // Send Message to API
+        // =============================================
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message || isLoading) return;
+
+            // Stop voice input if active
+            if (isListening) {
+                stopListening();
+            }
+
+            isLoading = true;
+            sendButton.disabled = true;
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            // Add user message
+            addMessage(message, 'user');
+            conversationHistory.push({ role: 'user', content: message });
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            try {
+                const response = await fetch('/.netlify/functions/hook-generator', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: conversationHistory,
+                    }),
+                });
+
+                const data = await response.json();
+                hideTypingIndicator();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to generate hooks');
+                }
+
+                // Add assistant message
+                addMessage(data.message, 'assistant', true);
+                conversationHistory.push({ role: 'assistant', content: data.message });
+
+            } catch (error) {
+                hideTypingIndicator();
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message assistant error';
+                errorDiv.textContent = `Error: ${error.message}. Make sure your API key is configured in Netlify.`;
+                chatMessages.appendChild(errorDiv);
+            }
+
+            isLoading = false;
+            sendButton.disabled = false;
+            chatInput.focus();
+        }
+
+        // =============================================
+        // Initialize on Page Load
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initVoiceInput();
+        });
+    </script>
 </body>
 </html>
