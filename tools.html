@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools - PostPal Community</title>
+    <title>Tool Watch - Coming Soon | PostPal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
             color: #fff;
-            line-height: 1.6;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -24,9 +21,6 @@
             background: rgba(10, 10, 21, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .header-content {
@@ -43,405 +37,140 @@
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             text-decoration: none;
         }
 
-        .nav-links {
+        .back-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; }
+        .back-link:hover { color: #8b5cf6; }
+
+        .coming-soon-container {
+            flex: 1;
             display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #8b5cf6;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .page-header {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
             text-align: center;
-            margin-bottom: 3rem;
         }
 
-        .page-header h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+        .icon { font-size: 5rem; margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .title {
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, #8B5CF6, #A78BFA, #C4B5FD);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            max-width: 700px;
-            margin: 0 auto;
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            max-width: 500px;
         }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
-        }
-
-        .tool-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .tool-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .tool-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             background: rgba(139, 92, 246, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
             font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: #8b5cf6;
+            margin-bottom: 2rem;
         }
 
-        .tool-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #fff;
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .tool-card p {
-            opacity: 0.7;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
-        .tool-features {
-            list-style: none;
-            margin-top: 1rem;
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
         }
 
-        .tool-features li {
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-            opacity: 0.8;
+        .feature {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .tool-features li::before {
-            content: '✓';
-            color: #8b5cf6;
-            font-weight: bold;
-        }
+        .feature-icon { color: #8B5CF6; }
 
-        .cta-button {
-            width: 100%;
-            padding: 1rem;
+        .back-button {
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
-            border: none;
+            text-decoration: none;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            transition: all 0.2s ease;
         }
 
-        .cta-button:hover {
+        .back-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="index.html" class="logo">PostPal</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="courses.html">Dashboard</a></li>
-                    <li><a href="agents.html">AI Agents</a></li>
-                    <li><a href="#" style="color: #8b5cf6;">Tools</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                </ul>
-            </nav>
+            <a href="courses.html" class="logo">PostPal</a>
+            <a href="tools.html" class="back-link">← Back to Tools</a>
         </div>
     </header>
 
-    <div class="container">
-        <div class="page-header">
-            <h1>AI-Powered <span class="gradient-text">Creator Tools</span></h1>
-            <p>Automate your workflow with intelligent agents built specifically for content creators</p>
+    <div class="coming-soon-container">
+        <div class="icon">🔧</div>
+        <h1 class="title"><span class="gradient-text">Tool Watch</span></h1>
+        <p class="subtitle">Discover the best creator tools before everyone else — curated reviews, deals, and recommendations.</p>
+        
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Coming Soon
         </div>
 
-        <div class="tools-grid">
-            <!-- Hook Generator -->
-            <div class="tool-card" onclick="window.location.href='hook-generator.html'">
-                <span class="tool-icon">🎯</span>
-                <span class="tool-badge">Content</span>
-                <h3>Hook Generator</h3>
-                <p>Create scroll-stopping hooks and captions that boost engagement and views.</p>
-                <ul class="tool-features">
-                    <li>Viral hook templates</li>
-                    <li>Platform-specific formats</li>
-                    <li>A/B testing suggestions</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Brand Negotiator -->
-            <div class="tool-card" onclick="window.location.href='brand-negotiator.html'">
-                <span class="tool-icon">🤝</span>
-                <span class="tool-badge">Business</span>
-                <h3>Brand Negotiator</h3>
-                <p>Get expert guidance on negotiating better rates and terms for brand partnerships.</p>
-                <ul class="tool-features">
-                    <li>Rate calculators</li>
-                    <li>Contract review assistance</li>
-                    <li>Negotiation strategies</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Analytics Advisor -->
-            <div class="tool-card" onclick="window.location.href='analytics-advisor.html'">
-                <span class="tool-icon">📊</span>
-                <span class="tool-badge">Analytics</span>
-                <h3>Analytics Advisor</h3>
-                <p>Analyze your performance data and get actionable insights to grow your audience.</p>
-                <ul class="tool-features">
-                    <li>Performance analysis</li>
-                    <li>Growth recommendations</li>
-                    <li>Content optimization</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Trend Radar -->
-            <div class="tool-card" onclick="window.location.href='trend-radar.html'">
-                <span class="tool-icon">📡</span>
-                <span class="tool-badge">Trends</span>
-                <h3>Trend Radar</h3>
-                <p>Spot emerging trends before they go viral and position your content ahead of the curve.</p>
-                <ul class="tool-features">
-                    <li>Real-time trend detection</li>
-                    <li>Trending sounds & hashtags</li>
-                    <li>Opportunity scoring</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Money Board -->
-            <div class="tool-card" onclick="window.location.href='money-board.html'">
-                <span class="tool-icon">💰</span>
-                <span class="tool-badge">Monetization</span>
-                <h3>Money Board</h3>
-                <p>Discover brand deals, UGC opportunities, and monetization strategies tailored to your niche.</p>
-                <ul class="tool-features">
-                    <li>Brand partnership alerts</li>
-                    <li>UGC gig opportunities</li>
-                    <li>Revenue optimization tips</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Platform Updates -->
-            <div class="tool-card" onclick="window.location.href='platform-updates.html'">
-                <span class="tool-icon">🔔</span>
-                <span class="tool-badge">Updates</span>
-                <h3>Platform Updates</h3>
-                <p>Stay informed about the latest platform algorithm changes, features, and updates.</p>
-                <ul class="tool-features">
-                    <li>Algorithm updates</li>
-                    <li>New feature alerts</li>
-                    <li>Platform policy changes</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Content Scheduler -->
-            <div class="tool-card" onclick="window.location.href='content-scheduler.html'">
-                <span class="tool-icon">📅</span>
-                <span class="tool-badge">Planning</span>
-                <h3>Content Scheduler</h3>
-                <p>Plan and schedule your content across all platforms with AI-powered timing recommendations.</p>
-                <ul class="tool-features">
-                    <li>Best time suggestions</li>
-                    <li>Multi-platform calendar</li>
-                    <li>Content batching tools</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Caption Optimizer -->
-            <div class="tool-card" onclick="window.location.href='caption-optimizer.html'">
-                <span class="tool-icon">✍️</span>
-                <span class="tool-badge">Copy</span>
-                <h3>Caption Optimizer</h3>
-                <p>Optimize your captions for maximum engagement with AI-powered suggestions and hashtags.</p>
-                <ul class="tool-features">
-                    <li>SEO-friendly captions</li>
-                    <li>Hashtag recommendations</li>
-                    <li>Emoji optimization</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Community Pulse -->
-            <div class="tool-card" onclick="window.location.href='community-pulse.html'">
-                <span class="tool-icon">👥</span>
-                <span class="tool-badge">Community</span>
-                <h3>Community Pulse</h3>
-                <p>Monitor and engage with your community, track sentiment, and respond intelligently.</p>
-                <ul class="tool-features">
-                    <li>Sentiment analysis</li>
-                    <li>Comment management</li>
-                    <li>Engagement tracking</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Content Library -->
-            <div class="tool-card" onclick="window.location.href='content-library.html'">
-                <span class="tool-icon">📚</span>
-                <span class="tool-badge">Library</span>
-                <h3>Content Library</h3>
-                <p>Store, organize, and repurpose your best performing content in one searchable library.</p>
-                <ul class="tool-features">
-                    <li>Content organization</li>
-                    <li>Performance tracking</li>
-                    <li>Repurposing suggestions</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Smart Outreach -->
-            <div class="tool-card" onclick="window.location.href='smart-outreach.html'">
-                <span class="tool-icon">📧</span>
-                <span class="tool-badge">Outreach</span>
-                <h3>Smart Outreach</h3>
-                <p>Automate your brand outreach and partnership pitches with personalized AI-generated emails.</p>
-                <ul class="tool-features">
-                    <li>Email templates</li>
-                    <li>Personalization AI</li>
-                    <li>Follow-up automation</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Idea Vault -->
-            <div class="tool-card" onclick="window.location.href='idea-vault.html'">
-                <span class="tool-icon">💡</span>
-                <span class="tool-badge">Ideas</span>
-                <h3>Idea Vault</h3>
-                <p>Generate, store and organize your best content ideas in one intelligent vault.</p>
-                <ul class="tool-features">
-                    <li>AI idea generation</li>
-                    <li>Organized storage</li>
-                    <li>Quick reference access</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Sora Prompt Generator -->
-            <div class="tool-card" onclick="window.location.href='sora-prompt-generator.html'">
-                <span class="tool-icon">🎬</span>
-                <span class="tool-badge">AI Video</span>
-                <h3>Sora Prompt Generator</h3>
-                <p>Generate perfect prompts for OpenAI's Sora AI video generation tool.</p>
-                <ul class="tool-features">
-                    <li>Cinematic prompts</li>
-                    <li>Style templates</li>
-                    <li>Scene descriptions</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
-
-            <!-- Tool Watch -->
-            <div class="tool-card" onclick="window.location.href='tool-watch.html'">
-                <span class="tool-icon">🔧</span>
-                <span class="tool-badge">Resources</span>
-                <h3>Tool Watch</h3>
-                <p>Discover and track the latest creator tools, software updates, and platform features.</p>
-                <ul class="tool-features">
-                    <li>New tool alerts</li>
-                    <li>Tool comparisons</li>
-                    <li>Discount tracking</li>
-                </ul>
-                <button class="cta-button">Launch Agent →</button>
-            </div>
+        <div class="features">
+            <div class="feature"><span class="feature-icon">✓</span> Tool comparisons</div>
+            <div class="feature"><span class="feature-icon">✓</span> Exclusive deals</div>
+            <div class="feature"><span class="feature-icon">✓</span> New tool alerts</div>
+            <div class="feature"><span class="feature-icon">✓</span> Creator reviews</div>
+            <div class="feature"><span class="feature-icon">✓</span> Stack recommendations</div>
         </div>
+
+        <a href="tools.html" class="back-button">Explore Other Tools</a>
     </div>
-
-    <script>
-        console.log('✅ PostPal AI Tools Ready - 14 Tools Available');
-    </script>
 </body>
 </html>
