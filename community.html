@@ -3,985 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join PostPal - Creator Community & AI Toolkit</title>
-    <meta name="description" content="Join PostPal's creator community. Get access to AI-powered tools, templates, and insights. Free and Pro plans available.">
-    <meta property="og:title" content="Join PostPal - Creator Community">
-    <meta property="og:description" content="All-in-one AI toolkit for content creators">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <title>Community Pulse - Coming Soon | PostPal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
             color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .hero {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .back-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; }
+        .back-link:hover { color: #8b5cf6; }
+
+        .coming-soon-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
-            animation: pulse 8s ease-in-out infinite;
+        .icon { font-size: 5rem; margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .left-content {
-            text-align: left;
-        }
-
-        .left-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+        .title {
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
+            margin-bottom: 0.5rem;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, #F472B6, #EC4899, #DB2777);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .left-content p {
-            font-size: 1.3rem;
-            opacity: 0.85;
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 2rem;
-            line-height: 1.7;
+            max-width: 500px;
         }
 
-        .benefits-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .benefits-list li {
-            padding: 1rem 0;
-            font-size: 1.15rem;
-            display: flex;
+        .badge {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            opacity: 0.9;
-        }
-
-        .benefits-list li::before {
-            content: '✓';
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-weight: bold;
-            color: white;
-        }
-
-        .signup-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 3rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Mode Toggle Styles */
-        .auth-mode-toggle {
-            display: flex;
             gap: 0.5rem;
-            margin-bottom: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.5rem;
-            border-radius: 12px;
-        }
-
-        .mode-btn {
-            flex: 1;
-            padding: 0.75rem;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            color: rgba(255, 255, 255, 0.6);
+            padding: 0.75rem 1.5rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            color: #8b5cf6;
+            margin-bottom: 2rem;
         }
 
-        .mode-btn:hover {
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .mode-btn.active {
+        .feature-icon { color: #EC4899; }
+
+        .back-button {
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
-        }
-
-        .signup-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .signup-header h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .signup-header p {
-            opacity: 0.7;
-            font-size: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group.hidden {
-            display: none;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: rgba(139, 92, 246, 0.6);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .form-group input.error {
-            border-color: rgba(239, 68, 68, 0.6);
-        }
-
-        .field-error {
-            color: #fca5a5;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .field-error.show {
-            display: block;
-        }
-
-        .password-strength {
-            margin-top: 0.5rem;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .password-strength.show {
-            display: block;
-        }
-
-        .password-strength-bar {
-            height: 100%;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .password-strength-bar.weak {
-            width: 33%;
-            background: #ef4444;
-        }
-
-        .password-strength-bar.medium {
-            width: 66%;
-            background: #f59e0b;
-        }
-
-        .password-strength-bar.strong {
-            width: 100%;
-            background: #10b981;
-        }
-
-        .tier-selection {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .tier-selection.hidden {
-            display: none;
-        }
-
-        .tier-option {
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .tier-option:hover {
-            border-color: rgba(139, 92, 246, 0.6);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .tier-option.selected {
-            border-color: rgba(139, 92, 246, 0.8);
-            background: rgba(139, 92, 246, 0.15);
-        }
-
-        .tier-option input[type="radio"] {
-            display: none;
-        }
-
-        .tier-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-price {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.3rem;
-        }
-
-        .tier-period {
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
-
-        .popular-badge {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .cta-button {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .cta-button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
-        }
-
-        .cta-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .cta-button:focus {
-            outline: 2px solid #8b5cf6;
-            outline-offset: 2px;
-        }
-
-        .error-message {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #fca5a5;
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .social-signup {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-            opacity: 0.4;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-            font-size: 0.9rem;
-        }
-
-        .social-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .social-button {
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .social-button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .social-button:focus {
-            outline: 2px solid #8b5cf6;
-            outline-offset: 2px;
-        }
-
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            opacity: 0.6;
-        }
-
-        .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .already-member {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-            opacity: 0.7;
-        }
-
-        .already-member a {
-            color: #8b5cf6;
             text-decoration: none;
+            border-radius: 12px;
             font-weight: 600;
+            transition: all 0.2s ease;
         }
 
-        .already-member a:hover {
-            color: #ec4899;
-        }
-
-        @media (max-width: 968px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .left-content {
-                text-align: center;
-            }
-
-            .benefits-list li {
-                justify-content: center;
-            }
-
-            .tier-selection {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .signup-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .social-buttons {
-                grid-template-columns: 1fr;
-            }
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="hero-content">
-            <div class="content-grid">
-                <div class="left-content">
-                    <h1>Get Started with <span class="gradient-text">PostPal AI</span></h1>
-                    <p>Your all-in-one AI toolkit for creating better content, faster.</p>
-                    
-                    <ul class="benefits-list">
-                        <li>AI-powered script & hook generator</li>
-                        <li>Smart analytics and performance insights</li>
-                        <li>Video templates and editing tools</li>
-                        <li>Trend detection and opportunity alerts</li>
-                        <li>Brand deal negotiation assistant</li>
-                        <li>Real-time creator news and updates</li>
-                    </ul>
-                </div>
-
-                <div class="signup-card">
-                    <!-- Mode Toggle -->
-                    <div class="auth-mode-toggle" role="tablist" aria-label="Authentication mode">
-                        <button class="mode-btn active" id="signupModeBtn" role="tab" aria-selected="true" aria-controls="signup-panel">Sign Up</button>
-                        <button class="mode-btn" id="loginModeBtn" role="tab" aria-selected="false" aria-controls="login-panel">Log In</button>
-                    </div>
-
-                    <div class="signup-header">
-                        <h2 id="authTitle">Get Started Today</h2>
-                        <p id="authSubtitle">Choose your path and create your account</p>
-                    </div>
-
-                    <!-- Tier selection - only shown in signup mode -->
-                    <div class="tier-selection" id="tierSelection">
-                        <label class="tier-option selected" for="free-tier">
-                            <input type="radio" name="tier" id="free-tier" value="free" checked>
-                            <div class="tier-name">Free Explorer</div>
-                            <div class="tier-price">$0</div>
-                            <div class="tier-period">/month</div>
-                        </label>
-
-                        <label class="tier-option" for="pro-tier">
-                            <input type="radio" name="tier" id="pro-tier" value="pro">
-                            <span class="popular-badge">Most Popular</span>
-                            <div class="tier-name">Pro Creator</div>
-                            <div class="tier-price">$49</div>
-                            <div class="tier-period">/month</div>
-                        </label>
-                    </div>
-
-                    <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
-
-                    <form id="authForm" novalidate>
-                        <!-- Name field - only shown in signup mode -->
-                        <div class="form-group" id="nameGroup">
-                            <label for="name">Full Name</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                placeholder="Enter your full name"
-                                aria-required="true"
-                                aria-describedby="name-error"
-                            >
-                            <div class="field-error" id="name-error"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                placeholder="your@email.com" 
-                                required
-                                aria-required="true"
-                                aria-describedby="email-error"
-                            >
-                            <div class="field-error" id="email-error"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input 
-                                type="password" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Enter your password (min 6 characters)" 
-                                required 
-                                minlength="6"
-                                aria-required="true"
-                                aria-describedby="password-error password-strength"
-                            >
-                            <div class="password-strength" id="password-strength" aria-live="polite">
-                                <div class="password-strength-bar"></div>
-                            </div>
-                            <div class="field-error" id="password-error"></div>
-                        </div>
-
-                        <button type="submit" class="cta-button" id="submitBtn" aria-label="Create account or log in">Create My Account</button>
-                    </form>
-
-                    <div class="social-signup">
-                        <div class="divider">
-                            <span>or continue with</span>
-                        </div>
-
-                        <div class="social-buttons">
-                            <button class="social-button" id="googleSignIn" type="button" aria-label="Sign in with Google">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                </svg>
-                                Google
-                            </button>
-
-                            <button class="social-button" id="githubSignIn" type="button" aria-label="Sign in with GitHub">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                                GitHub
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="trust-badges">
-                        <div class="trust-badge">
-                            <span role="img" aria-label="Security">🔒</span>
-                            <span>Secure</span>
-                        </div>
-                        <div class="trust-badge">
-                            <span role="img" aria-label="Verified">✓</span>
-                            <span id="trustText">No credit card required for free</span>
-                        </div>
-                    </div>
-
-                    <div class="already-member">
-                        <span id="switchModeText">Already a member? <a href="#" id="switchModeLink">Log in here</a></span>
-                    </div>
-                </div>
-            </div>
+    <header class="header">
+        <div class="header-content">
+            <a href="courses.html" class="logo">PostPal</a>
+            <a href="tools.html" class="back-link">← Back to Tools</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, updateProfile, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBmc4eoiEwi0OEWetRwJXzWFxAp5uK4tQQ",
-            authDomain: "postpal-92bb7.firebaseapp.com",
-            projectId: "postpal-92bb7",
-            storageBucket: "postpal-92bb7.firebasestorage.app",
-            messagingSenderId: "519381531859",
-            appId: "1:519381531859:web:b3c548bbbb5b67968a6826",
-            measurementId: "G-WT2JW9CYLV"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Check if user is already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is already logged in, redirect to dashboard
-                window.location.href = 'courses.html';
-            }
-        });
-
-        // UI Elements
-        const authForm = document.getElementById('authForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const errorMessage = document.getElementById('errorMessage');
-        const googleSignInBtn = document.getElementById('googleSignIn');
-        const githubSignInBtn = document.getElementById('githubSignIn');
+    <div class="coming-soon-container">
+        <div class="icon">💬</div>
+        <h1 class="title"><span class="gradient-text">Community Pulse</span></h1>
+        <p class="subtitle">Stay connected with your audience — analyze sentiment, respond faster, and build deeper relationships.</p>
         
-        // Mode toggle elements
-        const signupModeBtn = document.getElementById('signupModeBtn');
-        const loginModeBtn = document.getElementById('loginModeBtn');
-        const authTitle = document.getElementById('authTitle');
-        const authSubtitle = document.getElementById('authSubtitle');
-        const nameGroup = document.getElementById('nameGroup');
-        const tierSelection = document.getElementById('tierSelection');
-        const switchModeText = document.getElementById('switchModeText');
-        const switchModeLink = document.getElementById('switchModeLink');
-        const trustText = document.getElementById('trustText');
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Coming Soon
+        </div>
 
-        // Track current mode
-        let isSignupMode = true;
+        <div class="features">
+            <div class="feature"><span class="feature-icon">✓</span> Comment sentiment analysis</div>
+            <div class="feature"><span class="feature-icon">✓</span> Auto-reply suggestions</div>
+            <div class="feature"><span class="feature-icon">✓</span> Engagement tracking</div>
+            <div class="feature"><span class="feature-icon">✓</span> Fan identification</div>
+            <div class="feature"><span class="feature-icon">✓</span> Community insights</div>
+        </div>
 
-        // Validation functions
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
-
-        function validateName(name) {
-            return name.trim().length >= 2;
-        }
-
-        function showFieldError(fieldId, message) {
-            const input = document.getElementById(fieldId);
-            const error = document.getElementById(`${fieldId}-error`);
-            input.classList.add('error');
-            error.textContent = message;
-            error.classList.add('show');
-        }
-
-        function clearFieldError(fieldId) {
-            const input = document.getElementById(fieldId);
-            const error = document.getElementById(`${fieldId}-error`);
-            input.classList.remove('error');
-            error.classList.remove('show');
-        }
-
-        function clearAllErrors() {
-            ['name', 'email', 'password'].forEach(clearFieldError);
-            errorMessage.classList.remove('show');
-        }
-
-        // Password strength indicator
-        function checkPasswordStrength(password) {
-            const strengthBar = document.querySelector('.password-strength-bar');
-            const strengthIndicator = document.getElementById('password-strength');
-            
-            if (password.length === 0) {
-                strengthIndicator.classList.remove('show');
-                return;
-            }
-            
-            strengthIndicator.classList.add('show');
-            
-            let strength = 0;
-            if (password.length >= 6) strength++;
-            if (password.length >= 10) strength++;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            if (/\d/.test(password)) strength++;
-            if (/[^a-zA-Z0-9]/.test(password)) strength++;
-            
-            strengthBar.className = 'password-strength-bar';
-            if (strength <= 2) {
-                strengthBar.classList.add('weak');
-            } else if (strength <= 3) {
-                strengthBar.classList.add('medium');
-            } else {
-                strengthBar.classList.add('strong');
-            }
-        }
-
-        passwordInput.addEventListener('input', (e) => {
-            checkPasswordStrength(e.target.value);
-            if (e.target.value.length > 0) {
-                clearFieldError('password');
-            }
-        });
-
-        emailInput.addEventListener('input', () => clearFieldError('email'));
-        nameInput.addEventListener('input', () => clearFieldError('name'));
-
-        // Show error message
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.classList.add('show');
-            setTimeout(() => {
-                errorMessage.classList.remove('show');
-            }, 5000);
-        }
-
-        // Switch to signup mode
-        function switchToSignup() {
-            isSignupMode = true;
-            signupModeBtn.classList.add('active');
-            signupModeBtn.setAttribute('aria-selected', 'true');
-            loginModeBtn.classList.remove('active');
-            loginModeBtn.setAttribute('aria-selected', 'false');
-            
-            authTitle.textContent = 'Get Started Today';
-            authSubtitle.textContent = 'Choose your path and create your account';
-            submitBtn.textContent = 'Create My Account';
-            
-            nameGroup.classList.remove('hidden');
-            tierSelection.classList.remove('hidden');
-            nameInput.required = true;
-            
-            switchModeText.innerHTML = 'Already a member? <a href="#" id="switchModeLink">Log in here</a>';
-            trustText.textContent = 'No credit card required for free';
-            
-            clearAllErrors();
-            
-            // Re-attach event listener to new link
-            document.getElementById('switchModeLink').addEventListener('click', (e) => {
-                e.preventDefault();
-                switchToLogin();
-            });
-        }
-
-        // Switch to login mode
-        function switchToLogin() {
-            isSignupMode = false;
-            loginModeBtn.classList.add('active');
-            loginModeBtn.setAttribute('aria-selected', 'true');
-            signupModeBtn.classList.remove('active');
-            signupModeBtn.setAttribute('aria-selected', 'false');
-            
-            authTitle.textContent = 'Welcome Back';
-            authSubtitle.textContent = 'Log in to access your AI toolkit';
-            submitBtn.textContent = 'Log In';
-            
-            nameGroup.classList.add('hidden');
-            tierSelection.classList.add('hidden');
-            nameInput.required = false;
-            
-            switchModeText.innerHTML = 'Don\'t have an account? <a href="#" id="switchModeLink">Sign up here</a>';
-            trustText.textContent = 'Your data is secure';
-            
-            clearAllErrors();
-            
-            // Re-attach event listener to new link
-            document.getElementById('switchModeLink').addEventListener('click', (e) => {
-                e.preventDefault();
-                switchToSignup();
-            });
-        }
-
-        // Mode toggle button listeners
-        signupModeBtn.addEventListener('click', switchToSignup);
-        loginModeBtn.addEventListener('click', switchToLogin);
-        
-        // Initial switch mode link listener
-        switchModeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchToLogin();
-        });
-
-        // Tier selection
-        const tierOptions = document.querySelectorAll('.tier-option');
-        const radios = document.querySelectorAll('input[name="tier"]');
-
-        tierOptions.forEach((option, index) => {
-            option.addEventListener('click', () => {
-                tierOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                radios[index].checked = true;
-            });
-        });
-
-        // Form submission (handles both signup and login)
-        authForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            clearAllErrors();
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-            
-            // Validation
-            let hasErrors = false;
-            
-            if (!validateEmail(email)) {
-                showFieldError('email', 'Please enter a valid email address');
-                hasErrors = true;
-            }
-            
-            if (!validatePassword(password)) {
-                showFieldError('password', 'Password must be at least 6 characters');
-                hasErrors = true;
-            }
-            
-            if (isSignupMode) {
-                const name = nameInput.value.trim();
-                if (!validateName(name)) {
-                    showFieldError('name', 'Please enter your full name');
-                    hasErrors = true;
-                }
-            }
-            
-            if (hasErrors) {
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = isSignupMode ? 'Creating Account...' : 'Logging In...';
-
-            try {
-                if (isSignupMode) {
-                    // SIGNUP MODE
-                    const name = nameInput.value.trim();
-                    const tier = document.querySelector('input[name="tier"]:checked').value;
-
-                    // Create user account
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    
-                    // Update user profile with name
-                    await updateProfile(userCredential.user, {
-                        displayName: name
-                    });
-
-                    // Store tier in localStorage
-                    localStorage.setItem('userTier', tier);
-                    localStorage.setItem('userName', name);
-
-                    console.log('User created successfully:', userCredential.user);
-                } else {
-                    // LOGIN MODE
-                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                    
-                    // Load existing tier or default to free
-                    const existingTier = localStorage.getItem('userTier') || 'free';
-                    const existingName = userCredential.user.displayName || localStorage.getItem('userName') || 'Creator';
-                    
-                    localStorage.setItem('userTier', existingTier);
-                    localStorage.setItem('userName', existingName);
-
-                    console.log('User logged in successfully:', userCredential.user);
-                }
-                
-                // Redirect to dashboard
-                window.location.href = 'courses.html';
-
-            } catch (error) {
-                console.error('Error:', error);
-                
-                let errorMsg = isSignupMode ? 'Failed to create account. ' : 'Failed to log in. ';
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    showFieldError('email', 'This email is already registered');
-                } else if (error.code === 'auth/weak-password') {
-                    showFieldError('password', 'Password should be at least 6 characters');
-                } else if (error.code === 'auth/invalid-email') {
-                    showFieldError('email', 'Invalid email address');
-                } else if (error.code === 'auth/user-not-found') {
-                    showFieldError('email', 'No account found with this email');
-                } else if (error.code === 'auth/wrong-password') {
-                    showFieldError('password', 'Incorrect password');
-                } else if (error.code === 'auth/invalid-credential') {
-                    showError('Invalid email or password');
-                } else {
-                    showError(errorMsg + error.message);
-                }
-                
-                submitBtn.disabled = false;
-                submitBtn.textContent = isSignupMode ? 'Create My Account' : 'Log In';
-            }
-        });
-
-        // Google Sign In (works for both signup and login)
-        googleSignInBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                const result = await signInWithPopup(auth, provider);
-                console.log('Google sign-in successful:', result.user);
-                
-                // Store tier (use existing or default)
-                const tier = localStorage.getItem('userTier') || (isSignupMode ? document.querySelector('input[name="tier"]:checked').value : 'free');
-                localStorage.setItem('userTier', tier);
-                localStorage.setItem('userName', result.user.displayName);
-                
-                window.location.href = 'courses.html';
-            } catch (error) {
-                console.error('Google sign-in error:', error);
-                showError('Google sign-in failed: ' + error.message);
-            }
-        });
-
-        // GitHub Sign In (works for both signup and login)
-        githubSignInBtn.addEventListener('click', async () => {
-            const provider = new GithubAuthProvider();
-            try {
-                const result = await signInWithPopup(auth, provider);
-                console.log('GitHub sign-in successful:', result.user);
-                
-                // Store tier (use existing or default)
-                const tier = localStorage.getItem('userTier') || (isSignupMode ? document.querySelector('input[name="tier"]:checked').value : 'free');
-                localStorage.setItem('userTier', tier);
-                localStorage.setItem('userName', result.user.displayName);
-                
-                window.location.href = 'courses.html';
-            } catch (error) {
-                console.error('GitHub sign-in error:', error);
-                showError('GitHub sign-in failed: ' + error.message);
-            }
-        });
-    </script>
+        <a href="tools.html" class="back-button">Explore Other Tools</a>
+    </div>
 </body>
 </html>
