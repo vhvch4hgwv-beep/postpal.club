@@ -43,6 +43,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
         }
 
         .back-link {
@@ -63,7 +64,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            max-width: 1400px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
             padding: 2rem;
@@ -71,69 +72,387 @@
 
         .agent-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .agent-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
         .agent-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, #10B981, #34D399, #6EE7B7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .agent-description {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .agent-frame-container {
+        /* Pro Tips Banner */
+        .pro-tips {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .pro-tips-icon {
+            font-size: 1.25rem;
+        }
+
+        .pro-tips-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 0.25rem;
+        }
+
+        .pro-tips-content p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Chat Container */
+        .chat-container {
             flex: 1;
-            background: white;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            min-height: 600px;
+            min-height: 500px;
         }
 
-        .agent-iframe {
-            width: 100%;
-            height: 100%;
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.assistant pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .welcome-message h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .welcome-message p {
+            margin-bottom: 1.5rem;
+        }
+
+        .example-prompts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .example-prompt {
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-prompt:hover {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        /* Input Area */
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+            background: rgba(10, 10, 21, 0.5);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+
+        .input-row {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: rgba(16, 185, 129, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .mic-button {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mic-button:hover:not(:disabled) {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: white;
+        }
+
+        .mic-button.listening {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.6);
+            color: #ef4444;
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.3); }
+        }
+
+        .send-button {
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
             border: none;
-            min-height: 600px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
+        .send-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading State */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: rgba(16, 185, 129, 0.6);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Output Cards */
+        .output-section {
+            margin-top: 1rem;
+        }
+
+        .output-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .output-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .output-card-title {
+            font-weight: 700;
+            color: #10B981;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            padding: 0.25rem 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 6px;
+            color: #10B981;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .output-card-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Send To Menu */
+        .send-to-menu {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .send-to-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .send-to-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .send-to-btn {
+            padding: 0.4rem 0.75rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            color: #8b5cf6;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .send-to-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .agent-container {
-                padding: 1rem;
-            }
-
-            .agent-title {
-                font-size: 2rem;
-            }
-
-            .agent-icon {
-                font-size: 3rem;
-            }
+            .agent-container { padding: 1rem; }
+            .agent-title { font-size: 1.75rem; }
+            .message { max-width: 95%; }
+            .chat-input-wrapper { flex-direction: column; }
+            .input-row { width: 100%; }
+            .send-button { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo">PostPal</div>
+            <a href="courses.html" class="logo">PostPal</a>
             <a href="tools.html" class="back-link">← Back to Tools</a>
         </div>
     </header>
@@ -142,17 +461,258 @@
         <div class="agent-header">
             <div class="agent-icon">🤝</div>
             <h1 class="agent-title"><span class="gradient-text">Brand Negotiator</span></h1>
-            <p class="agent-description">Get expert guidance on negotiating better rates and terms for brand partnerships</p>
+            <p class="agent-description">Negotiate better rates, understand deliverables, and write professional brand emails like a pro.</p>
         </div>
 
-        <div class="agent-frame-container">
-            <iframe 
-                id="agentFrame" 
-                class="agent-iframe"
-                src="https://chatkit.app/embed/wf_68f6f5feab9908130be729b014a9c7fca09e54fa54ccadf5f?version=1"
-                allow="microphone; camera"
-            ></iframe>
+        <div class="pro-tips">
+            <span class="pro-tips-icon">💡</span>
+            <div class="pro-tips-content">
+                <h4>Pro Tip</h4>
+                <p>Include your average views, engagement rate, and past brand deal rates for the most accurate rate recommendations. The more context you give, the better I can negotiate for you!</p>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <h3>💰 Let's Get You Paid What You're Worth</h3>
+                    <p>Tell me about a brand deal you're considering, and I'll help you negotiate the best rate, evaluate the terms, and craft professional responses.</p>
+                    <div class="example-prompts">
+                        <span class="example-prompt" onclick="useExample(this)">Brand offered $500 for 3 TikToks, I have 50K followers</span>
+                        <span class="example-prompt" onclick="useExample(this)">How do I negotiate usage rights for a sponsored post?</span>
+                        <span class="example-prompt" onclick="useExample(this)">Write a counteroffer email for a $1000 deal</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <div class="input-row">
+                        <textarea 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="Describe your brand deal situation..."
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                        ></textarea>
+                        <button class="mic-button" id="micButton" type="button" title="Voice input" style="display: none;">🎤</button>
+                    </div>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">
+                        Negotiate →
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const micButton = document.getElementById('micButton');
+        
+        let conversationHistory = [];
+        let isLoading = false;
+        let recognition = null;
+        let isListening = false;
+
+        const SYSTEM_PROMPT = `You are PostPal's Brand Negotiator, a world-class expert in brand deals and creator monetization.
+You help creators negotiate better rates, understand deliverables, evaluate usage rights, and write professional emails/DMs.
+
+Always ask clarifying questions up front if needed: platform, avg views, deliverables, usage rights, exclusivity, agency cuts.
+
+Output your response in clear sections:
+
+**💰 Rate Recommendation**
+- Provide specific rate ranges with breakdowns
+- Explain the "why" behind price ranges
+
+**📧 Email Templates**
+- Polite pushback version
+- Counteroffer version  
+- Follow-up version
+
+**🚩 Red Flag Checklist**
+- List any concerning contract terms
+- Highlight what to negotiate
+
+Be direct, confident, and always advocate for the creator getting paid fairly. Handle creators, agencies, brands, and freelancers professionally.`;
+
+        // Voice Input Setup
+        function initVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
+
+            micButton.style.display = 'flex';
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = chatInput.value.trim() ? chatInput.value.trim() + ' ' + transcript : transcript;
+                chatInput.dispatchEvent(new Event('input'));
+                chatInput.focus();
+            };
+
+            recognition.onend = () => stopListening();
+            recognition.onerror = () => stopListening();
+            micButton.addEventListener('click', toggleVoiceInput);
+        }
+
+        function toggleVoiceInput() {
+            isListening ? stopListening() : startListening();
+        }
+
+        function startListening() {
+            if (!recognition || isListening) return;
+            try {
+                recognition.start();
+                isListening = true;
+                micButton.classList.add('listening');
+                micButton.textContent = '🎙️';
+            } catch (e) { stopListening(); }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) try { recognition.stop(); } catch (e) {}
+            isListening = false;
+            micButton.classList.remove('listening');
+            micButton.textContent = '🎤';
+        }
+
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function useExample(element) {
+            chatInput.value = element.textContent;
+            chatInput.focus();
+        }
+
+        function addMessage(content, role) {
+            const welcome = chatMessages.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            if (role === 'assistant') {
+                messageDiv.innerHTML = formatResponse(content);
+            } else {
+                messageDiv.textContent = content;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function formatResponse(content) {
+            // Convert markdown-style formatting
+            let html = content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n- /g, '<br>• ')
+                .replace(/\n/g, '<br>');
+            
+            return `<p>${html}</p>
+                <div class="send-to-menu">
+                    <div class="send-to-label">Send to another tool:</div>
+                    <div class="send-to-buttons">
+                        <button class="send-to-btn" onclick="sendToTool('smart-outreach.html')">→ Smart Outreach</button>
+                        <button class="send-to-btn" onclick="sendToTool('caption-optimizer.html')">→ Caption Optimizer</button>
+                        <button class="send-to-btn" onclick="sendToTool('idea-vault.html')">→ Idea Vault</button>
+                    </div>
+                </div>`;
+        }
+
+        function sendToTool(tool) {
+            const lastAssistant = [...document.querySelectorAll('.message.assistant')].pop();
+            if (lastAssistant) {
+                localStorage.setItem('postpal_transfer', lastAssistant.innerText);
+                window.location.href = tool;
+            }
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message || isLoading) return;
+
+            if (isListening) stopListening();
+
+            isLoading = true;
+            sendButton.disabled = true;
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            addMessage(message, 'user');
+            conversationHistory.push({ role: 'user', content: message });
+
+            showTypingIndicator();
+
+            try {
+                const response = await fetch('/.netlify/functions/brand-negotiator', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: conversationHistory,
+                        systemPrompt: SYSTEM_PROMPT
+                    }),
+                });
+
+                const data = await response.json();
+                hideTypingIndicator();
+
+                if (!response.ok) throw new Error(data.error || 'Failed to get response');
+
+                addMessage(data.message, 'assistant');
+                conversationHistory.push({ role: 'assistant', content: data.message });
+
+            } catch (error) {
+                hideTypingIndicator();
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message assistant error';
+                errorDiv.textContent = `Error: ${error.message}. Make sure your API key is configured.`;
+                chatMessages.appendChild(errorDiv);
+            }
+
+            isLoading = false;
+            sendButton.disabled = false;
+            chatInput.focus();
+        }
+
+        // Check for transferred content
+        document.addEventListener('DOMContentLoaded', () => {
+            initVoiceInput();
+            const transferred = localStorage.getItem('postpal_transfer');
+            if (transferred) {
+                chatInput.value = transferred;
+                localStorage.removeItem('postpal_transfer');
+            }
+        });
+    </script>
 </body>
 </html>
