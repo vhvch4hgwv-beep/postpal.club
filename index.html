@@ -534,31 +534,19 @@
             line-height: 1.6;
         }
 
-        .dashboard-preview {
-            background: rgba(30, 30, 50, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 4rem 3rem;
-            text-align: center;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 600;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            margin-top: 2rem;
-        }
-
         .audience-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.75rem;
-            max-width: 850px;
+            max-width: 1000px;
             margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .audience-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
         }
 
         .audience-item {
@@ -588,6 +576,23 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
+        }
+
+        .tools-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .tools-cta .btn {
+            padding: 1rem 2.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .extra-tools {
+            margin-top: 2rem;
         }
 
         .tool-card {
@@ -635,27 +640,9 @@
             position: relative;
         }
 
-        .workflow-timeline::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%,
-                rgba(99, 102, 241, 0.3) 20%,
-                rgba(139, 92, 246, 0.4) 50%,
-                rgba(99, 102, 241, 0.3) 80%,
-                transparent 100%
-            );
-            transform: translateY(-50%);
-            z-index: 0;
-        }
-
         @media (max-width: 768px) {
-            .workflow-timeline::before {
-                display: none;
+            .workflow-timeline {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1038,10 +1025,6 @@
                         <p>Analyze posts, spot trends, and prep for brand deals.</p>
                     </div>
                 </div>
-
-                <div class="dashboard-preview">
-                    📱 Dashboard Preview Coming Soon
-                </div>
             </div>
         </div>
     </section>
@@ -1069,10 +1052,6 @@
                     <div class="audience-item">
                         <span class="audience-icon">🎮</span>
                         Streamers and gaming creators who post daily clips
-                    </div>
-                    <div class="audience-item">
-                        <span class="audience-icon">💼</span>
-                        Entrepreneurs building a personal brand with content
                     </div>
                 </div>
             </div>
@@ -1123,6 +1102,60 @@
                         <h3>Idea Vault</h3>
                         <p>Store, organize, and refine content ideas so nothing slips through the cracks.</p>
                     </a>
+                </div>
+
+                <div id="extra-tools" class="tools-grid extra-tools hidden">
+                    <a href="caption-optimizer.html" class="tool-card">
+                        <span class="tool-icon">✂️</span>
+                        <h3>Caption Optimizer</h3>
+                        <p>Polish captions for maximum engagement with platform-specific formatting and hooks.</p>
+                    </a>
+
+                    <a href="smart-outreach.html" class="tool-card">
+                        <span class="tool-icon">📧</span>
+                        <h3>Smart Outreach</h3>
+                        <p>Draft personalized outreach emails to brands, collaborators, and potential sponsors.</p>
+                    </a>
+
+                    <a href="content-scheduler.html" class="tool-card">
+                        <span class="tool-icon">📅</span>
+                        <h3>Content Scheduler</h3>
+                        <p>Plan your content calendar and batch ideas for consistent posting across platforms.</p>
+                    </a>
+
+                    <a href="sora-prompt-generator.html" class="tool-card">
+                        <span class="tool-icon">🎥</span>
+                        <h3>Sora Prompt Generator</h3>
+                        <p>Create detailed AI video prompts optimized for Sora and other text-to-video tools.</p>
+                    </a>
+
+                    <a href="analytics-advisor.html" class="tool-card">
+                        <span class="tool-icon">📊</span>
+                        <h3>Analytics Advisor</h3>
+                        <p>Get AI-powered insights on your content performance and what to post next.</p>
+                    </a>
+
+                    <a href="community-pulse.html" class="tool-card">
+                        <span class="tool-icon">💬</span>
+                        <h3>Community Pulse</h3>
+                        <p>Generate engaging replies, poll ideas, and community content to boost engagement.</p>
+                    </a>
+
+                    <a href="content-library.html" class="tool-card">
+                        <span class="tool-icon">📚</span>
+                        <h3>Content Library</h3>
+                        <p>Store and organize your best-performing content templates and frameworks.</p>
+                    </a>
+
+                    <a href="tool-watch.html" class="tool-card">
+                        <span class="tool-icon">🔍</span>
+                        <h3>Tool Watch</h3>
+                        <p>Stay updated on the latest creator tools, apps, and platform features worth trying.</p>
+                    </a>
+                </div>
+
+                <div class="tools-cta">
+                    <button id="view-all-tools-btn" class="btn btn-secondary">View All Tools (14+)</button>
                 </div>
             </div>
         </div>
@@ -1267,6 +1300,21 @@
             const mascot = document.querySelector('.mascot-container');
             if (mascot) {
                 mascot.style.transform = 'translateX(-50%) translateY(0)';
+            }
+        });
+
+        // Toggle extra tools visibility
+        const viewAllToolsBtn = document.getElementById('view-all-tools-btn');
+        const extraTools = document.getElementById('extra-tools');
+
+        viewAllToolsBtn.addEventListener('click', () => {
+            const isHidden = extraTools.classList.contains('hidden');
+            if (isHidden) {
+                extraTools.classList.remove('hidden');
+                viewAllToolsBtn.textContent = 'Hide Extra Tools';
+            } else {
+                extraTools.classList.add('hidden');
+                viewAllToolsBtn.textContent = 'View All Tools (14+)';
             }
         });
     </script>
