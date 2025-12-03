@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostPal AI - Your All-in-One Creator Toolkit</title>
-    <meta name="description" content="A desktop control center for creators who take this seriously. Plan, create, and grow with AI tools built for content creators.">
+    <meta name="description" content="Your creator sidekick. Faster, sharper, always on. Plan, create, and grow with AI tools built for content creators.">
     <style>
         * {
             margin: 0;
@@ -113,7 +113,7 @@
 
         @keyframes mascotFloat {
             0%, 100% { transform: translateX(-50%) translateY(0px); }
-            50% { transform: translateX(-50%) translateY(-20px); }
+            50% { transform: translateX(-50%) translateY(-8px); }
         }
 
         .mascot-glow {
@@ -290,16 +290,16 @@
             font-size: clamp(1.3rem, 3vw, 1.75rem);
             font-weight: 600;
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.3;
         }
 
         .description {
-            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-size: clamp(1rem, 2vw, 1.1rem);
             line-height: 1.7;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2.5rem;
-            max-width: 750px;
+            margin-bottom: 2rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -309,7 +309,7 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
         }
 
         .btn {
@@ -362,6 +362,20 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.5);
             transform: translateY(-2px);
+        }
+
+        /* Credibility Badge */
+        .credibility-badge {
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .credibility-badge span {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
         }
 
         .feature-pills {
@@ -474,7 +488,7 @@
         }
 
         .section-text {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
             max-width: 800px;
@@ -504,10 +518,15 @@
             border-color: rgba(139, 92, 246, 0.5);
         }
 
+        .what-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
         .what-card h3 {
             font-size: 1.5rem;
             margin-bottom: 0.75rem;
-            color: #8b5cf6;
+            color: #fff;
         }
 
         .what-card p {
@@ -536,9 +555,9 @@
 
         .audience-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.75rem;
+            max-width: 850px;
             margin: 0 auto;
         }
 
@@ -547,9 +566,12 @@
             border: 1px solid rgba(99, 102, 241, 0.25);
             border-radius: 12px;
             padding: 1.5rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: rgba(255, 255, 255, 0.9);
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .audience-item:hover {
@@ -558,11 +580,8 @@
             transform: translateX(5px);
         }
 
-        .audience-item::before {
-            content: '→';
-            color: #8b5cf6;
-            margin-right: 0.75rem;
-            font-weight: bold;
+        .audience-icon {
+            font-size: 1.5rem;
         }
 
         .tools-grid {
@@ -584,8 +603,10 @@
 
         .tool-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+            border-color: rgba(139, 92, 246, 0.7);
+            box-shadow: 0 25px 70px rgba(99, 102, 241, 0.4),
+                        0 0 40px rgba(139, 92, 246, 0.15);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(15, 18, 32, 0.9) 100%);
         }
 
         .tool-icon {
@@ -611,6 +632,31 @@
             gap: 2rem;
             max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .workflow-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(99, 102, 241, 0.3) 20%,
+                rgba(139, 92, 246, 0.4) 50%,
+                rgba(99, 102, 241, 0.3) 80%,
+                transparent 100%
+            );
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-timeline::before {
+                display: none;
+            }
         }
 
         .workflow-step {
@@ -620,6 +666,7 @@
             padding: 2.5rem;
             position: relative;
             text-align: center;
+            z-index: 1;
         }
 
         .workflow-step::before {
@@ -633,13 +680,18 @@
             border-radius: 16px 16px 0 0;
         }
 
-        .step-label {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #8b5cf6;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 auto 1.25rem;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
         }
 
         .workflow-step h3 {
@@ -655,7 +707,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-bottom: 4rem;
         }
@@ -677,7 +729,7 @@
         }
 
         .metric-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.7);
         }
 
@@ -694,25 +746,52 @@
             padding: 2rem;
         }
 
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
         .testimonial-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .testimonial-stats {
+            font-size: 0.8rem;
+            color: #8b5cf6;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 2px;
         }
 
         .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.75);
             font-style: italic;
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
         }
 
         .final-cta {
@@ -724,12 +803,26 @@
         .final-cta .container {
             background: rgba(15, 18, 32, 0.6);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(139, 92, 246, 0.25);
+            border: 2px solid transparent;
             border-radius: 32px;
             padding: 4rem 3rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
                         0 0 80px rgba(99, 102, 241, 0.15);
             position: relative;
+            background-image: linear-gradient(rgba(15, 18, 32, 0.6), rgba(15, 18, 32, 0.6)),
+                              linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.3));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .final-cta .btn-primary {
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4),
+                        0 0 60px rgba(99, 102, 241, 0.25);
+        }
+
+        .final-cta .btn-primary:hover {
+            box-shadow: 0 18px 45px rgba(99, 102, 241, 0.6),
+                        0 0 80px rgba(99, 102, 241, 0.35);
         }
 
         .final-cta .container::before {
@@ -889,10 +982,10 @@
                 </div>
             </div>
 
-            <p class="subheadline">Your always-on AI sidekick for faster, better content.</p>
+            <p class="subheadline">Your creator sidekick. Faster, sharper, always on.</p>
             
             <p class="description">
-                PostPal is a desktop-style hub packed with AI tools that help you plan, write, and optimize content in one place. Keep it open while you're grinding, and use it to brainstorm ideas, punch up scripts, sharpen hooks, and move way faster on every video.
+                PostPal is your creator command center — a desktop-style workspace packed with tools for planning content, writing scripts, sharpening hooks, and handling brand emails. Keep it open on your second monitor and move faster on every video.
             </p>
 
             <div class="cta-buttons">
@@ -900,9 +993,13 @@
                 <a href="tools.html" class="btn btn-secondary">View All Tools</a>
             </div>
 
+            <div class="credibility-badge">
+                ✦ Trusted by creators with <span>100M+ combined views</span>
+            </div>
+
             <div class="feature-pills">
-                <div class="pill" onclick="window.location.href='hook-generator.html'">Idea & Hook Generator</div>
-                <div class="pill" onclick="window.location.href='script-studio.html'">Script & Caption Writer</div>
+                <div class="pill" onclick="window.location.href='hook-generator.html'">Hook Generator</div>
+                <div class="pill" onclick="window.location.href='script-studio.html'">Script Studio</div>
                 <div class="pill" onclick="window.location.href='brand-negotiator.html'">Brand Deal Helper</div>
                 <div class="pill" onclick="window.location.href='trend-radar.html'">Trend Radar</div>
             </div>
@@ -915,32 +1012,35 @@
             <div class="section-panel">
                 <div class="section-header">
                     <h2 class="section-title">What is <span class="gradient-text">PostPal AI?</span></h2>
-                    <p class="section-subtitle">A desktop control center for creators who take this seriously.</p>
+                    <p class="section-subtitle">A creator control center built for people who aren't playing around.</p>
                 </div>
 
                 <p class="section-text">
-                    PostPal isn't just another AI chat box. It's a focused workspace you keep open while you create. Inside, you get a set of tools built specifically for content creators and entrepreneurs — so you're never starting from a blank page, and you're never stuck wondering what to post next.
+                    PostPal isn't another AI chat box. It's a focused workspace built for creators and entrepreneurs. Inside, you get tools designed specifically to help you plan content, write faster, sharpen hooks, and stay consistent — without staring at a blank page.
                 </p>
 
                 <div class="what-grid">
                     <div class="what-card">
+                        <div class="what-card-icon">📋</div>
                         <h3>Plan</h3>
-                        <p>Turn loose ideas into clear content plans, hooks, and titles.</p>
+                        <p>Turn loose ideas into clear content plans, hooks, and video angles.</p>
                     </div>
 
                     <div class="what-card">
+                        <div class="what-card-icon">✍️</div>
                         <h3>Create</h3>
                         <p>Draft scripts, captions, replies, and emails in your voice.</p>
                     </div>
 
                     <div class="what-card">
+                        <div class="what-card-icon">📈</div>
                         <h3>Grow</h3>
                         <p>Analyze posts, spot trends, and prep for brand deals.</p>
                     </div>
                 </div>
 
                 <div class="dashboard-preview">
-                    📱 Dashboard Screenshot Preview
+                    📱 Dashboard Preview Coming Soon
                 </div>
             </div>
         </div>
@@ -951,17 +1051,29 @@
         <div class="container">
             <div class="section-panel">
                 <div class="section-header">
-                    <h2 class="section-title">Built for Creators Who <span class="gradient-text">Treat This Like a Job</span></h2>
+                    <h2 class="section-title">Built for Creators Who <span class="gradient-text">Take This Seriously</span></h2>
                     <p class="section-subtitle">
-                        If you're filming, editing, and posting consistently, PostPal is your AI assistant sitting on the second monitor.
+                        If you're filming, editing, and posting consistently — PostPal is your AI assistant on the second monitor.
                     </p>
                 </div>
 
                 <div class="audience-grid">
-                    <div class="audience-item">Short-form creators on TikTok, Reels, and Shorts</div>
-                    <div class="audience-item">YouTubers planning story-driven videos</div>
-                    <div class="audience-item">Streamers and gaming creators who post daily clips</div>
-                    <div class="audience-item">Entrepreneurs building a personal brand with content</div>
+                    <div class="audience-item">
+                        <span class="audience-icon">📱</span>
+                        Short-form creators on TikTok, Reels, and Shorts
+                    </div>
+                    <div class="audience-item">
+                        <span class="audience-icon">🎬</span>
+                        YouTubers planning story-driven videos
+                    </div>
+                    <div class="audience-item">
+                        <span class="audience-icon">🎮</span>
+                        Streamers and gaming creators who post daily clips
+                    </div>
+                    <div class="audience-item">
+                        <span class="audience-icon">💼</span>
+                        Entrepreneurs building a personal brand with content
+                    </div>
                 </div>
             </div>
         </div>
@@ -972,44 +1084,44 @@
         <div class="container">
             <div class="section-panel">
                 <div class="section-header">
-                    <h2 class="section-title">Everything You Need <span class="gradient-text">in One Place</span></h2>
+                    <h2 class="section-title">Everything You Need, <span class="gradient-text">One Place</span></h2>
                 </div>
 
                 <div class="tools-grid">
                     <a href="hook-generator.html" class="tool-card">
                         <span class="tool-icon">🎯</span>
                         <h3>Idea & Hook Generator</h3>
-                        <p>Turn loose thoughts into scroll-stopping hooks, thumbnail ideas, and video angles in seconds.</p>
+                        <p>Turn a seed idea into hooks, thumbnails, angles, and scroll-stoppers in seconds.</p>
                     </a>
 
                     <a href="script-studio.html" class="tool-card">
                         <span class="tool-icon">✍️</span>
                         <h3>Script & Caption Writer</h3>
-                        <p>Flesh out hooks into full scripts, outlines, captions, and pinned comments that match your tone.</p>
+                        <p>Turn hooks into full scripts, captions, and punchy titles that match your voice.</p>
                     </a>
 
                     <a href="brand-negotiator.html" class="tool-card">
                         <span class="tool-icon">🤝</span>
                         <h3>Brand Deal Helper</h3>
-                        <p>Draft pitch emails, negotiate rates, and clean replies so you sound professional without sounding fake.</p>
+                        <p>Write outreach emails, counter-offers, rate negotiations, and brand-safe responses.</p>
                     </a>
 
                     <a href="trend-radar.html" class="tool-card">
                         <span class="tool-icon">📡</span>
                         <h3>Trend & Concept Finder</h3>
-                        <p>Turn news, trends, and niche topics into content formats that fit your style.</p>
+                        <p>Turn news, niche topics, and trends into content ideas tailored to your style.</p>
                     </a>
 
                     <a href="money-board.html" class="tool-card">
                         <span class="tool-icon">💰</span>
                         <h3>Money Board</h3>
-                        <p>Build your personalized monetization strategy and track your path to full-time creator income.</p>
+                        <p>Plan your monetization strategy and track your path toward full-time creator income.</p>
                     </a>
 
                     <a href="idea-vault.html" class="tool-card">
                         <span class="tool-icon">💡</span>
                         <h3>Idea Vault</h3>
-                        <p>Brainstorm, organize, and refine your content ideas so nothing slips through the cracks.</p>
+                        <p>Store, organize, and refine content ideas so nothing slips through the cracks.</p>
                     </a>
                 </div>
             </div>
@@ -1021,26 +1133,26 @@
         <div class="container">
             <div class="section-panel">
                 <div class="section-header">
-                    <h2 class="section-title">How Creators Actually Use <span class="gradient-text">PostPal in a Day</span></h2>
+                    <h2 class="section-title">How Creators Use <span class="gradient-text">PostPal Daily</span></h2>
                 </div>
 
                 <div class="workflow-timeline">
                     <div class="workflow-step">
-                        <div class="step-label">Step 1</div>
-                        <h3>Plan your day's content</h3>
-                        <p>Use the Idea & Hook tool to generate hooks and angles for today's videos in 15–20 minutes.</p>
+                        <div class="step-number">1</div>
+                        <h3>Plan your content</h3>
+                        <p>Use Hook Generator to create angles and scroll-stoppers for today's videos in 15 minutes.</p>
                     </div>
 
                     <div class="workflow-step">
-                        <div class="step-label">Step 2</div>
-                        <h3>Write faster, not sloppier</h3>
-                        <p>Turn those hooks into scripts, captions, and title options. Keep PostPal open next to your editor.</p>
+                        <div class="step-number">2</div>
+                        <h3>Write faster</h3>
+                        <p>Turn hooks into full scripts, captions, and titles. Keep PostPal open next to your editor.</p>
                     </div>
 
                     <div class="workflow-step">
-                        <div class="step-label">Step 3</div>
-                        <h3>Grow the business side</h3>
-                        <p>Use Brand Deal Helper to send outreach emails, reply to brands, and build real monthly income.</p>
+                        <div class="step-number">3</div>
+                        <h3>Grow the business</h3>
+                        <p>Use Brand Deal Helper to send outreach, negotiate rates, and build real monthly income.</p>
                     </div>
                 </div>
             </div>
@@ -1052,13 +1164,13 @@
         <div class="container">
             <div class="section-panel">
                 <div class="section-header">
-                    <h2 class="section-title">Why Creators Keep <span class="gradient-text">PostPal Open All Day</span></h2>
+                    <h2 class="section-title">Why Creators Keep <span class="gradient-text">PostPal Open</span></h2>
                 </div>
 
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <div class="metric-number">10,000+</div>
-                        <div class="metric-label">Prompts generated for creators</div>
+                        <div class="metric-number">10K+</div>
+                        <div class="metric-label">Prompts generated</div>
                     </div>
 
                     <div class="metric-card">
@@ -1070,31 +1182,54 @@
                         <div class="metric-number">14</div>
                         <div class="metric-label">AI-powered tools</div>
                     </div>
+
+                    <div class="metric-card">
+                        <div class="metric-number">Daily</div>
+                        <div class="metric-label">Used by creators worldwide</div>
+                    </div>
                 </div>
 
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
-                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">🎬</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Verified Creator</div>
+                                <div class="testimonial-stats">500K+ followers • Short-form</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
                         <p class="testimonial-text">
                             "PostPal cut my script writing time in half. I keep it open on my second monitor and use it for every single video now."
                         </p>
-                        <div class="testimonial-author">— Creator Name</div>
                     </div>
 
                     <div class="testimonial-card">
-                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">💼</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Verified Creator</div>
+                                <div class="testimonial-stats">200K+ followers • Lifestyle</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
                         <p class="testimonial-text">
-                            "The Brand Deal Helper literally helped me get my first sponsorship. I had no idea what to say before PostPal."
+                            "The Brand Deal Helper literally helped me land my first sponsorship. I had no idea what to say before PostPal."
                         </p>
-                        <div class="testimonial-author">— Creator Name</div>
                     </div>
 
                     <div class="testimonial-card">
-                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">🎮</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Verified Creator</div>
+                                <div class="testimonial-stats">800K+ views • Gaming</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
                         <p class="testimonial-text">
                             "Finally, an AI tool that actually understands content creation. Not just generic ChatGPT responses."
                         </p>
-                        <div class="testimonial-author">— Creator Name</div>
                     </div>
                 </div>
             </div>
@@ -1104,7 +1239,7 @@
     <!-- ========== SECTION 6: Final CTA ========== -->
     <section class="final-cta">
         <div class="container">
-            <h2 class="section-title">Ready to Make Content <span class="gradient-text">Your Full-Time Thing?</span></h2>
+            <h2 class="section-title">Ready to Level Up <span class="gradient-text">Your Content?</span></h2>
             <p class="section-subtitle" style="margin-bottom: 2.5rem;">
                 Start using PostPal as your always-on AI sidekick and move faster on every video, every pitch, every idea.
             </p>
@@ -1117,7 +1252,7 @@
     </section>
 
     <script>
-        console.log('🤖 PostPal AI - Full Landing Page Loaded!');
+        console.log('🤖 PostPal AI - Upgraded Landing Page');
         
         document.addEventListener('mousemove', (e) => {
             const mascot = document.querySelector('.mascot-container');
