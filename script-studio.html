@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Studio - PostPal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(236, 72, 153, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .back-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; }
+        .back-link:hover { color: #EC4899; }
+
+        .agent-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .agent-header { text-align: center; margin-bottom: 1.5rem; }
+        .agent-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .agent-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #EC4899, #F472B6, #FBCFE8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .agent-description { font-size: 1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+        .pro-tips {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .pro-tips-icon { font-size: 1.25rem; }
+        .pro-tips-content h4 { font-size: 0.9rem; font-weight: 700; color: #EC4899; margin-bottom: 0.25rem; }
+        .pro-tips-content p { font-size: 0.85rem; opacity: 0.8; }
+
+        /* Format Selector */
+        .format-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .format-btn {
+            padding: 0.6rem 1.25rem;
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .format-btn:hover, .format-btn.active {
+            background: rgba(236, 72, 153, 0.3);
+            border-color: #EC4899;
+            color: white;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.error { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+        .welcome-message { text-align: center; padding: 3rem 2rem; color: rgba(255, 255, 255, 0.7); }
+        .welcome-message h3 { font-size: 1.25rem; margin-bottom: 1rem; color: rgba(255, 255, 255, 0.9); }
+        .welcome-message p { margin-bottom: 1.5rem; }
+
+        .example-prompts { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+
+        .example-prompt {
+            padding: 0.5rem 1rem;
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .example-prompt:hover { background: rgba(236, 72, 153, 0.3); }
+
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(236, 72, 153, 0.2);
+            background: rgba(10, 10, 21, 0.5);
+        }
+
+        .chat-input-wrapper { display: flex; gap: 0.75rem; align-items: flex-end; }
+        .input-row { flex: 1; display: flex; align-items: flex-end; gap: 0.5rem; }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            font-family: inherit;
+        }
+
+        .chat-input:focus { outline: none; border-color: rgba(236, 72, 153, 0.6); background: rgba(255, 255, 255, 0.08); }
+        .chat-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+
+        .mic-button {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-button:hover { background: rgba(236, 72, 153, 0.15); color: white; }
+        .mic-button.listening { background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.6); color: #ef4444; animation: pulse-glow 1.5s ease-in-out infinite; }
+
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 50% { box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.3); } }
+
+        .send-button {
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .send-button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4); }
+        .send-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: rgba(236, 72, 153, 0.6);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+
+        .send-to-menu { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(236, 72, 153, 0.2); }
+        .send-to-label { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.5rem; }
+        .send-to-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        .send-to-btn {
+            padding: 0.4rem 0.75rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            color: #8b5cf6;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .send-to-btn:hover { background: rgba(139, 92, 246, 0.2); }
+
+        @media (max-width: 768px) {
+            .agent-container { padding: 1rem; }
+            .message { max-width: 95%; }
+            .chat-input-wrapper { flex-direction: column; }
+            .input-row { width: 100%; }
+            .send-button { width: 100%; }
+            .format-selector { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="courses.html" class="logo">PostPal</a>
+            <a href="tools.html" class="back-link">← Back to Tools</a>
+        </div>
+    </header>
+
+    <div class="agent-container">
+        <div class="agent-header">
+            <div class="agent-icon">📝</div>
+            <h1 class="agent-title"><span class="gradient-text">Script Studio</span></h1>
+            <p class="agent-description">Draft short-form or long-form video scripts in minutes with AI assistance.</p>
+        </div>
+
+        <div class="pro-tips">
+            <span class="pro-tips-icon">💡</span>
+            <div class="pro-tips-content">
+                <h4>Pro Tip</h4>
+                <p>Give me your hook and I'll build out the full script structure. Include your tone preference (funny, serious, educational) for best results!</p>
+            </div>
+        </div>
+
+        <div class="format-selector">
+            <button class="format-btn active" onclick="setFormat('short', this)">⚡ Short-Form (60s)</button>
+            <button class="format-btn" onclick="setFormat('medium', this)">📱 Medium (3-5 min)</button>
+            <button class="format-btn" onclick="setFormat('long', this)">🎬 Long-Form (10+ min)</button>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <h3>✍️ From Hook to Full Script in Minutes</h3>
+                    <p>Give me your video idea, hook, or topic. I'll create a complete script structure with hooks, talking points, and CTAs.</p>
+                    <div class="example-prompts">
+                        <span class="example-prompt" onclick="useExample(this)">Write a script about "5 morning habits that changed my life"</span>
+                        <span class="example-prompt" onclick="useExample(this)">Turn this hook into a full video: "Nobody talks about this..."</span>
+                        <span class="example-prompt" onclick="useExample(this)">Storytime script about quitting my job</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <div class="input-row">
+                        <textarea id="chatInput" class="chat-input" placeholder="Describe your video topic or paste your hook..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
+                        <button class="mic-button" id="micButton" type="button" style="display: none;">🎤</button>
+                    </div>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">Write Script →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const micButton = document.getElementById('micButton');
+        
+        let conversationHistory = [];
+        let isLoading = false;
+        let recognition = null;
+        let isListening = false;
+        let currentFormat = 'short';
+
+        const SYSTEM_PROMPT = `You are PostPal's Script Studio, an AI scriptwriter for video creators.
+
+You write scripts for 3 formats:
+
+**⚡ SHORT-FORM (60 seconds)**
+Structure:
+- HOOK (0-3 sec): Pattern interrupt, curiosity gap, or bold statement
+- SETUP (3-15 sec): Quick context
+- BODY (15-45 sec): 2-3 key points, punchy delivery
+- CTA (45-60 sec): Clear next step
+Include visual/text overlay cues in [brackets].
+
+**📱 MEDIUM (3-5 minutes)**
+Structure:
+- HOOK + INTRO (0-30 sec): Strong opening + channel value prop
+- MAIN CONTENT (30s-4min): 3-5 sections with mini-hooks
+- RECAP + CTA (4-5 min): Summary + engagement ask
+Include B-roll suggestions and transition ideas.
+
+**🎬 LONG-FORM (10+ minutes)**
+Structure:
+- COLD OPEN (0-30 sec): Teaser of best moment
+- INTRO (30s-1min): Topic intro + retention hook
+- CHAPTERS (1-9 min): 4-6 sections with timestamps
+- CONCLUSION (9-10+ min): Recap, CTA, tease next video
+Include chapter markers and sponsor slot placement.
+
+For ALL scripts include:
+- [VISUAL] cues for B-roll or text overlays
+- Tone notes (where to speed up, slow down, emphasize)
+- Alternative hook options
+- Suggested thumbnail text
+
+Match the creator's voice/style if they mention it. Be conversational, not corporate.`;
+
+        function setFormat(format, btn) {
+            currentFormat = format;
+            document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const placeholders = {
+                short: "Describe your 60-second video idea...",
+                medium: "What's your 3-5 minute video about?",
+                long: "Describe your long-form video topic..."
+            };
+            chatInput.placeholder = placeholders[format];
+        }
+
+        function initVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
+            micButton.style.display = 'flex';
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            recognition.onresult = (event) => {
+                chatInput.value = chatInput.value.trim() ? chatInput.value.trim() + ' ' + event.results[0][0].transcript : event.results[0][0].transcript;
+                chatInput.focus();
+            };
+            recognition.onend = () => stopListening();
+            recognition.onerror = () => stopListening();
+            micButton.addEventListener('click', () => isListening ? stopListening() : startListening());
+        }
+
+        function startListening() {
+            if (!recognition || isListening) return;
+            try { recognition.start(); isListening = true; micButton.classList.add('listening'); micButton.textContent = '🎙️'; } catch (e) { stopListening(); }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) try { recognition.stop(); } catch (e) {}
+            isListening = false;
+            micButton.classList.remove('listening');
+            micButton.textContent = '🎤';
+        }
+
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }
+        }
+
+        function useExample(element) { chatInput.value = element.textContent; chatInput.focus(); }
+
+        function addMessage(content, role) {
+            const welcome = chatMessages.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.innerHTML = role === 'assistant' ? formatResponse(content) : content;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function formatResponse(content) {
+            let html = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\[([^\]]+)\]/g, '<span style="color: #EC4899; font-style: italic;">[$1]</span>').replace(/\n\n/g, '</p><p>').replace(/\n- /g, '<br>• ').replace(/\n/g, '<br>');
+            return `<p>${html}</p>
+                <div class="send-to-menu">
+                    <div class="send-to-label">Send to another tool:</div>
+                    <div class="send-to-buttons">
+                        <button class="send-to-btn" onclick="sendToTool('hook-generator.html')">→ Hook Generator</button>
+                        <button class="send-to-btn" onclick="sendToTool('caption-optimizer.html')">→ Caption Optimizer</button>
+                        <button class="send-to-btn" onclick="sendToTool('content-scheduler.html')">→ Content Scheduler</button>
+                    </div>
+                </div>`;
+        }
+
+        function sendToTool(tool) {
+            const lastAssistant = [...document.querySelectorAll('.message.assistant')].pop();
+            if (lastAssistant) { localStorage.setItem('postpal_transfer', lastAssistant.innerText); window.location.href = tool; }
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() { const indicator = document.getElementById('typingIndicator'); if (indicator) indicator.remove(); }
+
+        async function sendMessage() {
+            let message = chatInput.value.trim();
+            if (!message || isLoading) return;
+            if (isListening) stopListening();
+
+            // Prepend format context
+            const formatLabels = { short: 'SHORT-FORM 60s', medium: 'MEDIUM 3-5 MIN', long: 'LONG-FORM 10+ MIN' };
+            const messageWithFormat = `[FORMAT: ${formatLabels[currentFormat]}] ${message}`;
+
+            isLoading = true;
+            sendButton.disabled = true;
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            addMessage(message, 'user');
+            conversationHistory.push({ role: 'user', content: messageWithFormat });
+            showTypingIndicator();
+
+            try {
+                const response = await fetch('/.netlify/functions/script-studio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: conversationHistory, systemPrompt: SYSTEM_PROMPT }),
+                });
+                const data = await response.json();
+                hideTypingIndicator();
+                if (!response.ok) throw new Error(data.error || 'Failed');
+                addMessage(data.message, 'assistant');
+                conversationHistory.push({ role: 'assistant', content: data.message });
+            } catch (error) {
+                hideTypingIndicator();
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message assistant error';
+                errorDiv.textContent = `Error: ${error.message}`;
+                chatMessages.appendChild(errorDiv);
+            }
+
+            isLoading = false;
+            sendButton.disabled = false;
+            chatInput.focus();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initVoiceInput();
+            const transferred = localStorage.getItem('postpal_transfer');
+            if (transferred) { chatInput.value = transferred; localStorage.removeItem('postpal_transfer'); }
+        });
+    </script>
+</body>
+</html>

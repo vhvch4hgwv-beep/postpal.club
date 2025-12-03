@@ -20,7 +20,7 @@
             background: #0f0f23;
         }
 
-        /* ========== HERO SECTION (UNCHANGED) ========== */
+        /* ========== HERO SECTION ========== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -383,6 +383,7 @@
             color: rgba(255, 255, 255, 0.9);
             white-space: nowrap;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .pill:hover {
@@ -419,7 +420,6 @@
             margin: 0 auto;
         }
 
-        /* Floating Section Panel */
         .section-panel {
             background: rgba(15, 18, 32, 0.6);
             backdrop-filter: blur(20px);
@@ -431,7 +431,6 @@
             position: relative;
         }
 
-        /* Subtle top glow for each panel */
         .section-panel::before {
             content: '';
             position: absolute;
@@ -483,7 +482,6 @@
             text-align: center;
         }
 
-        /* What is PostPal Section */
         .what-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -536,7 +534,6 @@
             margin-top: 2rem;
         }
 
-        /* Who it's for Section */
         .audience-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -568,7 +565,6 @@
             font-weight: bold;
         }
 
-        /* Tools Section */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -581,6 +577,9 @@
             border-radius: 20px;
             padding: 2.5rem;
             transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
 
         .tool-card:hover {
@@ -606,7 +605,6 @@
             line-height: 1.7;
         }
 
-        /* Workflow Section */
         .workflow-timeline {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -655,7 +653,6 @@
             line-height: 1.6;
         }
 
-        /* Social Proof Section */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -718,7 +715,6 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        /* Final CTA Section */
         .final-cta {
             background: transparent;
             padding: 8rem 2rem;
@@ -751,7 +747,6 @@
             filter: blur(2px);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .section {
                 padding: 5rem 1.5rem;
@@ -771,14 +766,8 @@
                 border-radius: 24px;
             }
 
-            .what-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .workflow-timeline {
-                grid-template-columns: 1fr;
-            }
-
+            .what-grid,
+            .workflow-timeline,
             .tools-grid {
                 grid-template-columns: 1fr;
             }
@@ -907,15 +896,15 @@
             </p>
 
             <div class="cta-buttons">
-                <a href="community.html" class="btn btn-primary">Start Using PostPal</a>
-                <a href="tools.html" class="btn btn-secondary">View the Tools</a>
+                <a href="courses.html" class="btn btn-primary">Open Dashboard</a>
+                <a href="tools.html" class="btn btn-secondary">View All Tools</a>
             </div>
 
             <div class="feature-pills">
-                <div class="pill">Idea & Hook Generator</div>
-                <div class="pill">Script & Caption Writer</div>
-                <div class="pill">Brand Deal Helper</div>
-                <div class="pill">Content Analytics Insights</div>
+                <div class="pill" onclick="window.location.href='hook-generator.html'">Idea & Hook Generator</div>
+                <div class="pill" onclick="window.location.href='script-studio.html'">Script & Caption Writer</div>
+                <div class="pill" onclick="window.location.href='brand-negotiator.html'">Brand Deal Helper</div>
+                <div class="pill" onclick="window.location.href='trend-radar.html'">Trend Radar</div>
             </div>
         </div>
     </section>
@@ -987,41 +976,41 @@
                 </div>
 
                 <div class="tools-grid">
-                    <div class="tool-card">
+                    <a href="hook-generator.html" class="tool-card">
                         <span class="tool-icon">🎯</span>
                         <h3>Idea & Hook Generator</h3>
                         <p>Turn loose thoughts into scroll-stopping hooks, thumbnail ideas, and video angles in seconds.</p>
-                    </div>
+                    </a>
 
-                    <div class="tool-card">
+                    <a href="script-studio.html" class="tool-card">
                         <span class="tool-icon">✍️</span>
                         <h3>Script & Caption Writer</h3>
                         <p>Flesh out hooks into full scripts, outlines, captions, and pinned comments that match your tone.</p>
-                    </div>
+                    </a>
 
-                    <div class="tool-card">
+                    <a href="brand-negotiator.html" class="tool-card">
                         <span class="tool-icon">🤝</span>
                         <h3>Brand Deal Helper</h3>
                         <p>Draft pitch emails, negotiate rates, and clean replies so you sound professional without sounding fake.</p>
-                    </div>
+                    </a>
 
-                    <div class="tool-card">
-                        <span class="tool-icon">📊</span>
-                        <h3>Content Analytics Insights</h3>
-                        <p>Paste your stats and let PostPal tell you what's working, what's dying, and what to double down on.</p>
-                    </div>
-
-                    <div class="tool-card">
+                    <a href="trend-radar.html" class="tool-card">
                         <span class="tool-icon">📡</span>
                         <h3>Trend & Concept Finder</h3>
                         <p>Turn news, trends, and niche topics into content formats that fit your style.</p>
-                    </div>
+                    </a>
 
-                    <div class="tool-card">
-                        <span class="tool-icon">📚</span>
-                        <h3>Library & Templates</h3>
-                        <p>Save your best prompts, scripts, and formats so you can reuse them whenever.</p>
-                    </div>
+                    <a href="money-board.html" class="tool-card">
+                        <span class="tool-icon">💰</span>
+                        <h3>Money Board</h3>
+                        <p>Build your personalized monetization strategy and track your path to full-time creator income.</p>
+                    </a>
+
+                    <a href="idea-vault.html" class="tool-card">
+                        <span class="tool-icon">💡</span>
+                        <h3>Idea Vault</h3>
+                        <p>Brainstorm, organize, and refine your content ideas so nothing slips through the cracks.</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1121,8 +1110,8 @@
             </p>
 
             <div class="cta-buttons">
-                <a href="community.html" class="btn btn-primary">Start Using PostPal</a>
-                <a href="community.html" class="btn btn-secondary">Join the Community</a>
+                <a href="courses.html" class="btn btn-primary">Open Dashboard</a>
+                <a href="tools.html" class="btn btn-secondary">Browse All Tools</a>
             </div>
         </div>
     </section>
@@ -1130,7 +1119,6 @@
     <script>
         console.log('🤖 PostPal AI - Full Landing Page Loaded!');
         
-        // Optional parallax effect
         document.addEventListener('mousemove', (e) => {
             const mascot = document.querySelector('.mascot-container');
             if (mascot) {

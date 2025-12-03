@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Watch - Coming Soon | PostPal</title>
+    <title>All Tools - PostPal Creator Toolkit</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -12,8 +12,6 @@
             background: linear-gradient(135deg, #0a0a15 0%, #1a1a3e 50%, #2d1b69 100%);
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .header {
@@ -21,6 +19,9 @@
             background: rgba(10, 10, 21, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-content {
@@ -40,137 +41,410 @@
             text-decoration: none;
         }
 
-        .back-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; }
-        .back-link:hover { color: #8b5cf6; }
-
-        .coming-soon-container {
-            flex: 1;
+        .nav-links {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: #8b5cf6; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
             text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .icon { font-size: 5rem; margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .title {
-            font-size: 2.5rem;
+        .page-title {
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #8B5CF6, #A78BFA, #C4B5FD);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            font-size: 1.25rem;
+        .page-subtitle {
+            font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-            max-width: 500px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .badge {
-            display: inline-flex;
+        /* Category Filters */
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            color: white;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .tool-icon.growth { background: linear-gradient(135deg, #FBBF24, #F59E0B); box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3); }
+        .tool-icon.money { background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); }
+        .tool-icon.system { background: linear-gradient(135deg, #8B5CF6, #7C3AED); box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3); }
+        .tool-icon.creative { background: linear-gradient(135deg, #EC4899, #DB2777); box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3); }
+        .tool-icon.outreach { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); }
+
+        .tool-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .tool-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tool-tag.growth { background: rgba(251, 191, 36, 0.2); color: #FBBF24; }
+        .tool-tag.money { background: rgba(16, 185, 129, 0.2); color: #10B981; }
+        .tool-tag.system { background: rgba(139, 92, 246, 0.2); color: #A78BFA; }
+        .tool-tag.creative { background: rgba(236, 72, 153, 0.2); color: #F472B6; }
+        .tool-tag.outreach { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
+
+        .tool-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .tool-status {
+            display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 50px;
-            font-weight: 600;
-            color: #8b5cf6;
-            margin-bottom: 2rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .badge-dot {
+        .status-dot {
             width: 8px;
             height: 8px;
-            background: #8b5cf6;
             border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
         }
+
+        .status-dot.live { background: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
+        .status-dot.coming { background: #FBBF24; animation: pulse 2s infinite; }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
 
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-            max-width: 600px;
+        /* Coming Soon Cards */
+        .tool-card.coming-soon {
+            opacity: 0.7;
         }
 
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+        .tool-card.coming-soon:hover {
+            transform: none;
+            cursor: default;
         }
 
-        .feature-icon { color: #8B5CF6; }
-
-        .back-button {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .container { padding: 2rem 1rem; }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="courses.html" class="logo">PostPal</a>
-            <a href="tools.html" class="back-link">← Back to Tools</a>
+            <a href="index.html" class="logo">PostPal</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Dashboard</a></li>
+                    <li><a href="tools.html" class="active">All Tools</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="coming-soon-container">
-        <div class="icon">🔧</div>
-        <h1 class="title"><span class="gradient-text">Tool Watch</span></h1>
-        <p class="subtitle">Discover the best creator tools before everyone else — curated reviews, deals, and recommendations.</p>
-        
-        <div class="badge">
-            <span class="badge-dot"></span>
-            Coming Soon
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">PostPal <span class="gradient-text">AI Tools</span></h1>
+            <p class="page-subtitle">14 AI-powered tools built specifically for content creators. Pick your weapon.</p>
         </div>
 
-        <div class="features">
-            <div class="feature"><span class="feature-icon">✓</span> Tool comparisons</div>
-            <div class="feature"><span class="feature-icon">✓</span> Exclusive deals</div>
-            <div class="feature"><span class="feature-icon">✓</span> New tool alerts</div>
-            <div class="feature"><span class="feature-icon">✓</span> Creator reviews</div>
-            <div class="feature"><span class="feature-icon">✓</span> Stack recommendations</div>
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterTools('all')">All Tools</button>
+            <button class="filter-btn" onclick="filterTools('growth')">Growth</button>
+            <button class="filter-btn" onclick="filterTools('money')">Money</button>
+            <button class="filter-btn" onclick="filterTools('system')">Systems</button>
+            <button class="filter-btn" onclick="filterTools('creative')">Creative</button>
+            <button class="filter-btn" onclick="filterTools('outreach')">Outreach</button>
         </div>
 
-        <a href="tools.html" class="back-button">Explore Other Tools</a>
+        <div class="tools-grid">
+            <!-- LIVE TOOLS -->
+            <a href="hook-generator.html" class="tool-card" data-category="growth">
+                <div class="tool-header">
+                    <div class="tool-icon growth">🎣</div>
+                    <div class="tool-info">
+                        <h3>Hook Generator</h3>
+                        <span class="tool-tag growth">Growth</span>
+                    </div>
+                </div>
+                <p class="tool-description">Turn any idea into 10 scroll-stopping hooks for TikTok, Reels, and Shorts.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="trend-radar.html" class="tool-card" data-category="growth">
+                <div class="tool-header">
+                    <div class="tool-icon growth">📡</div>
+                    <div class="tool-info">
+                        <h3>Trend Radar</h3>
+                        <span class="tool-tag growth">Growth</span>
+                    </div>
+                </div>
+                <p class="tool-description">Spot emerging trends and generate viral content ideas before they blow up.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="caption-optimizer.html" class="tool-card" data-category="growth">
+                <div class="tool-header">
+                    <div class="tool-icon growth">✨</div>
+                    <div class="tool-info">
+                        <h3>Caption Optimizer</h3>
+                        <span class="tool-tag growth">Growth</span>
+                    </div>
+                </div>
+                <p class="tool-description">Transform weak captions into engagement magnets with platform-specific optimization.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="brand-negotiator.html" class="tool-card" data-category="money">
+                <div class="tool-header">
+                    <div class="tool-icon money">🤝</div>
+                    <div class="tool-info">
+                        <h3>Brand Negotiator</h3>
+                        <span class="tool-tag money">Money</span>
+                    </div>
+                </div>
+                <p class="tool-description">Negotiate better rates and write professional brand emails like a pro.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="money-board.html" class="tool-card" data-category="money">
+                <div class="tool-header">
+                    <div class="tool-icon money">💰</div>
+                    <div class="tool-info">
+                        <h3>Money Board</h3>
+                        <span class="tool-tag money">Money</span>
+                    </div>
+                </div>
+                <p class="tool-description">Build your personalized monetization strategy and hit your income goals.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="smart-outreach.html" class="tool-card" data-category="outreach">
+                <div class="tool-header">
+                    <div class="tool-icon outreach">📧</div>
+                    <div class="tool-info">
+                        <h3>Smart Outreach</h3>
+                        <span class="tool-tag outreach">Outreach</span>
+                    </div>
+                </div>
+                <p class="tool-description">Craft personalized brand outreach emails that actually get responses.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="idea-vault.html" class="tool-card" data-category="system">
+                <div class="tool-header">
+                    <div class="tool-icon system">💡</div>
+                    <div class="tool-info">
+                        <h3>Idea Vault</h3>
+                        <span class="tool-tag system">System</span>
+                    </div>
+                </div>
+                <p class="tool-description">Brainstorm, organize, and refine content ideas with AI-powered creativity.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="content-scheduler.html" class="tool-card" data-category="system">
+                <div class="tool-header">
+                    <div class="tool-icon system">📅</div>
+                    <div class="tool-info">
+                        <h3>Content Scheduler</h3>
+                        <span class="tool-tag system">System</span>
+                    </div>
+                </div>
+                <p class="tool-description">AI-powered content planning with optimal posting schedules for your audience.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="script-studio.html" class="tool-card" data-category="creative">
+                <div class="tool-header">
+                    <div class="tool-icon creative">📝</div>
+                    <div class="tool-info">
+                        <h3>Script Studio</h3>
+                        <span class="tool-tag creative">Creative</span>
+                    </div>
+                </div>
+                <p class="tool-description">Draft short-form or long-form video scripts in minutes with AI assistance.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <a href="sora-prompt-generator.html" class="tool-card" data-category="creative">
+                <div class="tool-header">
+                    <div class="tool-icon creative">🎬</div>
+                    <div class="tool-info">
+                        <h3>Sora Prompt Generator</h3>
+                        <span class="tool-tag creative">Creative</span>
+                    </div>
+                </div>
+                <p class="tool-description">Create cinematic AI video prompts for Sora, Runway, and other generators.</p>
+                <div class="tool-status"><span class="status-dot live"></span> Live</div>
+            </a>
+
+            <!-- COMING SOON -->
+            <div class="tool-card coming-soon" data-category="growth">
+                <div class="tool-header">
+                    <div class="tool-icon growth">📊</div>
+                    <div class="tool-info">
+                        <h3>Analytics Advisor</h3>
+                        <span class="tool-tag growth">Growth</span>
+                    </div>
+                </div>
+                <p class="tool-description">AI-powered insights to decode your content performance and grow smarter.</p>
+                <div class="tool-status"><span class="status-dot coming"></span> Coming Soon</div>
+            </div>
+
+            <div class="tool-card coming-soon" data-category="system">
+                <div class="tool-header">
+                    <div class="tool-icon system">💬</div>
+                    <div class="tool-info">
+                        <h3>Community Pulse</h3>
+                        <span class="tool-tag system">System</span>
+                    </div>
+                </div>
+                <p class="tool-description">Analyze comment sentiment, auto-reply suggestions, and engagement tracking.</p>
+                <div class="tool-status"><span class="status-dot coming"></span> Coming Soon</div>
+            </div>
+
+            <div class="tool-card coming-soon" data-category="system">
+                <div class="tool-header">
+                    <div class="tool-icon system">🔔</div>
+                    <div class="tool-info">
+                        <h3>Platform Updates</h3>
+                        <span class="tool-tag system">System</span>
+                    </div>
+                </div>
+                <p class="tool-description">Algorithm change alerts, new feature breakdowns, and policy update summaries.</p>
+                <div class="tool-status"><span class="status-dot coming"></span> Coming Soon</div>
+            </div>
+
+            <div class="tool-card coming-soon" data-category="system">
+                <div class="tool-header">
+                    <div class="tool-icon system">📚</div>
+                    <div class="tool-info">
+                        <h3>Content Library</h3>
+                        <span class="tool-tag system">System</span>
+                    </div>
+                </div>
+                <p class="tool-description">Script templates, hook swipe files, caption libraries, and content frameworks.</p>
+                <div class="tool-status"><span class="status-dot coming"></span> Coming Soon</div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        function filterTools(category) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            document.querySelectorAll('.tool-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
