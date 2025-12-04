@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostPal - Creator OS V3</title>
+    <title>PostPal - Creator OS</title>
     <style>
         * {
             margin: 0;
@@ -12,871 +12,627 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-            background: linear-gradient(135deg, #050814 0%, #080E1E 100%);
-            color: #F8FAFF;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0f0f23;
+            color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
+            display: flex;
         }
 
-        /* Top Navigation */
-        .top-nav {
-            position: sticky;
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            width: 220px;
+            background: rgba(15, 15, 35, 0.95);
+            border-right: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 1.5rem 1rem;
+            position: fixed;
             top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
             z-index: 100;
-            background: rgba(8, 14, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(168, 115, 255, 0.1);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 0 0.5rem;
         }
 
         .logo-icon {
             width: 40px;
             height: 40px;
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+            font-size: 1.25rem;
         }
 
-        .logo-icon::before {
-            content: '🤖';
-            font-size: 20px;
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-text h1 {
-            font-size: 24px;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: -2px;
+            color: #fff;
         }
 
         .logo-text span {
-            font-size: 12px;
-            color: #9CA3AF;
-            font-weight: 500;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .search-container {
-            flex: 1;
-            max-width: 480px;
-            margin: 0 32px;
-            position: relative;
+        .sidebar-section {
+            margin-bottom: 1.5rem;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            background: rgba(248, 250, 255, 0.05);
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            border-radius: 999px;
-            color: #F8FAFF;
-            font-size: 14px;
-            transition: all 0.18s ease-out;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #A873FF;
-            box-shadow: 0 0 24px rgba(168, 115, 255, 0.3);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9CA3AF;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .streak-pill {
-            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            padding: 8px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .notification-icon, .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(248, 250, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.18s ease-out;
-        }
-
-        .notification-icon:hover, .avatar:hover {
-            background: rgba(168, 115, 255, 0.2);
-        }
-
-        /* Main Layout */
-        .main-layout {
-            display: flex;
-            min-height: calc(100vh - 80px);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            background: rgba(8, 14, 30, 0.6);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(168, 115, 255, 0.1);
-            padding: 24px;
-            position: sticky;
-            top: 80px;
-            height: calc(100vh - 80px);
-            overflow-y: auto;
-        }
-
-        .pipeline-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: #F8FAFF;
+        .sidebar-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 0.75rem;
+            padding: 0 0.5rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 12px;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.18s ease-out;
-            margin-bottom: 4px;
-            position: relative;
         }
 
         .nav-item:hover {
-            background: rgba(168, 115, 255, 0.1);
+            background: rgba(99, 102, 241, 0.15);
+            color: #fff;
         }
 
         .nav-item.active {
-            background: rgba(168, 115, 255, 0.2);
-            border-left: 3px solid #A873FF;
-            box-shadow: 0 4px 16px rgba(168, 115, 255, 0.2);
-        }
-
-        .nav-item.active .nav-text {
-            font-weight: 600;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.2));
+            color: #fff;
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .nav-icon {
-            font-size: 18px;
-            width: 20px;
-        }
-
-        .nav-text {
-            font-size: 14px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
         }
 
         .nav-badge {
-            background: #A873FF;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 999px;
             margin-left: auto;
+            background: #ec4899;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 600;
         }
 
-        /* Main Content */
+        /* ========== MAIN CONTENT ========== */
         .main-content {
             flex: 1;
-            padding: 32px;
-            max-width: 1320px;
+            margin-left: 220px;
+            min-height: 100vh;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .search-bar input:focus {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .streak-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .icon-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        /* ========== DASHBOARD CONTENT ========== */
+        .dashboard {
+            padding: 2rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Header Cards */
-        .header-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .greeting-card {
-            background: linear-gradient(135deg, rgba(168, 115, 255, 0.1), rgba(255, 200, 87, 0.05));
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            border-radius: 24px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .greeting-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(168, 115, 255, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .greeting-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .greeting-subtitle {
-            color: #9CA3AF;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        .performance-card {
-            background: rgba(248, 250, 255, 0.03);
-            border: 1px solid rgba(168, 115, 255, 0.1);
-            border-radius: 24px;
-            padding: 24px;
-        }
-
-        .performance-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #F8FAFF;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .stat-label {
-            color: #9CA3AF;
-        }
-
-        .stat-value {
-            font-weight: 600;
-        }
-
-        .stat-growth {
-            color: #10B981;
-        }
-
-        /* Smart Suggestions */
-        .suggestions-section {
-            margin-bottom: 32px;
+        .section {
+            margin-bottom: 3.5rem;
         }
 
         .section-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .section-title-sm {
+            font-size: 1.15rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #fff;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 0.25rem;
+        }
+
+        .section-subtitle-sm {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 0.15rem;
         }
 
         .view-all {
-            color: #A873FF;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .suggestions-scroll {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .suggestion-card {
-            min-width: 320px;
-            background: rgba(248, 250, 255, 0.03);
-            border: 1px solid rgba(168, 115, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            transition: all 0.18s ease-out;
-        }
-
-        .suggestion-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-            border-color: rgba(168, 115, 255, 0.3);
-        }
-
-        .suggestion-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .suggestion-description {
-            color: #9CA3AF;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .suggestion-button {
-            background: #A873FF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 999px;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.18s ease-out;
+            transition: color 0.2s ease;
         }
 
-        .suggestion-button:hover {
-            background: #9C66FF;
-            box-shadow: 0 0 24px rgba(168, 115, 255, 0.4);
+        .view-all:hover {
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Quick Actions */
-        .quick-actions {
-            background: rgba(248, 250, 255, 0.02);
-            border: 1px solid rgba(168, 115, 255, 0.08);
-            border-radius: 20px;
-            padding: 20px 24px;
-            margin-bottom: 32px;
+        /* ========== GREETING SECTION (Reduced height) ========== */
+        .greeting-section {
+            margin-bottom: 3.5rem;
         }
 
-        .quick-actions-label {
-            font-size: 14px;
-            color: #9CA3AF;
-            margin-bottom: 12px;
+        .greeting-card {
+            background: rgba(99, 102, 241, 0.06);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
         }
 
-        .action-buttons {
+        .greeting-card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .greeting-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* ========== STACKS SECTION (Primary) ========== */
+        .filter-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .action-button {
-            background: rgba(168, 115, 255, 0.1);
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            color: #F8FAFF;
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 13px;
+        .filter-pill {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.18s ease-out;
+            transition: all 0.2s ease;
         }
 
-        .action-button:hover {
-            background: rgba(168, 115, 255, 0.2);
-            border-color: #A873FF;
-            box-shadow: 0 0 16px rgba(168, 115, 255, 0.3);
+        .filter-pill:hover {
+            background: rgba(99, 102, 241, 0.15);
         }
 
-        /* Stacks Section */
-        .stacks-section {
-            margin-bottom: 32px;
-        }
-
-        .stacks-tabs {
-            display: flex;
-            gap: 8px;
-            margin-left: auto;
-        }
-
-        .stack-tab {
-            padding: 6px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.18s ease-out;
-        }
-
-        .stack-tab.active {
-            background: #A873FF;
-            border-color: #A873FF;
+        .filter-pill.active {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-color: transparent;
+            color: #fff;
         }
 
         .stacks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
         }
 
         .stack-card {
-            background: rgba(248, 250, 255, 0.03);
-            border: 1px solid rgba(168, 115, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            transition: all 0.18s ease-out;
+            background: rgba(15, 18, 32, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 16px;
+            padding: 1.4rem;
+            position: relative;
             cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .stack-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-            border-color: rgba(168, 115, 255, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
         }
 
-        .stack-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .stack-name {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .stack-badge {
-            background: rgba(168, 115, 255, 0.2);
-            color: #A873FF;
-            padding: 4px 8px;
-            border-radius: 999px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .stack-badge.auto {
-            background: rgba(255, 200, 87, 0.2);
-            color: #FFC857;
-        }
-
-        .stack-badge.suggested {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10B981;
-        }
-
-        .stack-description {
-            color: #9CA3AF;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .stack-status {
-            color: #9CA3AF;
-            font-size: 12px;
-            margin-bottom: 16px;
-        }
-
-        .stack-tools {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-
-        .tool-badge {
-            background: rgba(168, 115, 255, 0.1);
-            color: #A873FF;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-        }
-
-        .stack-button {
-            background: rgba(168, 115, 255, 0.1);
-            color: #A873FF;
-            border: 1px solid rgba(168, 115, 255, 0.3);
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.18s ease-out;
-        }
-
-        .stack-button:hover {
-            background: #A873FF;
-            color: white;
-        }
-
-        .create-stack-card {
+        .stack-card.create-new {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            border: 2px dashed rgba(139, 92, 246, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 200px;
-            border: 2px dashed rgba(168, 115, 255, 0.3);
-            background: rgba(168, 115, 255, 0.05);
+            min-height: 180px;
         }
 
-        .create-stack-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            margin-bottom: 16px;
-            transition: all 0.18s ease-out;
+        .stack-card.create-new:hover {
+            border-color: rgba(139, 92, 246, 0.7);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.15));
         }
 
-        .create-stack-card:hover .create-stack-icon {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+        .create-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #8b5cf6;
         }
 
-        .create-stack-title {
-            font-size: 18px;
+        .stack-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .stack-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stack-card h4 {
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 0.4rem;
+            color: #fff;
         }
 
-        .create-stack-subtitle {
-            color: #9CA3AF;
-            font-size: 14px;
+        .stack-card p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.4;
         }
 
-        /* Tool Filters */
-        .tool-filters {
+        .stack-meta {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ========== SMART SUGGESTIONS (Compact) ========== */
+        .suggestions-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .suggestion-card {
+            background: rgba(15, 18, 32, 0.7);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 14px;
+            padding: 1.1rem;
             display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            min-height: 135px;
         }
 
-        .filter-chip {
-            padding: 10px 20px;
-            border-radius: 999px;
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            background: rgba(248, 250, 255, 0.03);
-            color: #9CA3AF;
+        .suggestion-icon {
+            font-size: 1.25rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .suggestion-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: #fff;
+        }
+
+        .suggestion-card p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.35;
+            flex: 1;
+        }
+
+        .suggestion-cta {
+            margin-top: 0.6rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.18s ease-out;
-            font-size: 14px;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .filter-chip.active {
-            background: #A873FF;
-            border-color: #A873FF;
-            color: white;
-            box-shadow: 0 0 24px rgba(168, 115, 255, 0.4);
+        .suggestion-cta:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
         }
 
-        .filter-chip:hover:not(.active) {
-            border-color: #A873FF;
-            background: rgba(168, 115, 255, 0.1);
-        }
-
-        /* Tool Grid */
+        /* ========== TOOLS SECTION ========== */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
         }
 
         .tool-card {
-            background: rgba(248, 250, 255, 0.03);
-            border: 1px solid rgba(168, 115, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            transition: all 0.18s ease-out;
+            background: rgba(15, 18, 32, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 16px;
+            padding: 1.4rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
         }
 
         .tool-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-            border-color: rgba(168, 115, 255, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .tool-card:hover .tool-usage {
+            opacity: 1;
         }
 
         .tool-header {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
+            gap: 1rem;
+            align-items: flex-start;
         }
 
-        .tool-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #FFC857, #FFB020);
-            border-radius: 12px;
+        .tool-icon-box {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.15));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 24px rgba(255, 200, 87, 0.4);
-            font-size: 20px;
+            font-size: 1.3rem;
+            flex-shrink: 0;
         }
 
-        .tool-icon.purple {
-            background: linear-gradient(135deg, #A873FF, #9C66FF);
-            box-shadow: 0 0 24px rgba(168, 115, 255, 0.4);
+        .tool-info {
+            flex: 1;
         }
 
-        .tool-icon.green {
-            background: linear-gradient(135deg, #10B981, #059669);
-            box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
-        }
-
-        .tool-icon.pink {
-            background: linear-gradient(135deg, #EC4899, #DB2777);
-            box-shadow: 0 0 24px rgba(236, 72, 153, 0.4);
-        }
-
-        .tool-title {
-            font-size: 16px;
+        .tool-card h4 {
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .tool-description {
-            color: #9CA3AF;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .tool-metadata {
+            margin-bottom: 0.3rem;
+            color: #fff;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-        }
-
-        .tool-usage {
-            color: #9CA3AF;
-        }
-
-        .tool-tag {
-            background: rgba(255, 200, 87, 0.2);
-            color: #FFC857;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .tool-tag.purple {
-            background: rgba(168, 115, 255, 0.2);
-            color: #A873FF;
-        }
-
-        .tool-tag.green {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10B981;
-        }
-
-        .tool-tag.pink {
-            background: rgba(236, 72, 153, 0.2);
-            color: #EC4899;
-        }
-
-        /* Analytics Highlights */
-        .analytics-highlights {
-            background: rgba(248, 250, 255, 0.03);
-            border: 1px solid rgba(168, 115, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px 24px;
-            margin-bottom: 40px;
-        }
-
-        .highlights-content {
-            display: flex;
-            gap: 24px;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
-        .highlight-chip {
-            background: rgba(168, 115, 255, 0.1);
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .tool-card p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.4;
         }
 
-        /* Floating Mascot */
-        .floating-mascot {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #A873FF, #9C66FF);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(168, 115, 255, 0.4);
-            animation: mascotPulse 3s ease-in-out infinite;
-            z-index: 50;
-        }
-
-        @keyframes mascotPulse {
-            0%, 100% {
-                box-shadow: 0 8px 32px rgba(168, 115, 255, 0.4);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 8px 40px rgba(168, 115, 255, 0.6);
-                transform: scale(1.05);
-            }
-        }
-
-        .floating-mascot:hover {
-            animation: none;
-            transform: scale(1.1);
-            box-shadow: 0 12px 48px rgba(168, 115, 255, 0.6);
-        }
-
-        .mascot-tooltip {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: rgba(8, 14, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 115, 255, 0.2);
-            border-radius: 16px;
-            padding: 16px;
-            width: 240px;
+        .tool-usage {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: auto;
+            padding-top: 0.75rem;
             opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.18s ease-out;
-            pointer-events: none;
+            transition: opacity 0.2s ease;
         }
 
-        .floating-mascot:hover .mascot-tooltip {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
+        .tool-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.07);
         }
 
-        .tooltip-title {
-            font-size: 14px;
+        .extra-tools {
+            margin-top: 1.8rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tools-cta {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .tooltip-suggestions {
-            list-style: none;
-        }
-
-        .tooltip-suggestions li {
-            padding: 4px 0;
-            font-size: 12px;
-            color: #9CA3AF;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            border: none;
         }
 
-        .tooltip-suggestions li:hover {
-            color: #A873FF;
+        .btn-secondary {
+            background: transparent;
+            color: #a78bfa;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            padding: 0.75rem 2rem;
         }
 
-        /* Footer */
-        .footer {
-            border-top: 1px solid rgba(168, 115, 255, 0.1);
-            padding: 24px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #9CA3AF;
-            font-size: 12px;
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(139, 92, 246, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
 
-        .footer-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .footer-links span {
-            cursor: pointer;
-            transition: color 0.18s ease-out;
-        }
-
-        .footer-links span:hover {
-            color: #A873FF;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-layout {
-                flex-direction: column;
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .tools-grid,
+            .stacks-grid,
+            .suggestions-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
 
+        @media (max-width: 900px) {
             .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
+                transform: translateX(-100%);
             }
 
-            .header-section {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .tools-grid,
+            .stacks-grid,
+            .suggestions-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .suggestions-scroll {
-                flex-direction: column;
-            }
-
-            .suggestion-card {
-                min-width: auto;
             }
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 20px;
+        @media (max-width: 600px) {
+            .dashboard {
+                padding: 1rem;
             }
 
-            .top-nav {
-                padding: 12px 20px;
+            .top-bar {
+                padding: 1rem;
             }
 
-            .search-container {
-                margin: 0 16px;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .highlights-content {
-                flex-direction: column;
-            }
-
-            .nav-right {
-                gap: 8px;
+            .search-bar {
+                margin: 0 1rem;
             }
 
             .streak-pill {
@@ -886,410 +642,390 @@
     </style>
 </head>
 <body>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar">
         <div class="logo-section">
-            <div class="logo-icon"></div>
+            <div class="logo-icon">🤖</div>
             <div class="logo-text">
                 <h1>PostPal</h1>
                 <span>Creator OS</span>
             </div>
         </div>
-        
-        <div class="search-container">
-            <div class="search-icon">🔍</div>
-            <input type="text" class="search-input" placeholder="Search tools, ideas, workflows...">
-        </div>
-        
-        <div class="nav-right">
-            <div class="streak-pill">🔥 7-day creator streak</div>
-            <div class="notification-icon">🔔</div>
-            <div class="avatar">👤</div>
-        </div>
-    </nav>
 
-    <!-- Main Layout -->
-    <div class="main-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h3 class="pipeline-title">Workflow Pipeline</h3>
-            <div class="nav-item active">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Workflow Pipeline</div>
+            <a href="#" class="nav-item active">
                 <span class="nav-icon">🏠</span>
-                <span class="nav-text">Dashboard Home</span>
-            </div>
-            <div class="nav-item" onclick="window.location.href='idea-vault.html'">
+                Dashboard Home
+            </a>
+            <a href="idea-vault.html" class="nav-item">
                 <span class="nav-icon">💡</span>
-                <span class="nav-text">Ideas</span>
+                Ideas
                 <span class="nav-badge">3</span>
-            </div>
-            <div class="nav-item" onclick="window.location.href='hook-generator.html'">
+            </a>
+            <a href="hook-generator.html" class="nav-item">
                 <span class="nav-icon">🎣</span>
-                <span class="nav-text">Hooks</span>
-            </div>
-            <div class="nav-item" onclick="window.location.href='script-studio.html'">
+                Hooks
+            </a>
+            <a href="script-studio.html" class="nav-item">
                 <span class="nav-icon">📝</span>
-                <span class="nav-text">Scripts</span>
-            </div>
-            <div class="nav-item">
+                Scripts
+            </a>
+            <a href="#" class="nav-item">
                 <span class="nav-icon">✂️</span>
-                <span class="nav-text">Edit Prep</span>
-            </div>
-            <div class="nav-item">
-                <span class="nav-icon">📱</span>
-                <span class="nav-text">Posting</span>
-            </div>
-            <div class="nav-item" onclick="window.location.href='analytics-advisor.html'">
+                Edit Prep
+            </a>
+            <a href="content-scheduler.html" class="nav-item">
+                <span class="nav-icon">📤</span>
+                Posting
+            </a>
+            <a href="analytics-advisor.html" class="nav-item">
                 <span class="nav-icon">📊</span>
-                <span class="nav-text">Analytics</span>
-            </div>
-            <div class="nav-item" onclick="window.location.href='money-board.html'">
+                Analytics
+            </a>
+            <a href="money-board.html" class="nav-item">
                 <span class="nav-icon">💰</span>
-                <span class="nav-text">Moneyboard</span>
-            </div>
-            <div class="nav-item">
+                Moneyboard
+            </a>
+            <a href="#" class="nav-item">
                 <span class="nav-icon">⚙️</span>
-                <span class="nav-text">Settings</span>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header Section -->
-            <div class="header-section">
-                <div class="greeting-card">
-                    <h2 class="greeting-title">Good evening, Master 👋</h2>
-                    <p class="greeting-subtitle">Your audience is most active right now. Let's create something worth posting.</p>
-                </div>
-                <div class="performance-card">
-                    <h3 class="performance-title">Today's Snapshot</h3>
-                    <div class="stat-row">
-                        <span class="stat-label">Reach</span>
-                        <span class="stat-value">128,400</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Best Video</span>
-                        <span class="stat-value">"When your Uber driver..."</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Growth</span>
-                        <span class="stat-value stat-growth">+18% vs yesterday</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Smart Suggestions -->
-            <section class="suggestions-section">
-                <div class="section-header">
-                    <h2 class="section-title">🧠 Smart Suggestions</h2>
-                    <a href="#" class="view-all">View all</a>
-                </div>
-                <div class="suggestions-scroll">
-                    <div class="suggestion-card" onclick="window.location.href='hook-generator.html'" style="cursor: pointer;">
-                        <h3 class="suggestion-title">Double down on mystery hooks</h3>
-                        <p class="suggestion-description">Your last 3 videos with mystery intros outperformed others by 32%.</p>
-                        <button class="suggestion-button">Generate new hooks</button>
-                    </div>
-                    <div class="suggestion-card" onclick="window.location.href='trend-radar.html'" style="cursor: pointer;">
-                        <h3 class="suggestion-title">14 trends waiting in TrendRadar</h3>
-                        <p class="suggestion-description">You haven't checked niche trends in 2 days.</p>
-                        <button class="suggestion-button">Open TrendRadar</button>
-                    </div>
-                    <div class="suggestion-card" onclick="window.location.href='caption-optimizer.html'" style="cursor: pointer;">
-                        <h3 class="suggestion-title">Fix underperforming captions</h3>
-                        <p class="suggestion-description">3 recent shorts have weak click-through rates.</p>
-                        <button class="suggestion-button">Optimize captions</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="quick-actions-label">Quick Actions</div>
-                <div class="action-buttons">
-                    <button class="action-button" onclick="window.location.href='idea-vault.html'">+ New Idea</button>
-                    <button class="action-button" onclick="window.location.href='hook-generator.html'">Generate Hooks</button>
-                    <button class="action-button" onclick="window.location.href='script-studio.html'">New Script</button>
-                    <button class="action-button" onclick="window.location.href='caption-optimizer.html'">Optimize Caption</button>
-                    <button class="action-button" onclick="window.location.href='analytics-advisor.html'">Analyze Last Video</button>
-                    <button class="action-button">Build New Stack</button>
-                </div>
-            </div>
-
-            <!-- Your Stacks -->
-            <section class="stacks-section">
-                <div class="section-header">
-                    <h2 class="section-title">Your Stacks</h2>
-                    <div class="stacks-tabs">
-                        <div class="stack-tab active">Active</div>
-                        <div class="stack-tab">Auto</div>
-                        <div class="stack-tab">Suggested</div>
-                    </div>
-                </div>
-                <div class="stacks-grid">
-                    <div class="stack-card create-stack-card">
-                        <div class="create-stack-icon">+</div>
-                        <h3 class="create-stack-title">Create New Stack</h3>
-                        <p class="create-stack-subtitle">Assemble your perfect creator workflow in under 10 seconds.</p>
-                    </div>
-                    <div class="stack-card">
-                        <div class="stack-header">
-                            <h3 class="stack-name">Daily Creator Routine</h3>
-                            <span class="stack-badge auto">AUTO STACK</span>
-                        </div>
-                        <p class="stack-description">Run your ideal daily flow: trends → hooks → scripts → captions.</p>
-                        <div class="stack-status">Status: Running • Saves ~45 min/day</div>
-                        <div class="stack-tools">
-                            <span class="tool-badge">TrendRadar</span>
-                            <span class="tool-badge">Hook Generator</span>
-                            <span class="tool-badge">Script Studio</span>
-                            <span class="tool-badge">Caption Optimizer</span>
-                        </div>
-                        <button class="stack-button">View flow</button>
-                    </div>
-                    <div class="stack-card">
-                        <div class="stack-header">
-                            <h3 class="stack-name">3-Video Blitz</h3>
-                            <span class="stack-badge">ACTIVE</span>
-                        </div>
-                        <p class="stack-description">Idea → Hook → Script for 3 short-form videos.</p>
-                        <div class="stack-status">Needs your input</div>
-                        <button class="stack-button">Continue</button>
-                    </div>
-                    <div class="stack-card">
-                        <div class="stack-header">
-                            <h3 class="stack-name">IG Growth System</h3>
-                            <span class="stack-badge auto">AUTO STACK</span>
-                        </div>
-                        <p class="stack-description">Optimize posts around your best performing topics.</p>
-                        <div class="stack-status">Next run: Tonight • 9:00 PM</div>
-                        <button class="stack-button">View flow</button>
-                    </div>
-                    <div class="stack-card">
-                        <div class="stack-header">
-                            <h3 class="stack-name">Monetization Starter</h3>
-                            <span class="stack-badge suggested">SUGGESTED</span>
-                        </div>
-                        <p class="stack-description">Tools to find sponsors and craft outreach messages.</p>
-                        <button class="stack-button">Set up</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tool Filters -->
-            <div class="tool-filters">
-                <div class="filter-chip active">All</div>
-                <div class="filter-chip">Growth</div>
-                <div class="filter-chip">Money</div>
-                <div class="filter-chip">Systems</div>
-                <div class="filter-chip">Experimental</div>
-                <div class="filter-chip">Saved</div>
-                <div class="filter-chip">Recently Used</div>
-            </div>
-
-            <!-- Tools Grid - NOW WITH CLICK HANDLERS -->
-            <div class="tools-grid">
-                <div class="tool-card" onclick="window.location.href='hook-generator.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon">🎣</div>
-                        <div>
-                            <h3 class="tool-title">Hook Generator</h3>
-                            <p class="tool-description">Turn any idea into 10 scroll-stopping hooks.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 12 times this week</span>
-                        <span class="tool-tag">GROWTH</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='trend-radar.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon">📡</div>
-                        <div>
-                            <h3 class="tool-title">TrendRadar</h3>
-                            <p class="tool-description">Shows what's popping in your niche today.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Last used: 2 days ago</span>
-                        <span class="tool-tag">GROWTH</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='caption-optimizer.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon">✨</div>
-                        <div>
-                            <h3 class="tool-title">Caption Optimizer</h3>
-                            <p class="tool-description">Punches up hooks and captions in your voice.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 8 times this week</span>
-                        <span class="tool-tag">GROWTH</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='script-studio.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon purple">📝</div>
-                        <div>
-                            <h3 class="tool-title">Script Studio</h3>
-                            <p class="tool-description">Draft short-form or long-form scripts in minutes.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 5 times this week</span>
-                        <span class="tool-tag purple">SYSTEM</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='content-scheduler.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon purple">📅</div>
-                        <div>
-                            <h3 class="tool-title">Content Planner</h3>
-                            <p class="tool-description">Organize your posting schedule across platforms.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 3 times this week</span>
-                        <span class="tool-tag purple">SYSTEM</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='money-board.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon green">💰</div>
-                        <div>
-                            <h3 class="tool-title">MoneyBoard</h3>
-                            <p class="tool-description">Track sponsors, deals, and content revenue.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 2 times this week</span>
-                        <span class="tool-tag green">MONEY</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='brand-negotiator.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon green">📧</div>
-                        <div>
-                            <h3 class="tool-title">Brand Pitcher</h3>
-                            <p class="tool-description">Generate high-converting outreach emails for brands.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Last used: 1 week ago</span>
-                        <span class="tool-tag green">MONEY</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='community-pulse.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon pink">🔬</div>
-                        <div>
-                            <h3 class="tool-title">Community Pulse</h3>
-                            <p class="tool-description">Summarize comments & sentiment from your audience.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Never used</span>
-                        <span class="tool-tag pink">EXPERIMENTAL</span>
-                    </div>
-                </div>
-
-                <div class="tool-card" onclick="window.location.href='idea-vault.html'">
-                    <div class="tool-header">
-                        <div class="tool-icon purple">💾</div>
-                        <div>
-                            <h3 class="tool-title">IdeaVault</h3>
-                            <p class="tool-description">Capture and organize ideas before they slip away.</p>
-                        </div>
-                    </div>
-                    <div class="tool-metadata">
-                        <span class="tool-usage">Used 6 times this week</span>
-                        <span class="tool-tag purple">SYSTEM</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Analytics Highlights -->
-            <div class="analytics-highlights">
-                <div class="section-header">
-                    <h2 class="section-title">Highlights</h2>
-                </div>
-                <div class="highlights-content">
-                    <div class="highlight-chip">
-                        🏆 Top video (7 days): "When your Uber driver..." • 92% watch time
-                    </div>
-                    <div class="highlight-chip">
-                        ⏰ Best posting time: 6–8 PM
-                    </div>
-                    <div class="highlight-chip">
-                        🔥 Platform on fire: YouTube Shorts • +24% views
-                    </div>
-                    <div class="highlight-chip">
-                        📊 Audience shift: 18–24 • +9%
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="footer">
-                <div>
-                    <span>© 2025 PostPal. All rights reserved.</span>
-                    <div class="footer-links">
-                        <span>Privacy</span>
-                        <span>Terms</span>
-                        <span>Support</span>
-                    </div>
-                </div>
-                <div>Version 3.0 • Creator OS</div>
-            </footer>
-        </main>
-    </div>
-
-    <!-- Floating Mascot -->
-    <div class="floating-mascot">
-        🤖
-        <div class="mascot-tooltip">
-            <div class="tooltip-title">Need help? Ask PostPal for your next best move.</div>
-            <ul class="tooltip-suggestions">
-                <li onclick="window.location.href='hook-generator.html'">⚡ Generate 3 hooks for today</li>
-                <li onclick="window.location.href='analytics-advisor.html'">📊 Check my performance</li>
-                <li onclick="window.location.href='trend-radar.html'">🎯 Show trending topics</li>
-                <li onclick="window.location.href='tools.html'">▶ View all tools</li>
-            </ul>
+                Settings
+            </a>
         </div>
-    </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <!-- TOP BAR -->
+        <header class="top-bar">
+            <div></div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search tools, ideas, workflows...">
+            </div>
+            <div class="top-bar-right">
+                <div class="streak-pill">
+                    🔥 7-day creator streak
+                </div>
+                <div class="icon-btn">🔔</div>
+                <div class="icon-btn">👤</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <div class="dashboard">
+            <!-- (A) GREETING SECTION — FIRST -->
+            <div class="greeting-section">
+                <div class="greeting-card">
+                    <h2>Welcome back, Creator 👋</h2>
+                    <p>You've been on a roll this week — 3 videos posted, 2 brand pitches sent. Keep the momentum going. Your next suggested move: finish that script you started yesterday.</p>
+                </div>
+            </div>
+
+            <!-- (B) YOUR STACKS — SECOND (Primary Section) -->
+            <div class="section">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title">Your Stacks</h3>
+                        <p class="section-subtitle">Build and run your ideal creator workflows.</p>
+                    </div>
+                    <a class="view-all">View all →</a>
+                </div>
+
+                <div class="filter-pills">
+                    <div class="filter-pill active">All</div>
+                    <div class="filter-pill">Growth</div>
+                    <div class="filter-pill">Money</div>
+                    <div class="filter-pill">Systems</div>
+                    <div class="filter-pill">Experimental</div>
+                    <div class="filter-pill">Saved</div>
+                    <div class="filter-pill">Recently Used</div>
+                </div>
+
+                <div class="stacks-grid">
+                    <div class="stack-card create-new">
+                        <div class="create-icon">➕</div>
+                        <h4>Create New Stack</h4>
+                        <p>Build a custom workflow for your content process.</p>
+                    </div>
+
+                    <div class="stack-card">
+                        <span class="stack-tag">Active</span>
+                        <div class="stack-icon">☀️</div>
+                        <h4>Daily Creator Routine</h4>
+                        <p>Morning content check, idea capture, and quick hooks.</p>
+                        <div class="stack-meta">Last run: 2 hours ago</div>
+                    </div>
+
+                    <div class="stack-card">
+                        <span class="stack-tag">Auto Stack</span>
+                        <div class="stack-icon">📈</div>
+                        <h4>IG Growth System</h4>
+                        <p>Optimize posts around your best performing topics.</p>
+                        <div class="stack-meta">Next run: Tonight • 9:00 PM</div>
+                    </div>
+
+                    <div class="stack-card">
+                        <span class="stack-tag">Suggested</span>
+                        <div class="stack-icon">💵</div>
+                        <h4>Monetization Starter</h4>
+                        <p>Tools to find sponsors and craft outreach messages.</p>
+                        <div class="stack-meta">Set up →</div>
+                    </div>
+
+                    <div class="stack-card">
+                        <div class="stack-icon">⚡</div>
+                        <h4>3-Video Blitz</h4>
+                        <p>Rapid-fire content: idea → hook → script in 30 mins.</p>
+                        <div class="stack-meta">Used 8 times this month</div>
+                    </div>
+
+                    <div class="stack-card">
+                        <div class="stack-icon">🎯</div>
+                        <h4>Hook Perfector</h4>
+                        <p>Generate, test, and refine hooks until they hit.</p>
+                        <div class="stack-meta">Used 5 times this week</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (C) SMART SUGGESTIONS — THIRD (Compact) -->
+            <div class="suggestions-section">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title-sm">Smart Suggestions</h3>
+                        <p class="section-subtitle-sm">AI-powered recommendations based on your recent activity.</p>
+                    </div>
+                    <a class="view-all">View all →</a>
+                </div>
+                <div class="suggestions-grid">
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">🎯</div>
+                        <h4>Double down on mystery hooks</h4>
+                        <p>Your mystery-style hooks got 3x more engagement. Generate more variations.</p>
+                        <a href="hook-generator.html" class="suggestion-cta">Generate hooks</a>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">📡</div>
+                        <h4>Trends waiting in TrendRadar</h4>
+                        <p>5 new trends detected in your niche. Check them before they peak.</p>
+                        <a href="trend-radar.html" class="suggestion-cta">Open TrendRadar</a>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">✍️</div>
+                        <h4>Fix underperforming captions</h4>
+                        <p>3 recent posts had below-average engagement. Run them through optimizer.</p>
+                        <a href="caption-optimizer.html" class="suggestion-cta">Optimize captions</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (D) YOUR TOOLS — FOURTH -->
+            <div class="section">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title">Your Tools</h3>
+                        <p class="section-subtitle">Open your favorite tools in one click.</p>
+                    </div>
+                </div>
+
+                <div class="tools-grid" id="main-tools">
+                    <a href="hook-generator.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">🎯</div>
+                            <div class="tool-info">
+                                <h4>Hook Generator <span class="tool-tag">Growth</span></h4>
+                                <p>Turn any idea into 10 scroll-stopping hooks.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 12 times this week</div>
+                    </a>
+
+                    <a href="trend-radar.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📡</div>
+                            <div class="tool-info">
+                                <h4>TrendRadar <span class="tool-tag">Growth</span></h4>
+                                <p>Shows what's popping in your niche today.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Last used: 2 days ago</div>
+                    </a>
+
+                    <a href="script-studio.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📝</div>
+                            <div class="tool-info">
+                                <h4>Script Studio <span class="tool-tag">System</span></h4>
+                                <p>Draft short-form or long-form scripts in minutes.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 5 times this week</div>
+                    </a>
+
+                    <a href="caption-optimizer.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">✂️</div>
+                            <div class="tool-info">
+                                <h4>Caption Optimizer <span class="tool-tag">Growth</span></h4>
+                                <p>Punches up hooks and captions in your voice.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 8 times this week</div>
+                    </a>
+
+                    <a href="money-board.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">💰</div>
+                            <div class="tool-info">
+                                <h4>MoneyBoard <span class="tool-tag">Money</span></h4>
+                                <p>Track sponsors, deals, and content revenue.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 2 times this week</div>
+                    </a>
+
+                    <a href="content-scheduler.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📅</div>
+                            <div class="tool-info">
+                                <h4>Content Planner <span class="tool-tag">System</span></h4>
+                                <p>Organize your posting schedule across platforms.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 3 times this week</div>
+                    </a>
+                </div>
+
+                <!-- EXTRA TOOLS (Hidden by default) -->
+                <div id="extra-tools" class="tools-grid extra-tools hidden">
+                    <a href="brand-negotiator.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">🤝</div>
+                            <div class="tool-info">
+                                <h4>Brand Pitcher <span class="tool-tag">Money</span></h4>
+                                <p>Generate high-converting outreach emails for brands.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Last used: 1 week ago</div>
+                    </a>
+
+                    <a href="community-pulse.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">💬</div>
+                            <div class="tool-info">
+                                <h4>Community Pulse <span class="tool-tag">Experimental</span></h4>
+                                <p>Summarize comments & sentiment from your audience.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Never used</div>
+                    </a>
+
+                    <a href="idea-vault.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">💡</div>
+                            <div class="tool-info">
+                                <h4>IdeaVault <span class="tool-tag">System</span></h4>
+                                <p>Capture and organize ideas before they slip away.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 6 times this week</div>
+                    </a>
+
+                    <a href="smart-outreach.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📧</div>
+                            <div class="tool-info">
+                                <h4>Smart Outreach <span class="tool-tag">Money</span></h4>
+                                <p>Draft personalized outreach to brands and collaborators.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 2 times this month</div>
+                    </a>
+
+                    <a href="sora-prompt-generator.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">🎥</div>
+                            <div class="tool-info">
+                                <h4>Sora Prompt Generator <span class="tool-tag">Experimental</span></h4>
+                                <p>Create detailed AI video prompts for Sora.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">New tool</div>
+                    </a>
+
+                    <a href="analytics-advisor.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📊</div>
+                            <div class="tool-info">
+                                <h4>Analytics Advisor <span class="tool-tag">Growth</span></h4>
+                                <p>Get AI insights on your content performance.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Used 4 times this week</div>
+                    </a>
+
+                    <a href="content-library.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">📚</div>
+                            <div class="tool-info">
+                                <h4>Content Library <span class="tool-tag">System</span></h4>
+                                <p>Store your best-performing templates and frameworks.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Coming soon</div>
+                    </a>
+
+                    <a href="tool-watch.html" class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon-box">🔍</div>
+                            <div class="tool-info">
+                                <h4>Tool Watch <span class="tool-tag">Experimental</span></h4>
+                                <p>Stay updated on the latest creator tools and apps.</p>
+                            </div>
+                        </div>
+                        <div class="tool-usage">Coming soon</div>
+                    </a>
+                </div>
+
+                <div class="tools-cta">
+                    <button id="view-all-tools-btn" class="btn btn-secondary">View all tools (14+)</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
-        // Simple mobile menu toggle (minimal JS as requested)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click handlers for interactive elements
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+        // Toggle extra tools visibility
+        const viewAllToolsBtn = document.getElementById('view-all-tools-btn');
+        const extraTools = document.getElementById('extra-tools');
 
-            document.querySelectorAll('.filter-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+        viewAllToolsBtn.addEventListener('click', () => {
+            const isHidden = extraTools.classList.contains('hidden');
+            if (isHidden) {
+                extraTools.classList.remove('hidden');
+                viewAllToolsBtn.textContent = 'Hide extra tools';
+            } else {
+                extraTools.classList.add('hidden');
+                viewAllToolsBtn.textContent = 'View all tools (14+)';
+            }
+        });
 
-            document.querySelectorAll('.stack-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.stack-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
+        // Filter pills interaction
+        const filterPills = document.querySelectorAll('.filter-pill');
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                filterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
             });
         });
+
+        // Dynamic greeting based on time
+        const greetingCard = document.querySelector('.greeting-card h2');
+        const hour = new Date().getHours();
+        let greeting = 'Good evening';
+        if (hour < 12) greeting = 'Good morning';
+        else if (hour < 18) greeting = 'Good afternoon';
+        greetingCard.textContent = `${greeting}, Creator 👋`;
     </script>
 </body>
 </html>
