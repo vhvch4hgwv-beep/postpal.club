@@ -1,4 +1,5 @@
-          <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -705,7 +706,12 @@
                 <a href="courses.html" class="nav-link">Dashboard</a>
                 <a href="pricing.html" class="nav-link active">Pricing</a>
             </div>
-            <a href="courses.html" class="nav-cta">Open Dashboard</a>
+            <a href="courses.html" class="nav-cta" 
+               data-auth-cta
+               data-auth-subscribed="Open Dashboard"
+               data-auth-subscribed-href="courses.html"
+               data-auth-loggedout="Get PostPal"
+               data-auth-loggedout-href="#pricing-section">Open Dashboard</a>
         </div>
     </nav>
 
@@ -718,7 +724,7 @@
     </section>
 
     <!-- Pricing Cards -->
-    <section class="pricing-section">
+    <section class="pricing-section" id="pricing-section">
         <div class="pricing-grid">
             <!-- Monthly -->
             <div class="pricing-card">
@@ -900,6 +906,22 @@
                 if (!wasOpen) item.classList.add('open');
             });
         });
+    </script>
+    
+    <!-- Auth Module -->
+    <script src="auth.js"></script>
+    <script>
+        // PostPalAuth.init() is called automatically by auth.js
+        // It handles:
+        // - ?debug_subscribe=1 → marks user as subscribed, redirects to dashboard
+        // - ?debug_logout=1 → logs out user
+        // - Updates nav CTAs based on subscription status
+        
+        // If user is already subscribed, update the page messaging
+        if (PostPalAuth.isSubscribed()) {
+            // Could optionally show "You're already subscribed!" message
+            console.log('[Pricing] User is already subscribed');
+        }
     </script>
 </body>
 </html>
