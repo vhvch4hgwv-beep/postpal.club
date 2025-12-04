@@ -446,5 +446,14 @@
             });
         }
     </script>
+    
+    <!-- Auth Module -->
+    <script src="auth.js"></script>
+    <script>
+        // Protect tools page - redirect to pricing if not subscribed
+        if (!PostPalAuth.isSubscribed()) {
+            window.location.href = 'pricing.html';
+        }
+    </script>
 </body>
 </html>
