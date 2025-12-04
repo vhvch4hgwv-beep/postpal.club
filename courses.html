@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,6 +122,19 @@
             padding: 0.15rem 0.5rem;
             border-radius: 10px;
             font-weight: 600;
+        }
+
+        /* Sign Out Button */
+        .signout-btn {
+            margin-top: 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.15);
+            padding-top: 1rem;
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .signout-btn:hover {
+            background: rgba(239, 68, 68, 0.15) !important;
+            color: #f87171 !important;
         }
 
         /* ========== MAIN CONTENT ========== */
@@ -691,6 +705,10 @@
                 <span class="nav-icon">⚙️</span>
                 Settings
             </a>
+            <a href="#" class="nav-item signout-btn" onclick="PostPalAuth.logout(); return false;">
+                <span class="nav-icon">🚪</span>
+                Sign Out
+            </a>
         </div>
     </aside>
 
@@ -1026,6 +1044,15 @@
         if (hour < 12) greeting = 'Good morning';
         else if (hour < 18) greeting = 'Good afternoon';
         greetingCard.textContent = `${greeting}, Creator 👋`;
+    </script>
+    
+    <!-- Auth Module -->
+    <script src="auth.js"></script>
+    <script>
+        // Protect this page - redirect to pricing if not subscribed
+        if (!PostPalAuth.isSubscribed()) {
+            window.location.href = 'pricing.html';
+        }
     </script>
 </body>
 </html>
