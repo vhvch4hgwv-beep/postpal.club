@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PostPal - Payment Successful</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #050a18;
+            --bg-card: rgba(15, 20, 40, 0.85);
+            --text-primary: #f9fafb;
+            --text-secondary: #e5e7eb;
+            --text-body: #c7d2fe;
+            --text-muted: #a5b4fc;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #6366f1;
+            --accent-green: #34d399;
+            --border-subtle: rgba(139, 92, 246, 0.25);
+            --glow-purple: rgba(139, 92, 246, 0.3);
+            --glow-green: rgba(52, 211, 153, 0.3);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Background gradient */
+        .page-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 50% 0%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #050a18 0%, #0a0f24 50%, #050a18 100%);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(5, 10, 24, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 20px var(--glow-purple);
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .success-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .success-card {
+            max-width: 600px;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-green), #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 32px var(--glow-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 8px 32px var(--glow-green); }
+            50% { box-shadow: 0 8px 48px rgba(52, 211, 153, 0.5); }
+        }
+
+        .success-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .success-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-body);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .features-list h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .features-list ul {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 0.6rem 0;
+            color: var(--text-body);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--accent-green);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px var(--glow-purple);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px var(--glow-purple);
+        }
+
+        .help-text {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .help-text a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .content.hidden {
+            display: none;
+        }
+
+        /* Error State */
+        .error-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            color: #fca5a5;
+            margin-bottom: 1.5rem;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .success-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .success-title {
+                font-size: 1.5rem;
+            }
+
+            .success-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-icon">🤖</div>
+                <span class="nav-logo-text">PostPal</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Success Content -->
+    <div class="success-container">
+        <div class="success-card">
+            <!-- Error message (hidden by default) -->
+            <div class="error-message" id="errorMessage">
+                Something went wrong. Please contact support if you were charged.
+            </div>
+
+            <div class="content" id="successContent">
+                <div class="success-icon">✓</div>
+                
+                <h1 class="success-title">You're in. Welcome to PostPal Creator OS.</h1>
+                
+                <div class="plan-badge" id="planBadge">Monthly Plan</div>
+                
+                <p class="success-subtitle" id="planDescription">
+                    Your monthly subscription is active. You'll be billed $19/mo until you cancel.
+                </p>
+
+                <div class="features-list">
+                    <h4>What's included</h4>
+                    <ul>
+                        <li>Access all current creator tools</li>
+                        <li>Instant updates when new tools launch</li>
+                        <li>Creator dashboards and workflows</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+
+                <a href="/courses.html" class="cta-button" id="ctaButton">Open PostPal OS →</a>
+
+                <p class="help-text">
+                    Need help? <a href="/account.html">Manage your account</a> or contact support.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Module - MUST be loaded first -->
+    <script src="/auth.js"></script>
+    
+    <script>
+        /**
+         * Success Page Handler
+         * 
+         * This page is the redirect target after Stripe payment.
+         * 
+         * STRIPE SETUP REQUIRED:
+         * In Stripe Dashboard → Payment Links → Edit each link:
+         * - Monthly success URL: https://postpal.club/success.html?plan=monthly
+         * - Annual success URL: https://postpal.club/success.html?plan=annual
+         * - Cancel URL (both): https://postpal.club/pricing.html
+         */
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const plan = urlParams.get('plan');
+            
+            const planBadge = document.getElementById('planBadge');
+            const planDescription = document.getElementById('planDescription');
+            const errorMessage = document.getElementById('errorMessage');
+            const successContent = document.getElementById('successContent');
+
+            // Validate plan parameter
+            if (!plan || (plan !== 'monthly' && plan !== 'annual')) {
+                // No valid plan - check if already subscribed
+                if (PostPalAuth.isSubscribed()) {
+                    // User is already subscribed, just show based on their stored plan
+                    const storedPlan = PostPalAuth.getPlan() || 'monthly';
+                    updateUI(storedPlan);
+                } else {
+                    // No plan param and not subscribed - show error
+                    errorMessage.classList.add('show');
+                    errorMessage.textContent = 'Invalid or missing plan. If you completed payment, please contact support.';
+                }
+                return;
+            }
+
+            // Valid plan - mark as subscribed (auth.js handles this via handleUrlParams)
+            // But we also call it explicitly to be safe
+            if (!PostPalAuth.isSubscribed()) {
+                PostPalAuth.markSubscribed(plan);
+            }
+
+            updateUI(plan);
+
+            function updateUI(planType) {
+                if (planType === 'annual') {
+                    planBadge.textContent = 'Annual Plan';
+                    planDescription.textContent = "Your annual subscription is active. You'll be billed $168/yr until you cancel.";
+                } else {
+                    planBadge.textContent = 'Monthly Plan';
+                    planDescription.textContent = "Your monthly subscription is active. You'll be billed $19/mo until you cancel.";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
